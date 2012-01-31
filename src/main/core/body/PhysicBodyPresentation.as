@@ -3,6 +3,7 @@ package core.body
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import core.GlobalConstants;
+	import core.locators.PhysicWorldLocator;
 	import core.view.skin.Skin;
 	import flash.geom.Point;
 	/**
@@ -11,10 +12,10 @@ package core.body
 	 */
 	public class PhysicBodyPresentation implements IBodyPresentation 
 	{
-		private var body:b2Body;
+		public var body:b2Body;
 		
-		private var _position:b2Vec2;
-		private var skin:Skin;
+		public var _position:b2Vec2;
+		public var skin:Skin;
 		
 		public function PhysicBodyPresentation(body:b2Body, skin:Skin) 
 		{
@@ -55,7 +56,11 @@ package core.body
 		 */
 		public function destroy():void
 		{
+			PhysicWorldLocator.instance.world.DestroyBody(body);
 			
+			this.body = null;
+			this.skin = null;
+			this._position = null;
 		}
 		
 		/* INTERFACE core.body.IBodyPresentation */

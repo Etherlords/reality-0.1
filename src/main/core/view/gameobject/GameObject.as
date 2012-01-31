@@ -1,6 +1,7 @@
 package core.view.gameobject 
 {
 	import core.body.IBodyPresentation;
+	import core.body.PhysicBodyPresentation;
 	import core.Box2D.utils.PhysicBodyConstructor;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.skin.Skin;
@@ -29,6 +30,7 @@ package core.view.gameobject
 		
 		private var config:GameobjectConfig;
 		private var instance:Sprite;
+		private var _physicalProperties:PhysicalProperties;
 		
 		/**
 		 * Задаем конфи и инстанс объекта, возможно инстанс лучше задавать как то иначе, но не факт. 
@@ -64,20 +66,19 @@ package core.view.gameobject
 		
 		public function destroy():void
 		{
-			
 			instance.removeChild(skin);
 			body.destroy();
-			//body.DestroyFixture(_physicalProperties.fixture);
-			//world.DestroyBody(body);
 			
-			//body = null;
-			//world = null;
+			this.skin = null;
+			this.instance = null;
+			this.config = null;
+			this._body = null;
 		}
 		
 		protected function initilize():void 
 		{
 			createBody();
-			//_physicalProperties = new PhysicalProperties(shape, fixtureModel, body)
+			
 			//_dimensionalProperties = new DimensionalProperties(body);
 		}
 		
@@ -95,6 +96,7 @@ package core.view.gameobject
 			if (config.isUsePhisicWorld)
 			{
 				bodyConstructor = new PhysicBodyConstructor(config.physicConfiguration);
+				
 			}
 			else
 			{
@@ -103,6 +105,7 @@ package core.view.gameobject
 			
 			skin = new Skin();
 			_body = bodyConstructor.make(skin);
+			_physicalProperties = new PhysicalProperties(body as PhysicBodyPresentation)
 			
 			//Просто для теста установил координаты 100х100
 			body.x = 100;
@@ -117,6 +120,11 @@ package core.view.gameobject
 		public function get body():IBodyPresentation 
 		{
 			return _body;
+		}
+		
+		public function get physicalProperties():PhysicalProperties 
+		{
+			return _physicalProperties;
 		}
 	}
 

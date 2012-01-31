@@ -20,10 +20,15 @@ package ui.rabbit.rabbitReactions
 		public function execute(rabbit:Rabbit, jumpForce:Number):void
 		{
 			
-			var linearVelocity:b2Vec2 = rabbit.physicalProperties.linearVelocity
-			linearVelocity.Set(linearVelocity.x, 0);
 			
-			rabbit.applyImpulseFromCenter(new b2Vec2(0, -jumpForce));
+			if (Math.abs(rabbit.physicalProperties.linearVelocity.y) > 0.2)
+				return;
+			
+			rabbit.physicalProperties.applyImpulse(0, -jumpForce);
+			//var linearVelocity:b2Vec2 = rabbit.physicalProperties.linearVelocity
+			//linearVelocity.Set(linearVelocity.x, 0);
+			
+			//rabbit.applyImpulseFromCenter(new b2Vec2(0, -jumpForce));
 		}
 		
 	}

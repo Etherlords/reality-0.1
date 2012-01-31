@@ -5,46 +5,63 @@ package core.view.gameobject
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
+	import core.body.PhysicBodyPresentation;
+	import flash.geom.Point;
 	/**
 	 * ...
 	 * @author 
 	 */
 	public class PhysicalProperties 
 	{
-		private var _fixture:b2Fixture;
+		private var body:PhysicBodyPresentation;
 		
-		private var shape:b2Shape;
-		private var fixtureModel:b2FixtureDef;
-		private var body:b2Body;
-		
-		public function PhysicalProperties(shape:b2Shape, fixtureModel:b2FixtureDef, body:b2Body) 
+		public function PhysicalProperties(body:PhysicBodyPresentation) 
 		{
 			this.body = body;
-			this.fixtureModel = fixtureModel;
-			this.shape = shape;
 			
 			initilize();
 		}
 		
 		private function initilize():void 
 		{
-			fixtureModel.shape = shape;
-			_fixture = body.CreateFixture(fixtureModel);
+			
 		}
 		
-		public function get linearVelocity():b2Vec2
+		/**
+		 * Пока хз как сделать лучше но нужен контроль за ускорением временами
+		 * Хотя если инкапсулировать работу с боксом тут а наружу выдавать лишь интерфепйс
+		 * из поинтов и методов то ОК вроде
+		 */
+		public function stopXVelocity():void
 		{
-			return body.GetLinearVelocity();
+			var linearVelocity:Point = this.linearVelocity;
+			linearVelocity.x = 0;
+			
+			this.linearVelocity = linearVelocity;
 		}
 		
-		public function set linearVelocity(value:b2Vec2):void
+		public function stopYVelocity():void
 		{
-			body.SetLinearVelocity(value);
+			var linearVelocity:Point = this.linearVelocity;
+			linearVelocity.y = 0;
+			
+			this.linearVelocity = linearVelocity;
 		}
 		
-		internal function get fixture():b2Fixture 
+		public function set linearVelocity(value:Point):void
 		{
-			return _fixture;
+			body.body.SetLinearVelocity(new b2Vec2(value.x, value.y));
+		}
+		
+		public function get linearVelocity():Point
+		{
+			var linearVelocity:b2Vec2 = body.body.GetLinearVelocity();
+			return new Point(linearVelocity.x, linearVelocity.y);
+		}
+		
+		public function applyImpulse(x:Number = 0, y:Number = 0, impulseSourceX:Number = 0, impulseSourceY:Number = 0):void
+		{
+			body.body.ApplyImpulse(new b2Vec2(x, y), new b2Vec2(impulseSourceX, impulseSourceY));
 		}
 		
 		
