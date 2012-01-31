@@ -1,12 +1,10 @@
 package ui 
 {
-	import Box2D.Collision.Shapes.b2Shape;
-	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.b2BodyDef;
-	import Box2D.Dynamics.b2FixtureDef;
-	import Box2D.Dynamics.b2World;
+	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
+	import flash.display.Sprite;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
 	import flash.utils.Timer;
 	
 	/**
@@ -17,39 +15,45 @@ package ui
 	{
 		private var t:Timer;
 		
-		public function Bell(bodyModel:b2BodyDef, shape:b2Shape, fixtureModel:b2FixtureDef, world:b2World) 
+		public function Bell(config:GameobjectConfig, instance:Sprite) 
 		{
-			super(bodyModel, shape, fixtureModel, world);
+			super(config, instance);
 		}
 		
 		override protected function initilize():void 
 		{
 			super.initilize();
 			
-			isSensor = true;
+			//isSensor = true;
 			
-			t = new Timer(25);
-			t.addEventListener(TimerEvent.TIMER, flowerEffect);
-			t.start();
+		
 		}
 		
 		override public function destroy():void 
 		{
-			t.stop();
-			t.removeEventListener(TimerEvent.TIMER, flowerEffect);
-			t = null;
-			
+		
 			
 			super.destroy();
 		}
 		
-		private function flowerEffect(e:TimerEvent):void 
+		override public function preRender():void 
+		{
+			super.preRender();
+			
+			flowerEffect();
+		}
+		
+		private function flowerEffect():void 
 		{
 			
 			//this.applyImpulseFromCenter(new b2Vec2(0, -1));
-			var linearVelocity:b2Vec2 = body.GetLinearVelocity();
+			var linearVelocity:Point = physicalProperties.linearVelocity
+			linearVelocity.y = 0.1;
 			
-			linearVelocity.Set(linearVelocity.x, 0.1);
+			physicalProperties.linearVelocity = physicalProperties.linearVelocity;
+			
+			
+			
 		}
 		
 	}

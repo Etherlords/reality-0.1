@@ -11,6 +11,7 @@ package
 	import flash.utils.Timer;
 	import patterns.strategy.Strategy;
 	import patterns.strategy.StrategyController;
+	import ui.Bell;
 	import ui.rabbit.Rabbit;
 	import ui.rabbit.rabbitReactions.RabbitStandarJump;
 	import utils.BoundariesConstructor;
@@ -24,6 +25,7 @@ package
 		private var worldConstructor:Box2DWorldConstructor;
 		private var gameObject:Rabbit;
 		private var rabbitReactions:StrategyController;
+		private var bell:Bell;
 
 		public function GameScene() 
 		{
@@ -101,6 +103,8 @@ package
 			//и эта фектори уже будет так же работать с пулом
 			gameObject = new Rabbit(config, this);
 			
+			bell = new Bell(config, this);
+			
 			
 			var boundaries:BoundariesConstructor = new BoundariesConstructor();
 			boundaries.createBoundaries();
@@ -115,10 +119,12 @@ package
 		private function gameStep(e:* = null ):void
 		{
 			gameObject.preRender();
+			bell.preRender();
 			
 			worldConstructor.gameStep();
 			
 			gameObject.render();
+			bell.render();
 		}
 		
 	}
