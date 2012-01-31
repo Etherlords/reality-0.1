@@ -72,7 +72,7 @@ import flash.display.Sprite;
 			
 			fallingSnow = new FallingSnowAnimation(stage.stageWidth);
 			addChild(fallingSnow);
-			
+			 
 			var gravity:b2Vec2 = new b2Vec2(0, 10);
 			world = new b2World(gravity, true);
 			PhysicWorldLocator.instance.world = world;
