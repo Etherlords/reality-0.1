@@ -23,8 +23,6 @@ package
 			super();
 			
 			initilize();
-			
-			
 		}
 		
 		private function initilize():void 
@@ -50,12 +48,22 @@ package
 			var config:GameobjectConfig = new GameobjectConfig(true);
 			config.physicConfiguration.type = 2;
 			
+			//Проблема что все объекты должны получать рендер/пререндер поэтому их нужно как тозаносить в обищй пулл
+			//Пока хз как это лучше сделать.
+			//Думаю можно сделать фабрику для создания конкретно сконфигурированых объектов factory.make(rabbit), factory.make(denisok)
+			//и эта фектори уже будет так же работать с пулом
 			gameObject = new GameObject(config, this);
 			//createBoundaries();
 		
 			
 		}
 		
+		/**
+		 * Игровая итерация. Тут гейм обжекты должны получить пре рендер чтобы зкаомитить
+		 * парамтеры в физический движок и рендер чтобы вызвать применение парамтеров физической модели к
+		 * графике
+		 * @param	e
+		 */
 		private function gameStep(e:* = null ):void
 		{
 			gameObject.preRender();

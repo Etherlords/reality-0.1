@@ -43,7 +43,8 @@ package core.Box2D.utils
 		}
 		
 		/**
-		 * 
+		 * Функция создает и возвращает представления боди
+		 * Так же передает в представление скин тем самым связывая его с боди
 		 */
 		public function make(skin:Skin):IBodyPresentation
 		{
@@ -54,6 +55,9 @@ package core.Box2D.utils
 			var fixtureModel:b2FixtureDef = new b2FixtureDef();
 			
 			fixtureModel.shape = makeShapeFromSkin(skin);
+			
+			//Коммит этих физических свойств можно сделать одним методом
+			//Просто переберая поля создать список поелй длоя коммита и просто обходить его
 			
 			if(config.density)
 				fixtureModel.density = config.density;

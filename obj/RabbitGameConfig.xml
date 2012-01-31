@@ -29,7 +29,7 @@
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>D:\reality\0.1\reality-0.1\src\main\Main.as</path-element>
+    <path-element>D:\reality\0.1\reality-0.1\src\main\GameScene.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>30</default-frame-rate>

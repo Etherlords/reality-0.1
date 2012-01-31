@@ -1,6 +1,6 @@
 package core.locators 
 {
-	
+	//хер знает почему на энфорсер матерится
 	//public class Enforcer{}
 	
 	import Box2D.Dynamics.b2World;
