@@ -43,6 +43,9 @@ package ui
 			flowerEffect();
 		}
 		
+		/**
+		 * Эфект парения, линейное ускорение по Y гасится и объект как бы падает плавно
+		 */
 		private function flowerEffect():void 
 		{
 			
@@ -50,7 +53,9 @@ package ui
 			var linearVelocity:Point = physicalProperties.linearVelocity
 			linearVelocity.y = 0.1;
 			
-			physicalProperties.linearVelocity = physicalProperties.linearVelocity;
+		
+			
+			physicalProperties.linearVelocity = linearVelocity;
 			
 			
 			
