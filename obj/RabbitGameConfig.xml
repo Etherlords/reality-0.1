@@ -20,16 +20,16 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\DES\projects\games\reality\src\main</path-element>
-      <path-element>C:\tools\dev\ide\flashdevelop\Library\AS3\classes</path-element>
+      <path-element>D:\reality\0.1\reality-0.1\src\main</path-element>
+      <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\DES\projects\games\reality\lib\greensock.swc</path-element>
-      <path-element>C:\DES\projects\games\reality\lib\Box2DFlashAS3 2.1a.swc</path-element>
+      <path-element>D:\reality\0.1\reality-0.1\lib\greensock.swc</path-element>
+      <path-element>D:\reality\0.1\reality-0.1\lib\Box2DFlashAS3 2.1a.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\DES\projects\games\reality\src\main\Main.as</path-element>
+    <path-element>D:\reality\0.1\reality-0.1\src\main\Main.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>30</default-frame-rate>

@@ -5,14 +5,9 @@ package ui.rabbit
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-
-import core.Box2D.utils.BodyConstructor;
-
-import core.Box2D.utils.PhysicBodyConstructor;
-import core.view.gameobject.GameObject;
-import core.view.gameobject.config.GameobjectConfig;
-
-/**
+	import core.view.gameobject.GameObject;
+	
+	/**
 	 * ...
 	 * @author 
 	 */
@@ -20,9 +15,9 @@ import core.view.gameobject.config.GameobjectConfig;
 	{
 		
 		
-		public function Rabbit(construcor:BodyConstructor)
+		public function Rabbit(bodyModel:b2BodyDef, shape:b2Shape, fixtureModel:b2FixtureDef, world:b2World) 
 		{
-			super(construcor);
+			super(bodyModel, shape, fixtureModel, world);
 		}
 		
 		public function applyMove(force:Number):void

@@ -1,40 +1,25 @@
 package core.view.gameobject 
 {
-	import Box2D.Collision.Shapes.b2Shape;
-	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.b2Body;
-	import Box2D.Dynamics.b2BodyDef;
-	import Box2D.Dynamics.b2FixtureDef;
-	import Box2D.Dynamics.b2World;
-
-import core.Box2D.utils.BodyConstructor;
-import core.Box2D.utils.PhysicBodyConstructor;
-import core.body.PhysicBodyPresentation;
-import core.view.gameobject.config.GameobjectConfig;
+	import core.body.IBodyPresentation;
+	import core.Box2D.utils.PhysicBodyConstructor;
+	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.skin.Skin;
+	import flash.display.Sprite;
 
 	public class GameObject 
 	{
 		
 		protected var skin:Skin;
-		
-		protected var body:b2Body
-		
-		protected var _physicalProperties:PhysicalProperties
-		protected var _dimensionalProperties:DimensionalProperties;
-		
-		private var shape:b2Shape;
-		private var fixtureModel:b2FixtureDef;
-		private var bodyModel:b2BodyDef;
+		protected var _body:IBodyPresentation
 		
 		private var config:GameobjectConfig;
-
-        private var _physicConstructor:BodyConstructor;
-
-		public function GameObject(aPhysicConstructor:BodyConstructor)
+		private var instance:Sprite;
+		
+		public function GameObject(config:GameobjectConfig, instance:Sprite) 
 		{
+			this.instance = instance;
 			this.config = config;
-            _physicConstructor = aPhysicConstructor;
+			
 			initilize();
 		}
 		
@@ -43,67 +28,63 @@ import core.view.gameobject.config.GameobjectConfig;
 		 */
 		public function render():void
 		{
-			
+			body.render();
 		}
 		
-		public function get isSensor():Boolean
+		/**
+		 * Функция которая коммитит последние изменения в физический мир
+		 */
+		public function preRender():void
 		{
-			return _physicalProperties.fixture.IsSensor();
-		}
-		
-		public function set isSensor(value:Boolean):void
-		{
-			_physicalProperties.fixture.SetSensor(value);
-		}
-		
-		public function get physicalProperties():PhysicalProperties 
-		{
-			return _physicalProperties;
-		}
-		
-		public function get dimensionalProperties():DimensionalProperties 
-		{
-			return _dimensionalProperties;
-		}
-		
-		public function applyImpulseFromCenter(force:b2Vec2):void
-		{
-			var myCenter:b2Vec2 = body.GetLocalCenter().Copy();
-			
-			body.ApplyImpulse(force, myCenter);
+			body.preRender();
 		}
 		
 		public function destroy():void
 		{
-			body.DestroyFixture(_physicalProperties.fixture);
+			
+			instance.removeChild(skin);
+			body.destroy();
+			//body.DestroyFixture(_physicalProperties.fixture);
 			//world.DestroyBody(body);
 			
-			_physicalProperties = null;
-			_dimensionalProperties = null;
-			
-			shape = null;
-			fixtureModel = null;
-			bodyModel = null;
-			
-			body = null;
+			//body = null;
 			//world = null;
 		}
 		
 		protected function initilize():void 
 		{
 			createBody();
-			_physicalProperties = new PhysicalProperties(shape, fixtureModel, body)
-			_dimensionalProperties = new DimensionalProperties( new PhysicBodyPresentation(body));
+			//_physicalProperties = new PhysicalProperties(shape, fixtureModel, body)
+			//_dimensionalProperties = new DimensionalProperties(body);
 		}
-
-
-
-        protected function createBody():void
+		
+		protected function createBody():void 
 		{
-            body = _physicConstructor.body;
-            bodyModel = _physicConstructor.bodyModel;
-            fixtureModel = _physicConstructor.fixtureModel;
-            shape = _physicConstructor.shape;
+			var bodyConstructor:PhysicBodyConstructor;
+			
+			if (config.isUsePhisicWorld)
+			{
+				bodyConstructor = new PhysicBodyConstructor(config.physicConfiguration);
+			}
+			else
+			{
+				
+			}
+			
+			skin = new Skin();
+			_body = bodyConstructor.make(skin);
+			
+			body.x = 100;
+			body.y = 100;
+			
+			instance.addChild(skin);
+			
+			render();
+		}
+		
+		public function get body():IBodyPresentation 
+		{
+			return _body;
 		}
 	}
 

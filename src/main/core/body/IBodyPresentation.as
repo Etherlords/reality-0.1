@@ -22,6 +22,12 @@ package core.body
 		
 		function get height():Number;
 		function set height(value:Number):void;
+		
+		function render():void;
+		function preRender():void;
+		
+		function destroy():void
+		
 	}
 	
 }

@@ -1,14 +1,5 @@
 package 
 {
-	
-	import core.Box2D.utils.Box2DWorldConstructor;
-	import core.Box2D.utils.PhysicBodyConstructor;
-	import core.locators.PhysicWorldLocator;
-	import core.view.gameobject.config.GameobjectConfig;
-	import core.view.gameobject.GameObject;
-	import flash.display.Sprite;
-	import flash.geom.Point;	
-	
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.b2Settings;
@@ -19,14 +10,8 @@ package
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-
-import core.Box2D.utils.PhysicBodyConstructor;
-import core.Box2D.utils.RabbitBodyConstructor;
-import core.GlobalConstants;
-import core.view.gameobject.GameObject;
-import core.view.gameobject.config.GameobjectConfig;
-
-import flash.display.Sprite;
+	import core.view.gameobject.GameObject;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
@@ -51,7 +36,10 @@ import flash.display.Sprite;
 
 		public var stepTimer:Timer;
 		
-
+		public var mToPx:Number = 50;
+		public var pxToM:Number = 1 / mToPx;
+		public var radToDeg:Number = 180 / b2Settings.b2_pi;
+		public var degToRad:Number = b2Settings.b2_pi / 180;
 		
 		private var bells:Vector.<Bell>
 		private var bell:Bell;
@@ -72,24 +60,35 @@ import flash.display.Sprite;
 			
 			fallingSnow = new FallingSnowAnimation(stage.stageWidth);
 			addChild(fallingSnow);
-			 
+			
 			var gravity:b2Vec2 = new b2Vec2(0, 10);
 			world = new b2World(gravity, true);
-			PhysicWorldLocator.instance.world = world;
 			var debugDraw:b2DebugDraw = new b2DebugDraw();
 			var debugSprite:Sprite = new Sprite();
 			addChild(debugSprite);
 			debugDraw.SetSprite(debugSprite);
-			debugDraw.SetDrawScale(GlobalConstants.PIXELS_TO_METR);
+			debugDraw.SetDrawScale(mToPx);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit);
 			world.SetDebugDraw(debugDraw);
 			
 			createBoundaries();
 			
-
+			var circleDef:b2BodyDef = new b2BodyDef();
+			circleDef.type = b2Body.b2_dynamicBody;
+			circleDef.position.Set(100 * pxToM, 580 * pxToM);
+			
+			var circleShape:b2CircleShape = new b2CircleShape(10 * pxToM);
+			var circleFixture:b2FixtureDef = new b2FixtureDef();
+			
+			circleFixture.shape = circleShape;
+			
+			circleDef.fixedRotation = false;
+			circleFixture.density = 0;
+			circleFixture.friction = 0.4;
+			circleFixture.restitution = 0;
 		
-			rabbit = new Rabbit(new RabbitBodyConstructor(stage));
-
+			rabbit = new Rabbit(circleDef, circleShape, circleFixture, world);
+			circleDef.position.Set(Math.random() * stage.stageWidth * pxToM, 15 * pxToM);
 			
 			bells = new Vector.<Bell>;
 			
@@ -152,19 +151,19 @@ import flash.display.Sprite;
 		private function createBoundaries():void
 		{
 			var groundBodyDef:b2BodyDef = new b2BodyDef();
-			groundBodyDef.position.Set(0, stage.stageHeight * GlobalConstants.PIXELS_TO_METR);
+			groundBodyDef.position.Set(0, stage.stageHeight * pxToM);
 			var groundBody:b2Body = world.CreateBody(groundBodyDef);
 			var groundShape:b2PolygonShape = new b2PolygonShape();
-			groundShape.SetAsBox(stage.stageWidth * GlobalConstants.PIXELS_TO_METR, 1 * GlobalConstants.PIXELS_TO_METR);
+			groundShape.SetAsBox(stage.stageWidth * pxToM, 1 * pxToM);
 			var groundFixtureDef:b2FixtureDef = new b2FixtureDef();
 			groundFixtureDef.shape = groundShape;
 			var groundFixture:b2Fixture = groundBody.CreateFixture(groundFixtureDef);
 			
 			var rightWallBodyDef:b2BodyDef = new b2BodyDef();
-			rightWallBodyDef.position.Set(stage.stageWidth * GlobalConstants.PIXELS_TO_METR, 0);
+			rightWallBodyDef.position.Set(stage.stageWidth * pxToM, 0);
 			var rightWallBody:b2Body = world.CreateBody(rightWallBodyDef);
 			var rightWallShape:b2PolygonShape = new b2PolygonShape();
-			rightWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, stage.stageHeight * GlobalConstants.PIXELS_TO_METR);
+			rightWallShape.SetAsBox(1 * pxToM, stage.stageHeight * pxToM);
 			var rightWallFixtureDef:b2FixtureDef = new b2FixtureDef();
 			rightWallFixtureDef.shape = rightWallShape;
 			var rightWallFixture:b2Fixture = rightWallBody.CreateFixture(rightWallFixtureDef);
@@ -173,7 +172,7 @@ import flash.display.Sprite;
 			leftWallBodyDef.position.Set(0, 0);
 			var leftWallBody:b2Body = world.CreateBody(leftWallBodyDef);
 			var leftWallShape:b2PolygonShape = new b2PolygonShape();
-			leftWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, stage.stageHeight * GlobalConstants.PIXELS_TO_METR);
+			leftWallShape.SetAsBox(1 * pxToM, stage.stageHeight * pxToM);
 			var leftWallFixtureDef:b2FixtureDef = new b2FixtureDef();
 			leftWallFixtureDef.shape = leftWallShape;
 			var leftWallFixture:b2Fixture = leftWallBody.CreateFixture(leftWallFixtureDef);
@@ -181,8 +180,30 @@ import flash.display.Sprite;
 		
 		private function createBell(e:* = null):void
 		{
-            var config:GameobjectConfig = new GameobjectConfig(true);
-            bell = new Bell(new PhysicBodyConstructor(config.physicConfiguration));
+			var circleDef:b2BodyDef = new b2BodyDef();
+			circleDef.type = b2Body.b2_dynamicBody;
+			
+			if(!bell)
+				circleDef.position.Set(Math.random() * stage.stageWidth * pxToM, (rabbit.dimensionalProperties.y - stage.stageHeight / 2) * pxToM);
+			else
+			{
+				isHaveChanedBell = true;
+				circleDef.position.Set(Math.random() * stage.stageWidth * pxToM, (bell.dimensionalProperties.y - 100) * pxToM);
+			}
+				
+			var circleShape:b2PolygonShape = new b2PolygonShape();
+			circleShape.SetAsBox(20 * pxToM, 20 * pxToM);
+			var circleFixture:b2FixtureDef = new b2FixtureDef();
+			
+			//circleFixture.shape = circleShape;
+			
+			circleDef.fixedRotation = false;
+			circleFixture.density = 0;
+			circleFixture.friction = 0.4;
+			circleFixture.restitution = 0;
+			
+			bell = new Bell(circleDef, circleShape, circleFixture, world);
+			bells.push(bell);
 		}
 		
 		private function findCollesions():void
