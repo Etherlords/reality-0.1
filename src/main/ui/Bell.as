@@ -5,8 +5,12 @@ package ui
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-	import core.view.gameobject.GameObject;
-	import flash.events.TimerEvent;
+
+import core.Box2D.utils.PhysicBodyConstructor;
+import core.view.gameobject.GameObject;
+import core.view.gameobject.config.GameobjectConfig;
+
+import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
 	/**
@@ -17,9 +21,9 @@ package ui
 	{
 		private var t:Timer;
 		
-		public function Bell(bodyModel:b2BodyDef, shape:b2Shape, fixtureModel:b2FixtureDef, world:b2World) 
+		public function Bell(bodyConstructor:PhysicBodyConstructor)
 		{
-			super(bodyModel, shape, fixtureModel, world);
+			super(bodyConstructor);
 		}
 		
 		override protected function initilize():void 
@@ -43,7 +47,7 @@ package ui
 			super.destroy();
 		}
 		
-		private function flowerEffect(e:TimerEvent):void 
+		private function flowerEffect(e:TimerEvent):void
 		{
 			
 			//this.applyImpulseFromCenter(new b2Vec2(0, -1));

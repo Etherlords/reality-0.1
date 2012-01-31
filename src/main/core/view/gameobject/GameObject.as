@@ -6,8 +6,11 @@ package core.view.gameobject
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-	import core.Box2D.utils.PhysicBodyConstructor;
-	import core.view.gameobject.config.GameobjectConfig;
+
+import core.Box2D.utils.BodyConstructor;
+import core.Box2D.utils.PhysicBodyConstructor;
+import core.body.PhysicBodyPresentation;
+import core.view.gameobject.config.GameobjectConfig;
 	import core.view.skin.Skin;
 
 	public class GameObject 
@@ -25,11 +28,13 @@ package core.view.gameobject
 		private var bodyModel:b2BodyDef;
 		
 		private var config:GameobjectConfig;
-		
-		public function GameObject(config:GameobjectConfig) 
+
+        private var _physicConstructor:BodyConstructor;
+
+		public function GameObject(aPhysicConstructor:BodyConstructor)
 		{
 			this.config = config;
-			
+            _physicConstructor = aPhysicConstructor;
 			initilize();
 		}
 		
@@ -87,16 +92,18 @@ package core.view.gameobject
 		protected function initilize():void 
 		{
 			createBody();
-			//_physicalProperties = new PhysicalProperties(shape, fixtureModel, body)
-			//_dimensionalProperties = new DimensionalProperties(body);
+			_physicalProperties = new PhysicalProperties(shape, fixtureModel, body)
+			_dimensionalProperties = new DimensionalProperties( new PhysicBodyPresentation(body));
 		}
-		
-		protected function createBody():void 
+
+
+
+        protected function createBody():void
 		{
-			if (config.isUsePhisicWorld)
-			{
-				var physicConstructor:PhysicBodyConstructor = new PhysicBodyConstructor(config.physicConfiguration);
-			}
+            body = _physicConstructor.body;
+            bodyModel = _physicConstructor.bodyModel;
+            fixtureModel = _physicConstructor.fixtureModel;
+            shape = _physicConstructor.shape;
 		}
 	}
 

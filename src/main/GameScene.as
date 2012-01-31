@@ -1,6 +1,7 @@
 package  
 {
 	import core.Box2D.utils.Box2DWorldConstructor;
+	import core.Box2D.utils.PhysicBodyConstructor;
 	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
@@ -41,7 +42,7 @@ package
 			var config:GameobjectConfig = new GameobjectConfig(true);
 			config.physicConfiguration.type = 2;
 			
-			var gameObject:GameObject = new GameObject(config);
+			var gameObject:GameObject = new GameObject(new PhysicBodyConstructor(config.physicConfiguration));
 			//createBoundaries();
 			
 			worldConstructor.world.Step(0.04, 100, 100);

@@ -5,54 +5,44 @@ package core.Box2D.utils
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
-	import core.GlobalConstants;
+import Box2D.Dynamics.b2World;
+
+import core.GlobalConstants;
 	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.PhysicConfiguration;
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class PhysicBodyConstructor 
+	public class PhysicBodyConstructor extends BasePhysicBodyConstructor
 	{
 		private var config:PhysicConfiguration;
 		
-		public function PhysicBodyConstructor(config:PhysicConfiguration) 
+		public function PhysicBodyConstructor(config:PhysicConfiguration)
 		{
 			this.config = config;
-			
-			make();
+
+            _bodyModel.type = config.type;
+            _bodyModel.fixedRotation = config.fixedRotation;
+            _shape['SetAsBox'](20 * GlobalConstants.PIXELS_TO_METR, 20 * GlobalConstants.PIXELS_TO_METR);
+
+            _fixtureModel.shape = _shape;
+
+            if(config.density)
+                _fixtureModel.density = config.density;
+
+            if(config.friction)
+                _fixtureModel.friction = config.friction;
+
+            if(config.restitution)
+                _fixtureModel.restitution = config.restitution;
+
+            _body.CreateFixture(_fixtureModel);
 		}
-		
-		/**
-		 * 
-		 */
-		public function make():void
-		{
-			var bodyModel:b2BodyDef = new b2BodyDef();
-			bodyModel.type = config.type;
-			bodyModel.fixedRotation = config.fixedRotation;
-			
-			var shape:b2Shape = new b2PolygonShape();
-			
-			shape['SetAsBox'](20 * GlobalConstants.PIXELS_TO_METR, 20 * GlobalConstants.PIXELS_TO_METR);
-			
-			var fixtureModel:b2FixtureDef = new b2FixtureDef();
-			
-			fixtureModel.shape = shape;
-			
-			if(config.density)
-				fixtureModel.density = config.density;
-			
-			if(config.friction)
-				fixtureModel.friction = config.friction;
-			
-			if(config.restitution)
-				fixtureModel.restitution = config.restitution;
-			
-			var body:b2Body = PhysicWorldLocator.instance.world.CreateBody(bodyModel);
-			body.CreateFixture(fixtureModel);
-		}
-		
-	}
+
+
+
+
+    }
 
 }

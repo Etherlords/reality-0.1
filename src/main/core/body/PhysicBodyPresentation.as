@@ -43,12 +43,12 @@ package core.body
 			_position.Set(_position.x, value / GlobalConstants.PIXELS_TO_METR);
 		}
 		
-		public function get position():b2Vec2
+		public function get position():Point
 		{
 			var realPoint:b2Vec2 = _position.Copy();
 			realPoint.Multiply(GlobalConstants.METRS_TO_PIXEL);
 			
-			return realPoint;
+			return new Point(realPoint.x, realPoint.y);
 		}
 		
 		public function set position(value:Point):void 
