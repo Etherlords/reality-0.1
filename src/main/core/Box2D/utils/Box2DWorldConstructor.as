@@ -29,6 +29,14 @@ package core.Box2D.utils
 			initilize();
 		}
 		
+		public function gameStep():void
+		{
+			world.Step(0.04, 100, 100);
+			
+			if(isDebug)
+				world.DrawDebugData();
+		}
+		
 		public function get world():b2World 
 		{
 			return _world;
