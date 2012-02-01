@@ -103,7 +103,7 @@ package core.view.gameobject
 				
 			}
 			
-			skin = new Skin();
+			skin = new config.skinClass;
 			_body = bodyConstructor.make(skin);
 			_physicalProperties = new PhysicalProperties(body as PhysicBodyPresentation)
 			

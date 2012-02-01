@@ -7,6 +7,9 @@
 *.userpref
 .idea
 **/.idea/*.*
+.iml
+*.iml
+**/*.as3proj
 
 #Temp#
 Temp

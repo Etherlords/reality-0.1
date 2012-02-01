@@ -4,7 +4,9 @@ package
 	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
-	import flash.display.Sprite;
+    import core.view.skin.EmptyBoxSkin;
+
+    import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
@@ -13,6 +15,7 @@ package
 	import patterns.strategy.StrategyController;
 	import ui.Bell;
 	import ui.rabbit.Rabbit;
+	import ui.rabbit.RabbitSkin;
 	import ui.rabbit.rabbitReactions.RabbitStandarJump;
 	import utils.BoundariesConstructor;
 	
@@ -94,16 +97,20 @@ package
 			rabbitReactions.addStrategy(standarJump);
 			
 			
-			var config:GameobjectConfig = new GameobjectConfig(true);
-			config.physicConfiguration.type = 2;
+			var defaultConfig:GameobjectConfig = new GameobjectConfig(true);
+			defaultConfig.physicConfiguration.type = 2;
+			defaultConfig.skinClass = EmptyBoxSkin;
 			
 			//Проблема что все объекты должны получать рендер/пререндер поэтому их нужно как тозаносить в обищй пулл
 			//Пока хз как это лучше сделать.
 			//Думаю можно сделать фабрику для создания конкретно сконфигурированых объектов factory.make(rabbit), factory.make(denisok)
 			//и эта фектори уже будет так же работать с пулом
-			gameObject = new Rabbit(config, this);
+            var rabbitConfig:GameobjectConfig = new GameobjectConfig(true);
+            rabbitConfig.physicConfiguration.type = 2;
+            rabbitConfig.skinClass = RabbitSkin;
+			gameObject = new Rabbit(rabbitConfig, this);
 			
-			bell = new Bell(config, this);
+			bell = new Bell(defaultConfig, this);
 			
 			
 			var boundaries:BoundariesConstructor = new BoundariesConstructor();

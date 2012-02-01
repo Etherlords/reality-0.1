@@ -12,7 +12,7 @@ package core.view.skin
 		
 		public function AnimatedSprite() 
 		{
-			this.graphics.beginFill(0xFFFFFF);
+			this.graphics.beginFill(0xAAFF00);
 			
 			this.graphics.drawRect(0, 0, 20, 20);
 			

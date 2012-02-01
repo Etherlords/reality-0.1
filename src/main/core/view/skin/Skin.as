@@ -16,16 +16,9 @@ package core.view.skin
 		public function Skin() 
 		{
 			super();
-			
-			addChild(new AnimatedSprite());
 		}
 		
 		public function doAction(actionKey:uint):void
-		{
-			
-		}
-		
-		protected function addSprite(sprite:AnimatedSprite):void
 		{
 			
 		}

@@ -1,6 +1,8 @@
 package core.view.gameobject.config 
 {
-	/**
+import core.view.skin.Skin;
+
+/**
 	 * ...
 	 * @author 
 	 */
@@ -10,7 +12,9 @@ package core.view.gameobject.config
 		private var _isUsePhisicWorld:Boolean;
 		
 		private var _physicConfiguration:PhysicConfiguration;
-		
+
+        public var skinClass:Class = Skin;
+
 		public function GameobjectConfig(isUsePhisicWorld:Boolean = false) 
 		{
 			_isUsePhisicWorld = isUsePhisicWorld;
