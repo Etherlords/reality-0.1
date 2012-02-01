@@ -27,9 +27,6 @@ package ui.rabbit
 			physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);
 		}
-	
-		
-		
-	}
+    }
 
 }

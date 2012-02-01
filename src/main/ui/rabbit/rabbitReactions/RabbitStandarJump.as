@@ -1,7 +1,10 @@
 package ui.rabbit.rabbitReactions 
 {
 	import Box2D.Common.Math.b2Vec2;
-	import patterns.strategy.SimpleAlgorithm;
+
+import core.GlobalConstants;
+
+import patterns.strategy.SimpleAlgorithm;
 	import ui.rabbit.Rabbit;
 	
 	/**
@@ -25,6 +28,7 @@ package ui.rabbit.rabbitReactions
 				return;
 			
 			rabbit.physicalProperties.applyImpulse(0, -jumpForce);
+			rabbit.applyActionView(GlobalConstants.ACTION_VIEW_JUMP);
 			//var linearVelocity:b2Vec2 = rabbit.physicalProperties.linearVelocity
 			//linearVelocity.Set(linearVelocity.x, 0);
 			

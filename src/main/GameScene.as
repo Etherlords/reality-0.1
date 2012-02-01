@@ -1,7 +1,8 @@
 package  
 {
 	import core.Box2D.utils.Box2DWorldConstructor;
-	import core.locators.PhysicWorldLocator;
+import core.GlobalConstants;
+import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
     import core.view.skin.EmptyBoxSkin;
@@ -63,6 +64,10 @@ package
 			var force:Number = delta / 20;
 			
 			gameObject.applyMove(force);
+
+            var actionViewKey:uint = force > 0 ? GlobalConstants.ACTION_VIEW_WALK_RIGHT : GlobalConstants.ACTION_VIEW_WALK_LEFT;
+			
+            gameObject.applyActionView(actionViewKey);
 		}
 		
 		private function manageEvents():void 

@@ -126,6 +126,14 @@ package core.view.gameobject
 		{
 			return _physicalProperties;
 		}
+
+        /**
+         *  азадиние апиранса по ключу, типа rabbit.walk
+         * @param key
+         */
+        public function applyActionView(key:uint):void {
+            skin.doAction(key);
+        }
 	}
 
 }
