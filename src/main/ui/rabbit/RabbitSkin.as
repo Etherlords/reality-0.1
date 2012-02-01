@@ -8,29 +8,36 @@ import core.view.skin.AnimatedSprite;
 import core.view.skin.Skin;
 
 public class RabbitSkin extends Skin {
-    private var left:DragonWalkLeft;
+    
+	private var left:DragonWalkLeft;
     private var right:DragonWalkRight;
-    private var jump:DragonFlyRight;
+    private var jumpRight:DragonFlyRight;
+    private var jumpLeft:DragonFlyLeft;
+	
     public function RabbitSkin() {
 		super();
         addChild(new AnimatedSprite());
         left = new DragonWalkLeft();
         right = new DragonWalkRight();
-        jump = new DragonFlyRight();
+        jumpRight = new DragonFlyRight();
+        jumpLeft = new DragonFlyLeft();
         left.visible = false;
         right.visible = false;
-        jump.visible = false;
+        jumpRight.visible = false;
+        jumpLeft.visible = false;
         addChild(left);
         addChild(right);
-        addChild(jump);
+        addChild(jumpRight);
+        addChild(jumpLeft);
     }
 
 
     override public function doAction(actionKey:uint):void {
         super.doAction(actionKey);
-        left.visible = (actionKey == GlobalConstants.ACTION_VIEW_WALK_LEFT);
-        right.visible = (actionKey == GlobalConstants.ACTION_VIEW_WALK_RIGHT);
-        jump.visible = (actionKey == GlobalConstants.ACTION_VIEW_JUMP);
+        left.visible       = (actionKey == GlobalConstants.ACTION_VIEW_WALK_LEFT);
+        right.visible      = (actionKey == GlobalConstants.ACTION_VIEW_WALK_RIGHT);
+        jumpRight.visible  = (actionKey == GlobalConstants.ACTION_VIEW_JUMP_RIGHT);
+        jumpLeft.visible   = (actionKey == GlobalConstants.ACTION_VIEW_JUMP_LEFT);
 
     }
 }

@@ -5,7 +5,9 @@ package ui.rabbit
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-	import core.view.gameobject.config.GameobjectConfig;
+
+import core.GlobalConstants;
+import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
 	import flash.display.Sprite;
 	
@@ -27,6 +29,25 @@ package ui.rabbit
 			physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);
 		}
+
+
+        override public function preRender():void {
+            super.preRender();
+			trace("physicalProperties.linearVelocity.x: " + physicalProperties.linearVelocity.x + " linearVelocity.y: " + physicalProperties.linearVelocity.y);
+            if ((Math.abs(physicalProperties.linearVelocity.y) > 0.2)) {
+				if (physicalProperties.linearVelocity.x > 0) {
+					applyActionView(GlobalConstants.ACTION_VIEW_JUMP_RIGHT);
+				} else {
+					applyActionView(GlobalConstants.ACTION_VIEW_JUMP_LEFT);
+				}
+               
+            } else if (Math.abs(physicalProperties.linearVelocity.x) > 0.2) {
+				var actionViewKey:uint = physicalProperties.linearVelocity.x > 0 ? GlobalConstants.ACTION_VIEW_WALK_RIGHT : GlobalConstants.ACTION_VIEW_WALK_LEFT;	
+				applyActionView(actionViewKey);
+			} else {
+				applyActionView(GlobalConstants.ACTION_VIEW_WALK_LEFT);
+			}
+        }
     }
 
 }

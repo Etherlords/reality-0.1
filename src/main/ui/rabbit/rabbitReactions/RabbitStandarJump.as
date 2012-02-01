@@ -28,7 +28,7 @@ import patterns.strategy.SimpleAlgorithm;
 				return;
 			
 			rabbit.physicalProperties.applyImpulse(0, -jumpForce);
-			rabbit.applyActionView(GlobalConstants.ACTION_VIEW_JUMP);
+			rabbit.applyActionView(GlobalConstants.ACTION_VIEW_JUMP_LEFT);
 			//var linearVelocity:b2Vec2 = rabbit.physicalProperties.linearVelocity
 			//linearVelocity.Set(linearVelocity.x, 0);
 			

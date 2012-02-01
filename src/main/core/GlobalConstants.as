@@ -15,7 +15,8 @@ package core
 		public static var DEGREE_TO_RAD:Number = Math.PI / 180;
         public static const ACTION_VIEW_WALK_RIGHT:uint = 1;
         public static const ACTION_VIEW_WALK_LEFT:uint = 2;
-        public static const ACTION_VIEW_JUMP:uint = 3;
+        public static const ACTION_VIEW_JUMP_LEFT:uint = 3;
+        public static const ACTION_VIEW_JUMP_RIGHT:uint = 4;
 		
 		
 	}

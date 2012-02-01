@@ -65,9 +65,6 @@ import core.locators.PhysicWorldLocator;
 			
 			gameObject.applyMove(force);
 
-            var actionViewKey:uint = force > 0 ? GlobalConstants.ACTION_VIEW_WALK_RIGHT : GlobalConstants.ACTION_VIEW_WALK_LEFT;
-			
-            gameObject.applyActionView(actionViewKey);
 		}
 		
 		private function manageEvents():void 
