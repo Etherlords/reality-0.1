@@ -32,6 +32,15 @@ public class RabbitSkin extends Skin {
     }
 
 
+    override public function get phsyHeight():Number {
+        return left.height;
+    }
+
+
+    override public function get phsyWidth():Number {
+        return left.width;
+    }
+
     override public function doAction(actionKey:uint):void {
         super.doAction(actionKey);
         left.visible       = (actionKey == GlobalConstants.ACTION_VIEW_WALK_LEFT);

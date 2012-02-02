@@ -1,8 +1,8 @@
 package  
 {
 	import core.Box2D.utils.Box2DWorldConstructor;
-import core.GlobalConstants;
-import core.locators.PhysicWorldLocator;
+	import core.GlobalConstants;
+	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
     import core.view.skin.EmptyBoxSkin;

@@ -32,8 +32,8 @@ package core.Box2D.utils
 		 */
 		private function makeShapeFromSkin(skin:Skin):b2Shape
 		{
-			var width:Number = skin.width * GlobalConstants.PIXELS_TO_METR;
-			var height:Number = skin.height * GlobalConstants.PIXELS_TO_METR;
+			var width:Number = skin.phsyWidth * GlobalConstants.PIXELS_TO_METR;
+			var height:Number = skin.phsyHeight * GlobalConstants.PIXELS_TO_METR;
 			
 			var shape:b2PolygonShape = new b2PolygonShape();
 			

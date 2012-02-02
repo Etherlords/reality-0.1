@@ -22,6 +22,14 @@ package core.view.skin
 		{
 			
 		}
+
+        public function get phsyWidth():Number {
+            return this.width;
+        }
+
+        public function get phsyHeight():Number {
+            return this.height;
+        }
 		
 	}
 
