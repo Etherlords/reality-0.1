@@ -100,11 +100,7 @@ package
 			rabbitReactions = new StrategyController();
 			var standarJump:Strategy = new Strategy('standartJump', new RabbitStandarJump());
 			rabbitReactions.addStrategy(standarJump);
-			
-			
-			var defaultConfig:GameobjectConfig = new GameobjectConfig(true);
-			defaultConfig.physicConfiguration.type = 2;
-			defaultConfig.skinClass = EmptyBoxSkin;
+
 			
 			//Проблема что все объекты должны получать рендер/пререндер поэтому их нужно как тозаносить в обищй пулл
 			//Пока хз как это лучше сделать.
@@ -114,15 +110,25 @@ package
             rabbitConfig.physicConfiguration.type = 2;
             rabbitConfig.skinClass = RabbitSkin;
 			gameObject = new Rabbit(rabbitConfig, this);
-			
-			bell = new Bell(defaultConfig, this);
-
             registerGameObject(gameObject);
-            registerGameObject(bell);
+
+            createBell();
+
+
 			
 			var boundaries:BoundariesConstructor = new BoundariesConstructor();
 			boundaries.createBoundaries();
 		}
+
+        private function createBell():void {
+            var bellConfig:GameobjectConfig = new GameobjectConfig(true);
+            bellConfig.physicConfiguration.type = 2;
+            bellConfig.skinClass = EmptyBoxSkin;
+            bell = new Bell(bellConfig, this);
+            bell.body.x = 0;
+            bell.body.x = 0;
+            registerGameObject(bell);
+        }
 
         private function registerGameObject(gameObj:GameObject):void {
             gameObjects.push(gameObj);
@@ -136,14 +142,14 @@ package
 		 */
 		private function gameStep(e:* = null ):void
 		{
-            for each (var gameObj:GameObject in gameObjects) {
-                gameObj.preRender();
+            for each (var preRenderGameObj:GameObject in gameObjects) {
+                preRenderGameObj.preRender();
             }
 			
 			worldConstructor.gameStep();
 
-            for each (var gameObj:GameObject in gameObjects) {
-                gameObj.render();
+            for each (var renderGameObj:GameObject in gameObjects) {
+                renderGameObj.render();
             }
 		}
 		
