@@ -31,6 +31,8 @@ package
 		private var rabbitReactions:StrategyController;
 		private var bell:Bell;
 
+        private var gameObjects:Array;
+
 		public function GameScene() 
 		{
 			super();
@@ -40,6 +42,7 @@ package
 		
 		private function initilize():void 
 		{
+            gameObjects = [];
 			createWorld();
 			createViewComponents();
 			manageEvents();
@@ -113,11 +116,17 @@ package
 			gameObject = new Rabbit(rabbitConfig, this);
 			
 			bell = new Bell(defaultConfig, this);
-			
+
+            registerGameObject(gameObject);
+            registerGameObject(bell);
 			
 			var boundaries:BoundariesConstructor = new BoundariesConstructor();
 			boundaries.createBoundaries();
 		}
+
+        private function registerGameObject(gameObj:GameObject):void {
+            gameObjects.push(gameObj);
+        }
 		
 		/**
 		 * Игровая итерация. Тут гейм обжекты должны получить пре рендер чтобы зкаомитить
@@ -127,13 +136,15 @@ package
 		 */
 		private function gameStep(e:* = null ):void
 		{
-			gameObject.preRender();
-			bell.preRender();
+            for each (var gameObj:GameObject in gameObjects) {
+                gameObj.preRender();
+            }
 			
 			worldConstructor.gameStep();
-			
-			gameObject.render();
-			bell.render();
+
+            for each (var gameObj:GameObject in gameObjects) {
+                gameObj.render();
+            }
 		}
 		
 	}
