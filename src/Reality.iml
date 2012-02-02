@@ -16,7 +16,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../lib/greensock.swc!/" />
@@ -25,7 +25,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="Box2D" level="application" />
+    <orderEntry type="library" name="Box2D" level="application" />
+    <orderEntry type="library" name="compiled_assets" level="project" />
   </component>
 </module>
 
