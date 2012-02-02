@@ -1,5 +1,6 @@
 package  
 {
+	import com.sociodox.theminer.TheMiner;
 	import core.Box2D.utils.Box2DWorldConstructor;
 	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
@@ -30,6 +31,8 @@ package
 		public function GameScene() 
 		{
 			super();
+			
+			this.addChild(new TheMiner(true));
 			
 			initilize();
 		}

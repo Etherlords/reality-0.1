@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'31.01.2012'</value>
+      <value>'01.02.2012'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
@@ -26,6 +26,7 @@
     <library-path append="true">
       <path-element>D:\reality\0.1\reality-0.1\lib\greensock.swc</path-element>
       <path-element>D:\reality\0.1\reality-0.1\lib\Box2DFlashAS3 2.1a.swc</path-element>
+      <path-element>D:\reality\0.1\reality-0.1\lib\TheMiner_ru_v1_3_10.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
