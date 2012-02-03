@@ -86,13 +86,34 @@ package core.Box2D.utils
 			var gravity:b2Vec2 = new b2Vec2(gravity.x, gravity.y);
 			_world = new b2World(gravity, true);
 			
+			//Для трекинга коллизий мы добавляем слушателя коллизий в физический мир
 			collideListener = new SimpleConcatListener();
 			
+			//Ловим ивент о нативном столкновении
 			collideListener.addEventListener(NativeCollideEvent.PHYSIC_BODY_COLLIDE, notifObjectsCollide);
 			
 			_world.SetContactListener(collideListener);
 		}
 		
+		/**
+		 * Нативное столкновение 2х объектов
+		 * тут благодаря pBody-to-gameObject маппингу я могу получить по боди гейм обжекты
+		 * Я могу оповестить гейм обжекты о том что они столкнулись с таким то объектом,
+		 * но полагаю что нам лучше резолвить столкновения при вызове preRender, render или 
+		 * ввести еще postRender
+		 * 
+		 * Т.е не обрабатывать каждое столкновение в частности а обрабатывать лист столкновений
+		 * 
+		 * resolveCollision->objectA.collideList-process->doSomeActions
+		 * Так же резолвить столкновения очевидно нужно на уровне контейнера т.к логика взаимодействия объектов описана в нем
+		 * 
+		 * есть враинт такого флоу
+		 * box2dWorld->nativeCollideEvent-to-GameObject->GameObject.notifiCollide(gameObject)->sendCollideEventToStage-resolve-collides;
+		 * 
+		 * но тут помойму куча лишних действий хотя и легко будет работать с такой моделью потому что все рбаотает не зависимо
+		 * но обработка колайдов в одном месте скопом была бы явно производительней
+		 * @param	e
+		 */
 		private function notifObjectsCollide(e:NativeCollideEvent):void 
 		{
 			var gameObjectA:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(e.bodyA);
