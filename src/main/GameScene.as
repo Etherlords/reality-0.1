@@ -120,7 +120,8 @@ package
 		
 		private function rabbitColideWith(e:GameObjectPhysicEvent):void 
 		{
-			trace(e);
+			trace('collide with', e.target, e.interactionWith);
+			//e.interactionWith.destroy();
 		}
 
         private function createBell():void 

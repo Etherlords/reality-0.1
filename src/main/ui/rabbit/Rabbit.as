@@ -29,21 +29,30 @@ import core.view.gameobject.config.GameobjectConfig;
 			physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);
 		}
-
-
-        override public function preRender():void {
+		
+        override public function preRender():void 
+		{
             super.preRender();
-            if ((Math.abs(physicalProperties.linearVelocity.y) > 0.2)) {
-				if (physicalProperties.linearVelocity.x > 0) {
+			
+            if ((Math.abs(physicalProperties.linearVelocity.y) > 0.2)) 
+			{
+				if (physicalProperties.linearVelocity.x > 0) 
+				{
 					applyActionView(GlobalConstants.ACTION_VIEW_JUMP_RIGHT);
-				} else {
+				} 
+				else 
+				{
 					applyActionView(GlobalConstants.ACTION_VIEW_JUMP_LEFT);
 				}
                
-            } else if (Math.abs(physicalProperties.linearVelocity.x) > 0.2) {
+            }
+			else if (Math.abs(physicalProperties.linearVelocity.x) > 0.2) 
+			{
 				var actionViewKey:uint = physicalProperties.linearVelocity.x > 0 ? GlobalConstants.ACTION_VIEW_WALK_RIGHT : GlobalConstants.ACTION_VIEW_WALK_LEFT;	
 				applyActionView(actionViewKey);
-			} else {
+			} 
+			else 
+			{
 				applyActionView(GlobalConstants.ACTION_VIEW_WALK_LEFT);
 			}
         }

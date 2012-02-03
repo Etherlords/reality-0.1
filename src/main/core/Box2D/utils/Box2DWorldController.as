@@ -70,7 +70,10 @@ package core.Box2D.utils
 		
 		public function constructGameObject(objectClass:Class, config:GameobjectConfig, displayInstance:DisplayObjectContainer):GameObject
 		{
-			return new objectClass(config, displayInstance);
+			var processedGameObject:GameObject = new objectClass(config, displayInstance);
+			registerGameObject(processedGameObject);
+			
+			return processedGameObject;
 		}
 		
 		public function registerGameObject(gameObject:GameObject):void
