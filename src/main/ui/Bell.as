@@ -24,6 +24,9 @@ package ui
 		{
 			super.initilize();
 			
+			
+			// :C~~~~~
+			physicalProperties.physicBody.GetFixtureList().SetSensor(true);
 			//isSensor = true;
 		}
 		
