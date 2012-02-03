@@ -6,7 +6,9 @@ package core.Box2D.utils
 	import core.Box2D.collision.SimpleConcatListener;
 	import core.events.NativeCollideEvent;
 	import core.GlobalConstants;
+	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	/**
@@ -64,6 +66,11 @@ package core.Box2D.utils
 		public function get gameObjectsRegistry():GameobjectsRegistry 
 		{
 			return _gameObjectsRegistry;
+		}
+		
+		public function constructGameObject(objectClass:Class, config:GameobjectConfig, displayInstance:DisplayObjectContainer):GameObject
+		{
+			return new objectClass(config, displayInstance);
 		}
 		
 		public function registerGameObject(gameObject:GameObject):void

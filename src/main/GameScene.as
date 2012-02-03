@@ -97,7 +97,7 @@ package
             var rabbitConfig:GameobjectConfig = new GameobjectConfig(true);
             rabbitConfig.physicConfiguration.type = 2; //todo replace
             rabbitConfig.skinClass = RabbitSkin;
-			gameObject = new Rabbit(rabbitConfig, this);
+			gameObject = worldConstructor.constructGameObject(Rabbit, rabbitConfig, this) as Rabbit;
 			
 			gameObject.body.x = 500;
 			gameObject.body.y = 500;
@@ -128,11 +128,11 @@ package
             var bellConfig:GameobjectConfig = new GameobjectConfig(true);
             bellConfig.physicConfiguration.type = 2; //todo replace
             bellConfig.skinClass = EmptyBoxSkin;
-            bell = new Bell(bellConfig, this);
+            bell = worldConstructor.constructGameObject(Bell, bellConfig, this) as Bell;// new Bell(bellConfig, this);
             bell.body.x = 0;
             bell.body.x = 0;
 			
-            worldConstructor.registerGameObject(bell);
+           // worldConstructor.registerGameObject(bell);
         }
 
 		
