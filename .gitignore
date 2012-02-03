@@ -5,10 +5,10 @@
 .flexProperties
 .project
 *.userpref
-.idea
-**/.idea/*.*
-.iml
-*.iml
+#.idea
+#**/.idea/*.*
+#.iml
+#*.iml
 **/*.as3proj
 
 #Temp#
