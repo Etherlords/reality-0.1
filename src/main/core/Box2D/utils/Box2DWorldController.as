@@ -69,6 +69,7 @@ package core.Box2D.utils
 		public function registerGameObject(gameObject:GameObject):void
 		{
 			_gameObjectsRegistry.registerGameObject(gameObject);
+			gameObject.registredInApplication();
 		}
 		
 		private function initilize():void 
@@ -118,6 +119,14 @@ package core.Box2D.utils
 		{
 			var gameObjectA:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(e.bodyA);
 			var gameObjectB:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(e.bodyB);
+			
+			/**
+			 * Будем считать что если один из объектов отсутствует в мапе то
+			 * столкновение былоо с левыми объектами не игровыми
+			 * и его не нужно отслеживать.
+			 */
+			if (!gameObjectA || !gameObjectB)
+				return
 			
 			gameObjectA.collideWith(gameObjectB)
 			gameObjectB.collideWith(gameObjectA)

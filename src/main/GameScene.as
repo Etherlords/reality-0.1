@@ -2,6 +2,7 @@ package
 {
 	//import com.sociodox.theminer.TheMiner;
 	import core.Box2D.utils.Box2DWorldController;
+	import core.events.GameObjectPhysicEvent;
 	import core.GlobalConstants;
 	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
@@ -85,7 +86,6 @@ package
 			worldConstructor = new Box2DWorldController(new Point(0, 10), this, true);
 			//trace(PhysicWorldLocator.instance);
 			PhysicWorldLocator.instance.world = worldConstructor.world;
-			
 		}
 		
 		private function createViewComponents():void
@@ -98,11 +98,15 @@ package
             rabbitConfig.physicConfiguration.type = 2; //todo replace
             rabbitConfig.skinClass = RabbitSkin;
 			gameObject = new Rabbit(rabbitConfig, this);
+			
+			gameObject.body.x = 500;
+			gameObject.body.y = 500;
+			
+			gameObject.addEventListener(GameObjectPhysicEvent.COLLIDE, rabbitColideWith);
+			
             worldConstructor.registerGameObject(gameObject);
 
             createBell();
-
-
 			
 			var boundaries:BoundariesConstructor = new BoundariesConstructor();
 			boundaries.createBoundaries();
@@ -112,6 +116,11 @@ package
             var followMouse:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE, new RabbitFlowMouse(stage));
             rabbitReactions.addStrategy(standarJump);
             rabbitReactions.addStrategy(followMouse);
+		}
+		
+		private function rabbitColideWith(e:GameObjectPhysicEvent):void 
+		{
+			trace(e);
 		}
 
         private function createBell():void 

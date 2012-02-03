@@ -57,6 +57,16 @@ package core.view.gameobject
 			this.instance = instance;
 			this.config = config;
 			
+			preInitilize();
+		}
+		
+		private function preInitilize():void 
+		{
+			createBody();
+		}
+		
+		public function registredInApplication():void
+		{
 			initilize();
 		}
 		
@@ -89,16 +99,18 @@ package core.view.gameobject
 		
 		public function collideWith(collideTarget:GameObject):void
 		{
-			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.COLLIDE, true, false, collideTarget));
 		}
 		
 		protected function initilize():void 
 		{
-			createBody();
+			
+			addToDisplayList();
 			
 			//_dimensionalProperties = new DimensionalProperties(body);
 		}
+		
+		
 		
 		/**
 		 * Создаем представление боди
@@ -124,11 +136,11 @@ package core.view.gameobject
 			skin = new config.skinClass;
 			_body = bodyConstructor.make(skin);
 			_physicalProperties = new PhysicalProperties(body as PhysicBodyPresentation)
-			
-			
-			
+		}
+		
+		private function addToDisplayList():void 
+		{
 			instance.addChild(skin);
-			
 			//Вызываем рендер чтобы синхронизировать представление и скин
 			render();
 		}
