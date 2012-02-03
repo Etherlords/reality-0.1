@@ -25,14 +25,10 @@ package ui
 			super.initilize();
 			
 			//isSensor = true;
-			
-		
 		}
 		
 		override public function destroy():void 
 		{
-		
-			
 			super.destroy();
 		}
 		

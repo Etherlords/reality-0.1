@@ -107,9 +107,7 @@ package core.view.gameobject
 			_body = bodyConstructor.make(skin);
 			_physicalProperties = new PhysicalProperties(body as PhysicBodyPresentation)
 			
-			//Просто для теста установил координаты 100х100
-			body.x = 100;
-			body.y = 100;
+			
 			
 			instance.addChild(skin);
 			

@@ -64,6 +64,11 @@ package core.view.gameobject
 			body.body.ApplyImpulse(new b2Vec2(x, y), new b2Vec2(impulseSourceX, impulseSourceY));
 		}
 		
+		public function get physicBody():b2Body
+		{
+			return body.body;
+		}
+		
 		
 		
 	}

@@ -1,7 +1,7 @@
 package  
 {
-	import com.sociodox.theminer.TheMiner;
-	import core.Box2D.utils.Box2DWorldConstructor;
+	//import com.sociodox.theminer.TheMiner;
+	import core.Box2D.utils.Box2DWorldController;
 	import core.GlobalConstants;
 	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
@@ -28,7 +28,7 @@ package
 	 */
 	public class GameScene extends Sprite 
 	{
-		private var worldConstructor:Box2DWorldConstructor;
+		private var worldConstructor:Box2DWorldController;
 		private var gameObject:Rabbit;
 		private var rabbitReactions:StrategyController;
 		private var bell:Bell;
@@ -38,7 +38,7 @@ package
 		public function GameScene() 
 		{
 			super();
-            this.addChild(new TheMiner(true));
+            //this.addChild(new TheMiner(true));
 			initilize();
 		}
 		
@@ -82,9 +82,10 @@ package
 		
 		private function createWorld():void 
 		{
-			worldConstructor = new Box2DWorldConstructor(new Point(0, 10), this, true);
+			worldConstructor = new Box2DWorldController(new Point(0, 10), this, true);
 			//trace(PhysicWorldLocator.instance);
 			PhysicWorldLocator.instance.world = worldConstructor.world;
+			
 		}
 		
 		private function createViewComponents():void
@@ -97,7 +98,7 @@ package
             rabbitConfig.physicConfiguration.type = 2; //todo replace
             rabbitConfig.skinClass = RabbitSkin;
 			gameObject = new Rabbit(rabbitConfig, this);
-            registerGameObject(gameObject);
+            worldConstructor.registerGameObject(gameObject);
 
             createBell();
 
@@ -113,19 +114,18 @@ package
             rabbitReactions.addStrategy(followMouse);
 		}
 
-        private function createBell():void {
+        private function createBell():void 
+		{
             var bellConfig:GameobjectConfig = new GameobjectConfig(true);
             bellConfig.physicConfiguration.type = 2; //todo replace
             bellConfig.skinClass = EmptyBoxSkin;
             bell = new Bell(bellConfig, this);
             bell.body.x = 0;
             bell.body.x = 0;
-            registerGameObject(bell);
+			
+            worldConstructor.registerGameObject(bell);
         }
 
-        private function registerGameObject(gameObj:GameObject):void {
-            gameObjects.push(gameObj);
-        }
 		
 		/**
 		 * Игровая итерация. Тут гейм обжекты должны получить пре рендер чтобы зкаомитить
@@ -135,15 +135,7 @@ package
 		 */
 		private function gameStep(e:* = null ):void
 		{
-            for each (var preRenderGameObj:GameObject in gameObjects) {
-                preRenderGameObj.preRender();
-            }
-			
 			worldConstructor.gameStep();
-
-            for each (var renderGameObj:GameObject in gameObjects) {
-                renderGameObj.render();
-            }
 		}
 		
 	}
