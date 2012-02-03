@@ -119,7 +119,8 @@ package core.Box2D.utils
 			var gameObjectA:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(e.bodyA);
 			var gameObjectB:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(e.bodyB);
 			
-			trace(gameObjectA, gameObjectB);
+			gameObjectA.collideWith(gameObjectB)
+			gameObjectB.collideWith(gameObjectA)
 			
 			//gameObjectA notify collide
 			//gameObjectB notifi collide

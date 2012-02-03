@@ -3,9 +3,19 @@ package core.view.gameobject
 	import core.body.IBodyPresentation;
 	import core.body.PhysicBodyPresentation;
 	import core.Box2D.utils.PhysicBodyConstructor;
+	import core.events.GameObjectPhysicEvent;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.skin.Skin;
 	import flash.display.Sprite;
+	import flash.events.EventDispatcher;
+	import flash.events.IEventDispatcher;
+	
+	
+	/**
+	 * [broadcast event] Диспатчится когда объект столкнулся с каким то другим объектом
+	 * @eventType	core.events.GameObjectPhysicEvent.COLLIDE
+	 */
+	[Event(name="collide", type="core.events.GameObjectPhysicEvent")] 
 	
 	/**
 	 * Класс нечто вроде фасада - контроллера
@@ -22,7 +32,7 @@ package core.view.gameobject
 	 * Если это кролик, то реализуем там логику управления его скином(анимациями), прыжки кролика и тд.
 	 */
 
-	public class GameObject 
+	public class GameObject extends EventDispatcher
 	{
 		
 		protected var skin:Skin;
@@ -40,8 +50,10 @@ package core.view.gameobject
 		 * @param	config
 		 * @param	instance
 		 */
-		public function GameObject(config:GameobjectConfig, instance:Sprite) 
+		public function GameObject(config:GameobjectConfig, instance:Sprite, eventFlowTarget:IEventDispatcher = null) 
 		{
+			super(eventFlowTarget);
+			
 			this.instance = instance;
 			this.config = config;
 			
@@ -73,6 +85,12 @@ package core.view.gameobject
 			this.instance = null;
 			this.config = null;
 			this._body = null;
+		}
+		
+		public function collideWith(collideTarget:GameObject):void
+		{
+			
+			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.COLLIDE, true, false, collideTarget));
 		}
 		
 		protected function initilize():void 
