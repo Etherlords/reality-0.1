@@ -31,8 +31,8 @@ previews
 *.pidb
 bin-debug
 **/bin-debug/*.*
-obj
-**/obj/*.*
+#obj
+#**/obj/*.*
 build
 **/build/*.*
 

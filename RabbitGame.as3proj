@@ -52,6 +52,8 @@
   <libraryPaths>
     <element path="lib\greensock.swc" />
     <element path="lib\Box2DFlashAS3 2.1a.swc" />
+    <element path="assets\compiled\dragon.swc" />
+    <element path="lib\TheMiner_ru_v1_3_10.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

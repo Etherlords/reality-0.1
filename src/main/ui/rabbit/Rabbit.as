@@ -33,7 +33,6 @@ import core.view.gameobject.config.GameobjectConfig;
 
         override public function preRender():void {
             super.preRender();
-			trace("physicalProperties.linearVelocity.x: " + physicalProperties.linearVelocity.x + " linearVelocity.y: " + physicalProperties.linearVelocity.y);
             if ((Math.abs(physicalProperties.linearVelocity.y) > 0.2)) {
 				if (physicalProperties.linearVelocity.x > 0) {
 					applyActionView(GlobalConstants.ACTION_VIEW_JUMP_RIGHT);
