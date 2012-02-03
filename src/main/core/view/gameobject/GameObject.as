@@ -41,6 +41,7 @@ package core.view.gameobject
 		private var config:GameobjectConfig;
 		private var instance:Sprite;
 		private var _physicalProperties:PhysicalProperties;
+		private var markToDestroy:Boolean = false;
 		
 		/**
 		 * Задаем конфи и инстанс объекта, возможно инстанс лучше задавать как то иначе, но не факт. 
@@ -75,6 +76,8 @@ package core.view.gameobject
 		 */
 		public function render():void
 		{
+			
+			
 			body.render();
 		}
 		
@@ -83,11 +86,23 @@ package core.view.gameobject
 		 */
 		public function preRender():void
 		{
+			if (markToDestroy)
+			{
+				destructor();
+				return;	
+			}
+			
 			body.preRender();
 		}
 		
 		public function destroy():void
 		{
+			markToDestroy = true;
+		}
+		
+		private function destructor():void
+		{
+			
 			instance.removeChild(skin);
 			body.destroy();
 			
@@ -95,6 +110,8 @@ package core.view.gameobject
 			this.instance = null;
 			this.config = null;
 			this._body = null;
+			
+			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.DESTROY, true, false, this));
 		}
 		
 		public function collideWith(collideTarget:GameObject):void

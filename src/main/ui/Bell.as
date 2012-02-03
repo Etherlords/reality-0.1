@@ -32,11 +32,12 @@ package ui
 			super.destroy();
 		}
 		
-		override public function preRender():void 
+		override public function render():void 
 		{
-			super.preRender();
-			
 			flowerEffect();
+			super.render();
+			
+			
 		}
 		
 		/**
@@ -49,12 +50,7 @@ package ui
 			var linearVelocity:Point = physicalProperties.linearVelocity
 			linearVelocity.y = 0.1;
 			
-		
-			
 			physicalProperties.linearVelocity = linearVelocity;
-			
-			
-			
 		}
 		
 	}

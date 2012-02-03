@@ -10,6 +10,7 @@ package core.events
 	public class GameObjectPhysicEvent extends Event 
 	{
 		public static const COLLIDE:String = 'collide';
+		public static const DESTROY:String = 'destroy';
 		
 		private var _interactionWith:GameObject;
 		

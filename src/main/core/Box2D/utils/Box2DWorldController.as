@@ -4,6 +4,8 @@ package core.Box2D.utils
 	import Box2D.Dynamics.b2DebugDraw;
 	import Box2D.Dynamics.b2World;
 	import core.Box2D.collision.SimpleConcatListener;
+	import core.Box2D.SimpleDestructionListenere;
+	import core.events.GameObjectPhysicEvent;
 	import core.events.NativeCollideEvent;
 	import core.GlobalConstants;
 	import core.view.gameobject.config.GameobjectConfig;
@@ -71,6 +73,13 @@ package core.Box2D.utils
 		public function addToCollaboration(gameObject:GameObject):void
 		{
 			_gameObjectsRegistry.registerGameObject(gameObject);
+			gameObject.addEventListener(GameObjectPhysicEvent.DESTROY, onGameObjectDestroyed);
+		}
+		
+		private function onGameObjectDestroyed(e:GameObjectPhysicEvent):void 
+		{
+			e.interactionWith.removeEventListener(GameObjectPhysicEvent.DESTROY, onGameObjectDestroyed);
+			removeFromCollaboration(e.interactionWith);
 		}
 		
 		public function removeFromCollaboration(gameObject:GameObject):void
@@ -94,7 +103,7 @@ package core.Box2D.utils
 		 */
 		public function destroyGameObject(gameObject:GameObject):void
 		{
-			removeFromCollaboration(gameObject);
+			//removeFromCollaboration(gameObject);
 			gameObject.destroy();
 		}
 		
@@ -125,6 +134,7 @@ package core.Box2D.utils
 			collideListener.addEventListener(NativeCollideEvent.PHYSIC_BODY_COLLIDE, notifObjectsCollide);
 			
 			_world.SetContactListener(collideListener);
+			_world.SetDestructionListener(new SimpleDestructionListenere());
 		}
 		
 		/**

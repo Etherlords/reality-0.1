@@ -122,6 +122,7 @@ package
 		{
 			trace('collide with', e.target, e.interactionWith);
 			worldConstructor.destroyGameObject(e.interactionWith);
+			
 		}
 
         private function createBell():void 
@@ -130,8 +131,8 @@ package
             bellConfig.physicConfiguration.type = 2; //todo replace
             bellConfig.skinClass = EmptyBoxSkin;
             bell = worldConstructor.constructGameObject(Bell, bellConfig, this) as Bell;// new Bell(bellConfig, this);
-            bell.body.x = 0;
-            bell.body.x = 0;
+            bell.body.x = 300;
+            bell.body.y = 300;
 			
            // worldConstructor.registerGameObject(bell);
         }
