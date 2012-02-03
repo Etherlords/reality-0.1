@@ -2,10 +2,12 @@
 <module type="Flex" version="4">
   <component name="Flex.Build.Configuration">
     <option name="DO_BUILD" value="true" />
+    <option name="CUSTOM_CONFIG_FILE" value="$MODULE_DIR$/../.idea/compiler-config.xml" />
     <option name="MAIN_CLASS" value="Main" />
     <option name="OUTPUT_FILE_NAME" value="_Main.swf" />
     <option name="TARGET_PLAYER_VERSION" value="10.2.0" />
     <option name="STATIC_LINK_RUNTIME_SHARED_LIBRARIES" value="false" />
+    <option name="ADDITIONAL_COMPILER_OPTIONS" value="-default-size=800,600 -default-background-color=#FFFFFF" />
     <option name="VERSION" value="3" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -25,7 +27,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Box2D" level="application" />
     <orderEntry type="library" name="compiled_assets" level="project" />
   </component>
 </module>

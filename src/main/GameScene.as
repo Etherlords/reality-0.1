@@ -17,7 +17,8 @@ package
 	import ui.Bell;
 	import ui.rabbit.Rabbit;
 	import ui.rabbit.RabbitSkin;
-	import ui.rabbit.rabbitReactions.RabbitStandarJump;
+    import ui.rabbit.rabbitReactions.RabbitFlowMouse;
+    import ui.rabbit.rabbitReactions.RabbitStandarJump;
 	import utils.BoundariesConstructor;
 	
 	/**
@@ -36,7 +37,6 @@ package
 		public function GameScene() 
 		{
 			super();
-			
 			initilize();
 		}
 		
@@ -58,16 +58,7 @@ package
 		
 		private function calculateObjectMoving(e:* = null):void 
 		{
-			var mouseX:Number = stage.mouseX;
-			
-			var rabbitX:Number =  gameObject.body.x;
-			
-			var delta:Number = mouseX - rabbitX;
-			
-			var force:Number = delta / 20;
-			
-			gameObject.applyMove(force);
-
+            rabbitAction(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE);
 		}
 		
 		private function manageEvents():void 
@@ -77,7 +68,7 @@ package
 		
 		private function jumpAction(e:MouseEvent):void 
 		{
-			rabbitAction('standartJump', 10);
+			rabbitAction(GlobalConstants.ACTION_STRATEGY_JUMP, 10);
 		}
 		
 		private function rabbitAction(key:String, ...rest):void
@@ -96,18 +87,12 @@ package
 		
 		private function createViewComponents():void
 		{
-			
-			rabbitReactions = new StrategyController();
-			var standarJump:Strategy = new Strategy('standartJump', new RabbitStandarJump());
-			rabbitReactions.addStrategy(standarJump);
-
-			
 			//Проблема что все объекты должны получать рендер/пререндер поэтому их нужно как тозаносить в обищй пулл
 			//Пока хз как это лучше сделать.
 			//Думаю можно сделать фабрику для создания конкретно сконфигурированых объектов factory.make(rabbit), factory.make(denisok)
 			//и эта фектори уже будет так же работать с пулом
             var rabbitConfig:GameobjectConfig = new GameobjectConfig(true);
-            rabbitConfig.physicConfiguration.type = 2;
+            rabbitConfig.physicConfiguration.type = 2; //todo replace
             rabbitConfig.skinClass = RabbitSkin;
 			gameObject = new Rabbit(rabbitConfig, this);
             registerGameObject(gameObject);
@@ -118,11 +103,17 @@ package
 			
 			var boundaries:BoundariesConstructor = new BoundariesConstructor();
 			boundaries.createBoundaries();
+
+            rabbitReactions = new StrategyController();
+            var standarJump:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_JUMP, new RabbitStandarJump());
+            var followMouse:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE, new RabbitFlowMouse(stage));
+            rabbitReactions.addStrategy(standarJump);
+            rabbitReactions.addStrategy(followMouse);
 		}
 
         private function createBell():void {
             var bellConfig:GameobjectConfig = new GameobjectConfig(true);
-            bellConfig.physicConfiguration.type = 2;
+            bellConfig.physicConfiguration.type = 2; //todo replace
             bellConfig.skinClass = EmptyBoxSkin;
             bell = new Bell(bellConfig, this);
             bell.body.x = 0;
