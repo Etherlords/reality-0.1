@@ -68,17 +68,38 @@ package core.Box2D.utils
 			return _gameObjectsRegistry;
 		}
 		
+		public function addToCollaboration(gameObject:GameObject):void
+		{
+			_gameObjectsRegistry.registerGameObject(gameObject);
+		}
+		
+		public function removeFromCollaboration(gameObject:GameObject):void
+		{
+			_gameObjectsRegistry.unRegisterGameObject(gameObject);
+		}
+		
 		public function constructGameObject(objectClass:Class, config:GameobjectConfig, displayInstance:DisplayObjectContainer):GameObject
 		{
 			var processedGameObject:GameObject = new objectClass(config, displayInstance);
 			registerGameObject(processedGameObject);
+			addToCollaboration(processedGameObject);
 			
 			return processedGameObject;
 		}
 		
+		/**
+		 * Уничтожаем гейм обжект, объект убирается из дисплей листа и уничтожается в физическом мире
+		 * Объект уничтожается потому что его нельзя реюзать в физическом мире если мы его убираем из него
+		 * @param	gameObject
+		 */
+		public function destroyGameObject(gameObject:GameObject):void
+		{
+			removeFromCollaboration(gameObject);
+			gameObject.destroy();
+		}
+		
 		public function registerGameObject(gameObject:GameObject):void
 		{
-			_gameObjectsRegistry.registerGameObject(gameObject);
 			gameObject.registredInApplication();
 		}
 		

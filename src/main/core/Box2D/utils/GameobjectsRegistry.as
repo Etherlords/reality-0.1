@@ -30,6 +30,21 @@ package core.Box2D.utils
 			return phyBodyToGameobjectMap.itemFor(b2body);
 		}
 		
+		public function unRegisterGameObject(gameObject:GameObject):void
+		{
+			for (var i:int = 0; i < gameObjectsList.length; i++)
+			{
+				if (gameObjectsList[i] == gameObject)
+				{
+					gameObjectsList.splice(i, 1);
+					break;
+				}
+			}
+			
+			if(gameObject.physicalProperties)
+				phyBodyToGameobjectMap.remove(gameObject);
+		}
+		
 		public function registerGameObject(gameObject:GameObject):void
 		{
 			gameObjectsList.push(gameObject);

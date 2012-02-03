@@ -121,7 +121,7 @@ package
 		private function rabbitColideWith(e:GameObjectPhysicEvent):void 
 		{
 			trace('collide with', e.target, e.interactionWith);
-			//e.interactionWith.destroy();
+			worldConstructor.destroyGameObject(e.interactionWith);
 		}
 
         private function createBell():void 

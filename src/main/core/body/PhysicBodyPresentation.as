@@ -21,7 +21,6 @@ package core.body
 		{
 			this.skin = skin;
 			this.body = body;
-			
 			initilize();
 		}
 		
