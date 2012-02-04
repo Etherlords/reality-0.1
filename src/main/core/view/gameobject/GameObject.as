@@ -42,7 +42,8 @@ package core.view.gameobject
 		private var instance:Sprite;
 		private var _physicalProperties:PhysicalProperties;
 		private var markToDestroy:Boolean = false;
-		
+
+        //TODO comment is not actual
 		/**
 		 * Задаем конфи и инстанс объекта, возможно инстанс лучше задавать как то иначе, но не факт. 
 		 * Для одного и того зже мира по сути должны быть соответственные(по координатами, скейлу и пр) инстансы
