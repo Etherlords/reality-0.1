@@ -33,12 +33,12 @@ public class RabbitSkin extends Skin {
 
 
     override public function get phsyHeight():Number {
-        return left.height;
+        return 50;
     }
 
 
     override public function get phsyWidth():Number {
-        return left.width;
+        return 90;
     }
 
     override public function doAction(actionKey:uint):void {

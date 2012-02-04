@@ -13,7 +13,7 @@ public class RabbitAccelerate extends SimpleAlgorithm {
     }
 
     public function execute(rabbit:Rabbit):void {
-        rabbit.physicalProperties.applyImpulse(0, -15);
+        rabbit.physicalProperties.applyImpulse(0, -5);
     }
 }
 }
