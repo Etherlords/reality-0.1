@@ -19,6 +19,7 @@ package core
         public static const ACTION_VIEW_JUMP_RIGHT:uint = 4;
         public static const ACTION_STRATEGY_JUMP:String = "standartJump";
         public static const ACTION_STRATEGY_FOLLOW_MOUSE:String = "followMouse";
+        public static const ACTION_STRATEGY_ACCELERATE:String = "ACTION_STRATEGY_ACCELERATE";
 		
 		
 	}

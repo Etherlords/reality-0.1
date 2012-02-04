@@ -19,7 +19,8 @@ package
 	import ui.Bell;
 	import ui.rabbit.Rabbit;
 	import ui.rabbit.RabbitSkin;
-    import ui.rabbit.rabbitReactions.RabbitFlowMouse;
+import ui.rabbit.rabbitReactions.RabbitAccelerate;
+import ui.rabbit.rabbitReactions.RabbitFlowMouse;
     import ui.rabbit.rabbitReactions.RabbitStandarJump;
 	import utils.BoundariesConstructor;
 	
@@ -114,13 +115,16 @@ package
             rabbitReactions = new StrategyController();
             var standarJump:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_JUMP, new RabbitStandarJump());
             var followMouse:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE, new RabbitFlowMouse(stage));
+
             rabbitReactions.addStrategy(standarJump);
             rabbitReactions.addStrategy(followMouse);
+            rabbitReactions.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_ACCELERATE, new RabbitAccelerate()));
 		}
 		
 		private function rabbitColideWith(e:GameObjectPhysicEvent):void 
 		{
 			trace('collide with', e.target, e.interactionWith);
+            rabbitAction(GlobalConstants.ACTION_STRATEGY_ACCELERATE);
 			worldConstructor.destroyGameObject(e.interactionWith);
 			
 		}
