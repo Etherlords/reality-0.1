@@ -38,7 +38,7 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
         private var gameObjects:Array;
         private var _boundaries:BoundariesConstructor;
 
-		public function GameScene() 
+		public function GameScene()
 		{
 			super();
             //this.addChild(new TheMiner(true));
@@ -60,7 +60,7 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
 			updateRabbitMoveTimer.addEventListener(TimerEvent.TIMER, calculateObjectMoving);
 			updateRabbitMoveTimer.start();
 
-            var generateBellTimer:Timer = new Timer(500);
+            var generateBellTimer:Timer = new Timer(150);
             generateBellTimer.addEventListener(TimerEvent.TIMER, generateBell);
             generateBellTimer.start();
 		}

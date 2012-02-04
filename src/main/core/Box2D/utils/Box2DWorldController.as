@@ -179,12 +179,12 @@ package core.Box2D.utils
 			//gameObjectA notify collide
 			//gameObjectB notifi collide
 		}
-		
+
 		private function initDebugDraw():void
 		{
 			var debugDraw:b2DebugDraw = new b2DebugDraw();
 			var debugSprite:Sprite = new Sprite();
-			
+
 			debugDraw.SetSprite(debugSprite);
 			debugDraw.SetDrawScale(GlobalConstants.METRS_TO_PIXEL);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit);
