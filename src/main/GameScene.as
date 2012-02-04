@@ -36,6 +36,7 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
 		private var bell:Bell;
 
         private var gameObjects:Array;
+        private var _boundaries:BoundariesConstructor;
 
 		public function GameScene() 
 		{
@@ -58,7 +59,15 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
 			var updateRabbitMoveTimer:Timer = new Timer(100);
 			updateRabbitMoveTimer.addEventListener(TimerEvent.TIMER, calculateObjectMoving);
 			updateRabbitMoveTimer.start();
+
+            var generateBellTimer:Timer = new Timer(500);
+            generateBellTimer.addEventListener(TimerEvent.TIMER, generateBell);
+            generateBellTimer.start();
 		}
+
+        private function generateBell(event:TimerEvent):void {
+            createBell();
+        }
 		
 		private function calculateObjectMoving(e:* = null):void 
 		{
@@ -88,8 +97,8 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
 			//trace(PhysicWorldLocator.instance);
 			PhysicWorldLocator.instance.world = worldConstructor.world;
 		}
-		
-		private function createViewComponents():void
+
+        private function createViewComponents():void
 		{
 			//Проблема что все объекты должны получать рендер/пререндер поэтому их нужно как тозаносить в обищй пулл
 			//Пока хз как это лучше сделать.
@@ -107,10 +116,8 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
 			
             worldConstructor.registerGameObject(gameObject);
 
-            createBell();
-			
-			var boundaries:BoundariesConstructor = new BoundariesConstructor();
-			boundaries.createBoundaries();
+            _boundaries = new BoundariesConstructor();
+			_boundaries.createBoundaries();
 
             rabbitReactions = new StrategyController();
             var standarJump:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_JUMP, new RabbitStandarJump());
@@ -135,8 +142,8 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
             bellConfig.physicConfiguration.type = 2; //todo replace
             bellConfig.skinClass = EmptyBoxSkin;
             bell = worldConstructor.constructGameObject(Bell, bellConfig, this) as Bell;// new Bell(bellConfig, this);
-            bell.body.x = 300;
-            bell.body.y = 300;
+            bell.body.x = Math.random() * _boundaries.width;
+            bell.body.y = 0;
 			
            // worldConstructor.registerGameObject(bell);
         }

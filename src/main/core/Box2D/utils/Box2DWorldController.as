@@ -40,15 +40,19 @@ package core.Box2D.utils
 		
 		public function gameStep():void
 		{
-			_gameObjectsRegistry.objectsList.forEach(preRenderCall);
+			for each (var preRenderObj:GameObject in _gameObjectsRegistry.objectsList) {
+                preRenderObj.preRender();
+            }
 			
 			world.Step(0.04, 100, 100);
 			
 			if(isDebug)
 				world.DrawDebugData();
-				
-			_gameObjectsRegistry.objectsList.forEach(renderCall);
-		}
+
+            for each (var renderObj:GameObject in _gameObjectsRegistry.objectsList) {
+                renderObj.render();
+            }
+        }
 		
 		private function renderCall(gameObject:GameObject, i:int, vector:Vector.<GameObject>):void 
 		{
