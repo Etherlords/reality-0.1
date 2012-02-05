@@ -56,6 +56,10 @@ import core.view.gameobject.config.GameobjectConfig;
 				applyActionView(GlobalConstants.ACTION_VIEW_WALK_LEFT);
 			}
         }
+
+        public function isLevitation():Boolean {  //todo remove quickfix
+            return (skin as RabbitSkin).isLevitationAppearance();
+        }
     }
 
 }

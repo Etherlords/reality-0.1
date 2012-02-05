@@ -21,6 +21,7 @@ package core
         public static const ACTION_STRATEGY_JUMP:String = "standartJump";
         public static const ACTION_STRATEGY_FOLLOW_MOUSE:String = "followMouse";
         public static const ACTION_STRATEGY_ACCELERATE:String = "ACTION_STRATEGY_ACCELERATE";
+        public static const ACTION_STRATEGY_FLAP_WINGS:String = "ACTION_STRATEGY_FLAP_WINGS";
 	}
 
 }

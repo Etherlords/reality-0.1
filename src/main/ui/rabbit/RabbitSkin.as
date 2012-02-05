@@ -54,6 +54,10 @@ public class RabbitSkin extends Skin {
         }
 
     }
+
+    public function isLevitationAppearance():Boolean { //todo remove quick fix detecting gameobj state
+        return (jumpLeft.visible && jumpLeft.isLevitation()) || (jumpRight.visible && jumpRight.isLevitation())
+    }
 }
 }
 
