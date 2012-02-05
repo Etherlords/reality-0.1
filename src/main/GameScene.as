@@ -10,7 +10,8 @@ package
     import core.view.skin.EmptyBoxSkin;
 
     import flash.display.Sprite;
-	import flash.events.MouseEvent;
+    import flash.events.KeyboardEvent;
+    import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
@@ -19,8 +20,8 @@ package
 	import ui.Bell;
 	import ui.rabbit.Rabbit;
 	import ui.rabbit.RabbitSkin;
-import ui.rabbit.rabbitReactions.RabbitAccelerate;
-import ui.rabbit.rabbitReactions.RabbitFlowMouse;
+    import ui.rabbit.rabbitReactions.RabbitAccelerate;
+    import ui.rabbit.rabbitReactions.RabbitFlowMouse;
     import ui.rabbit.rabbitReactions.RabbitStandarJump;
 	import utils.BoundariesConstructor;
 	
@@ -60,10 +61,16 @@ import ui.rabbit.rabbitReactions.RabbitFlowMouse;
 			updateRabbitMoveTimer.addEventListener(TimerEvent.TIMER, calculateObjectMoving);
 			updateRabbitMoveTimer.start();
 
-            var generateBellTimer:Timer = new Timer(150);
+            var generateBellTimer:Timer = new Timer(500);
             generateBellTimer.addEventListener(TimerEvent.TIMER, generateBell);
             generateBellTimer.start();
+
+            stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 		}
+
+        private function keyDownHandler(event:KeyboardEvent):void {
+            gameObject.applyActionView(GlobalConstants.ACTION_VIEW_FLAP_WINGS);
+        }
 
         private function generateBell(event:TimerEvent):void {
             createBell();
