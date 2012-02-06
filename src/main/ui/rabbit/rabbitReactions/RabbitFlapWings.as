@@ -7,18 +7,24 @@ import core.GlobalConstants;
 
 import patterns.strategy.SimpleAlgorithm;
 
+import ui.rabbit.FlapTriggerGameObject;
 import ui.rabbit.Rabbit;
 
 public class RabbitFlapWings extends SimpleAlgorithm {
-    public function RabbitFlapWings() {
+
+    private var  _flapTrigger:FlapTriggerGameObject;
+
+    public function RabbitFlapWings(flapTrigger:FlapTriggerGameObject) {
         super();
+        _flapTrigger = flapTrigger;
     }
 
     public function execute(rabbit:Rabbit):void
     {
-        if (!rabbit.isLevitation()) { //todo remove quickfix
+        if (!_flapTrigger.isAbleToFlap()) {
             return;
         }
+        _flapTrigger.flap();
         rabbit.physicalProperties.applyImpulse(0, -15);
         rabbit.applyActionView(GlobalConstants.ACTION_VIEW_FLAP_WINGS);
     }

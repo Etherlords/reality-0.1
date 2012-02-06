@@ -19,6 +19,7 @@ import patterns.strategy.Strategy;
 import patterns.strategy.StrategyController;
 
 import ui.Bell;
+import ui.rabbit.FlapTriggerGameObject;
 import ui.rabbit.Rabbit;
 import ui.rabbit.RabbitSkin;
 import ui.rabbit.rabbitReactions.RabbitAccelerate;
@@ -120,6 +121,8 @@ public class GameScene extends Sprite {
 
         gameObject.addEventListener(GameObjectPhysicEvent.COLLIDE, rabbitColideWith);
 
+        var flapTrigger:FlapTriggerGameObject = worldConstructor.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), this) as FlapTriggerGameObject;
+
         worldConstructor.registerGameObject(gameObject);
 
         _boundaries = new BoundariesConstructor();
@@ -132,7 +135,7 @@ public class GameScene extends Sprite {
         rabbitReactions.addStrategy(standarJump);
         rabbitReactions.addStrategy(followMouse);
         rabbitReactions.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_ACCELERATE, new RabbitAccelerate()));
-        rabbitReactions.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS, new RabbitFlapWings()));
+        rabbitReactions.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS, new RabbitFlapWings(flapTrigger)));
     }
 
     private function rabbitColideWith(e:GameObjectPhysicEvent):void {

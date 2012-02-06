@@ -87,7 +87,7 @@ import flash.events.IEventDispatcher;
 		/**
 		 * Функция которая коммитит последние изменения в физический мир
 		 */
-		public function preRender():void
+		public function preRender(lastPreRenderCallDelay:uint):void
 		{
 			if (markToDestroy)
 			{
