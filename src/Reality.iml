@@ -30,6 +30,7 @@
     <orderEntry type="library" name="compiled_assets" level="project" />
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="library" name="as3-commons" level="application" />
+    <orderEntry type="library" name="flexunit" level="application" />
   </component>
 </module>
 
