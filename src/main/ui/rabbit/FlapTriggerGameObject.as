@@ -25,7 +25,7 @@ public class FlapTriggerGameObject extends LifeTimeGameObject {
 
     override protected function addLife(time:uint):void {
         super.addLife(time);
-        if (lifeTime > 500) {
+        if (lifeTime > 150) {
             _isAbleToFlap = true;
 
         }

@@ -25,7 +25,7 @@ public class RabbitFlapWings extends SimpleAlgorithm {
             return;
         }
         _flapTrigger.flap();
-        rabbit.physicalProperties.applyImpulse(0, -15);
+        rabbit.physicalProperties.applyImpulse(0, -5);
         rabbit.applyActionView(GlobalConstants.ACTION_VIEW_FLAP_WINGS);
     }
 }
