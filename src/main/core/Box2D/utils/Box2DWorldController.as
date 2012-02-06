@@ -1,19 +1,22 @@
 package core.Box2D.utils 
 {
-	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.b2DebugDraw;
-	import Box2D.Dynamics.b2World;
-	import core.Box2D.collision.SimpleConcatListener;
-	import core.Box2D.SimpleDestructionListenere;
-	import core.events.GameObjectPhysicEvent;
-	import core.events.NativeCollideEvent;
-	import core.GlobalConstants;
-	import core.view.gameobject.config.GameobjectConfig;
-	import core.view.gameobject.GameObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
-	import flash.geom.Point;
-	/**
+import Box2D.Common.Math.b2Vec2;
+import Box2D.Dynamics.b2DebugDraw;
+import Box2D.Dynamics.b2World;
+
+import core.Box2D.SimpleDestructionListenere;
+import core.Box2D.collision.SimpleConcatListener;
+import core.GlobalConstants;
+import core.events.GameObjectPhysicEvent;
+import core.events.NativeCollideEvent;
+import core.view.gameobject.GameObject;
+import core.view.gameobject.config.GameobjectConfig;
+
+import flash.display.DisplayObjectContainer;
+import flash.display.Sprite;
+import flash.geom.Point;
+
+/**
 	 * Класс для создания и работы с физическим миром
 	 * Будем считать что в одно время у нас существует один мир
 	 * Покрайнемере в рамках этой игры больше не понадобится
@@ -41,7 +44,7 @@ package core.Box2D.utils
 		public function gameStep():void
 		{
 			for each (var preRenderObj:GameObject in _gameObjectsRegistry.objectsList) {
-                preRenderObj.preRender();
+                preRenderObj.preRender(0.025 * 1000); //todo calc correctly
             }
 			
 			world.Step(0.04, 100, 100);
@@ -53,16 +56,6 @@ package core.Box2D.utils
                 renderObj.render();
             }
         }
-		
-		private function renderCall(gameObject:GameObject, i:int, vector:Vector.<GameObject>):void 
-		{
-			gameObject.render();
-		}
-		
-		private function preRenderCall(gameObject:GameObject, i:int, vector:Vector.<GameObject>):void 
-		{
-			gameObject.preRender();
-		}
 		
 		public function get world():b2World 
 		{

@@ -48,6 +48,11 @@ public class RabbitSkin extends Skin {
         jumpRight.visible  = (actionKey == GlobalConstants.ACTION_VIEW_JUMP_RIGHT);
         jumpLeft.visible   = (actionKey == GlobalConstants.ACTION_VIEW_JUMP_LEFT);
 
+        if (actionKey == GlobalConstants.ACTION_VIEW_FLAP_WINGS) {
+            jumpLeft.flapWings();
+            jumpRight.flapWings();
+        }
+
     }
 }
 }
