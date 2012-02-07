@@ -12,7 +12,7 @@ import flash.display.Sprite;
 	 */
 	public class Rabbit extends GameObject 
 	{
-		
+		//public var movementFlag:
 		
 		public function Rabbit(config:GameobjectConfig, instance:Sprite) 
 		{

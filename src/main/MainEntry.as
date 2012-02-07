@@ -34,6 +34,7 @@ package
 			stateManager.pushState(gameState);
 			
 			stateManager.start();
+			
 		}
 		
 	}

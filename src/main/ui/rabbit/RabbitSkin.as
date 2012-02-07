@@ -43,7 +43,8 @@ public class RabbitSkin extends Skin {
         return 90;
     }
 
-    override public function doAction(actionKey:uint):void {
+    override public function doAction(actionKey:uint):void 
+	{
         super.doAction(actionKey);
         left.visible       = (actionKey == GlobalConstants.ACTION_VIEW_WALK_LEFT);
         right.visible      = (actionKey == GlobalConstants.ACTION_VIEW_WALK_RIGHT);
