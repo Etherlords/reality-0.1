@@ -14,9 +14,10 @@ public class RabbitSkin extends Skin {
     private var jumpRight:DragonFlyRight;
     private var jumpLeft:DragonFlyLeft;
 	
-    public function RabbitSkin() {
+    public function RabbitSkin() 
+	{
 		super();
-        addChild(new AnimatedSprite());
+       
         left = new DragonWalkLeft();
         right = new DragonWalkRight();
         jumpRight = new DragonFlyRight();
@@ -32,7 +33,8 @@ public class RabbitSkin extends Skin {
     }
 
 
-    override public function get phsyHeight():Number {
+    override public function get phsyHeight():Number 
+	{
         return 50;
     }
 
@@ -48,7 +50,8 @@ public class RabbitSkin extends Skin {
         jumpRight.visible  = (actionKey == GlobalConstants.ACTION_VIEW_JUMP_RIGHT);
         jumpLeft.visible   = (actionKey == GlobalConstants.ACTION_VIEW_JUMP_LEFT);
 
-        if (actionKey == GlobalConstants.ACTION_VIEW_FLAP_WINGS) {
+        if (actionKey == GlobalConstants.ACTION_VIEW_FLAP_WINGS) 
+		{
             jumpLeft.flapWings();
             jumpRight.flapWings();
         }

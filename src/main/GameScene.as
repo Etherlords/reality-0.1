@@ -48,7 +48,8 @@ public class GameScene extends Sprite {
         initilize();
     }
 
-    private function initilize():void {
+    private function initilize():void 
+	{
         gameObjects = [];
         createWorld();
         createViewComponents();
@@ -82,7 +83,8 @@ public class GameScene extends Sprite {
         createBell();
     }
 
-    private function calculateObjectMoving(e:* = null):void {
+    private function calculateObjectMoving(e:* = null):void 
+	{
         rabbitAction(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE);
     }
 
@@ -138,22 +140,26 @@ public class GameScene extends Sprite {
         rabbitReactions.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS, new RabbitFlapWings(flapTrigger)));
     }
 
-    private function rabbitColideWith(e:GameObjectPhysicEvent):void {
-        trace('collide with', e.target, e.interactionWith);
+    private function rabbitColideWith(e:GameObjectPhysicEvent):void 
+	{
+      
         rabbitAction(GlobalConstants.ACTION_STRATEGY_ACCELERATE);
         worldConstructor.destroyGameObject(e.interactionWith);
 
     }
 
-    private function createBell():void {
+    private function createBell():void 
+	{
         var bellConfig:GameobjectConfig = new GameobjectConfig(true);
         bellConfig.physicConfiguration.type = 2; //todo replace
         bellConfig.skinClass = EmptyBoxSkin;
-        bell = worldConstructor.constructGameObject(Bell, bellConfig, this) as Bell;// new Bell(bellConfig, this);
-        bell.body.x = Math.random() * _boundaries.width;
+        bell = new Bell(bellConfig, this)//worldConstructor.constructGameObject(Bell, bellConfig, this) as Bell;// new Bell(bellConfig, this);
+       
+		bell.body.x = Math.random() * _boundaries.width;
         bell.body.y = 0;
 
-        // worldConstructor.registerGameObject(bell);
+        worldConstructor.registerGameObject(bell);
+		worldConstructor.addToCollaboration(bell);
     }
 
 

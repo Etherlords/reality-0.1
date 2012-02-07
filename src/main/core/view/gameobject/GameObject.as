@@ -1,17 +1,17 @@
 package core.view.gameobject 
 {
+import core.body.IBodyPresentation;
 import core.Box2D.utils.BodyConstructor;
 import core.Box2D.utils.EmptyBodyConstructor;
 import core.Box2D.utils.EmptyPhysicalPropertiesConstructor;
 import core.Box2D.utils.PhysicBodyConstructor;
-import core.body.IBodyPresentation;
 import core.events.GameObjectPhysicEvent;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.skin.Skin;
-
-import flash.display.Sprite;
+import flash.display.DisplayObjectContainer;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
+
 
 /**
 	 * [broadcast event] Диспатчится когда объект столкнулся с каким то другим объектом
@@ -41,9 +41,9 @@ import flash.events.IEventDispatcher;
 		protected var _body:IBodyPresentation
 		
 		private var config:GameobjectConfig;
-		private var instance:Sprite;
+		private var instance:DisplayObjectContainer;
 		private var _physicalProperties:PhysicalProperties;
-		private var markToDestroy:Boolean = false;
+		public var markToDestroy:Boolean = false;
 
         //TODO comment is not actual
 		/**
@@ -54,7 +54,7 @@ import flash.events.IEventDispatcher;
 		 * @param	config
 		 * @param	instance
 		 */
-		public function GameObject(config:GameobjectConfig, instance:Sprite, eventFlowTarget:IEventDispatcher = null) 
+		public function GameObject(config:GameobjectConfig, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 		{
 			super(eventFlowTarget);
 			
@@ -79,8 +79,6 @@ import flash.events.IEventDispatcher;
 		 */
 		public function render():void
 		{
-			
-			
 			body.render();
 		}
 		
@@ -105,8 +103,9 @@ import flash.events.IEventDispatcher;
 		
 		private function destructor():void
 		{
-			
-			instance.removeChild(skin);
+			if(instance.contains(skin))
+				instance.removeChild(skin);
+				
 			body.destroy();
 			
 			this.skin = null;
@@ -163,7 +162,9 @@ import flash.events.IEventDispatcher;
 		private function addToDisplayList():void 
 		{
 			instance.addChild(skin);
+			
 			//Вызываем рендер чтобы синхронизировать представление и скин
+			
 			render();
 		}
 		

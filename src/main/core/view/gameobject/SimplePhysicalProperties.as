@@ -10,7 +10,8 @@ import flash.geom.Point;
 	 * ...
 	 * @author 
 	 */
-	public class SimplePhysicalProperties implements PhysicalProperties {
+	public class SimplePhysicalProperties implements PhysicalProperties 
+	{
 		private var body:PhysicBodyPresentation;
 		
 		public function SimplePhysicalProperties(body:PhysicBodyPresentation)
@@ -25,21 +26,23 @@ import flash.geom.Point;
 			
 		}
 
-    public function stopXVelocity():void {
-        var linearVelocity:Point = this.linearVelocity;
-        linearVelocity.x = 0;
+		public function stopXVelocity():void 
+		{
+			var linearVelocity:Point = this.linearVelocity;
+			linearVelocity.x = 0;
 
-        this.linearVelocity = linearVelocity;
-    }
+			this.linearVelocity = linearVelocity;
+		}
 
-    public function stopYVelocity():void {
-        var linearVelocity:Point = this.linearVelocity;
-        linearVelocity.y = 0;
+		public function stopYVelocity():void 
+		{
+			var linearVelocity:Point = this.linearVelocity;
+			linearVelocity.y = 0;
 
-        this.linearVelocity = linearVelocity;
-    }
+			this.linearVelocity = linearVelocity;
+		}
 
-    public function set linearVelocity(value:Point):void
+		public function set linearVelocity(value:Point):void
 		{
 			body.body.SetLinearVelocity(new b2Vec2(value.x, value.y));
 		}
@@ -50,15 +53,16 @@ import flash.geom.Point;
 			return new Point(linearVelocity.x, linearVelocity.y);
 		}
 
-    public function applyImpulse(x:Number = 0, y:Number = 0, impulseSourceX:Number = 0, impulseSourceY:Number = 0):void {
-        body.body.ApplyImpulse(new b2Vec2(x, y), new b2Vec2(impulseSourceX, impulseSourceY));
-    }
+		public function applyImpulse(x:Number = 0, y:Number = 0, impulseSourceX:Number = 0, impulseSourceY:Number = 0):void 
+		{
+			body.body.ApplyImpulse(new b2Vec2(x, y), new b2Vec2(impulseSourceX, impulseSourceY));
+		}
 
-    public function get physicBodyKey():*
-	{
+		public function get physicBodyKey():*
+		{
 			return body.body;
-	}
+		}
 
-}
+	}
 
 }

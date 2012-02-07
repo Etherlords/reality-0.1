@@ -22,7 +22,7 @@ package core.Box2D
 		*/
 		override public virtual function SayGoodbyeJoint(joint:b2Joint) : void
 		{
-			trace(joint);
+			//trace(joint);
 		};
 
 		/**
@@ -31,7 +31,7 @@ package core.Box2D
 		*/
 		override public virtual function SayGoodbyeFixture(fixture:b2Fixture) : void
 		{
-			trace(fixture);
+			//trace(fixture);
 			
 		}
 	}

@@ -2,10 +2,9 @@ package ui
 {
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
-	import flash.display.Sprite;
-	import flash.events.TimerEvent;
+	import core.view.gameobject.SimplePhysicalProperties;
+	import flash.display.DisplayObjectContainer;
 	import flash.geom.Point;
-	import flash.utils.Timer;
 	
 	/**
 	 * ...
@@ -13,9 +12,9 @@ package ui
 	 */
 	public class Bell extends GameObject 
 	{
-		private var t:Timer;
 		
-		public function Bell(config:GameobjectConfig, instance:Sprite) 
+		
+		public function Bell(config:GameobjectConfig, instance:DisplayObjectContainer) 
 		{
 			super(config, instance);
 		}
@@ -24,9 +23,9 @@ package ui
 		{
 			super.initilize();
 			
-			
+			//physicalProperties
 			// :C~~~~~
-			physicalProperties.physicBody.GetFixtureList().SetSensor(true);
+			(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetSensor(true);
 			//isSensor = true;
 		}
 		
@@ -48,7 +47,6 @@ package ui
 		 */
 		private function flowerEffect():void 
 		{
-			
 			//this.applyImpulseFromCenter(new b2Vec2(0, -1));
 			var linearVelocity:Point = physicalProperties.linearVelocity
 			linearVelocity.y = 0.1;

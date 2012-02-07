@@ -3,18 +3,18 @@ package core.Box2D.utils
 import Box2D.Common.Math.b2Vec2;
 import Box2D.Dynamics.b2DebugDraw;
 import Box2D.Dynamics.b2World;
-
-import core.Box2D.SimpleDestructionListenere;
 import core.Box2D.collision.SimpleConcatListener;
-import core.GlobalConstants;
+import core.Box2D.SimpleDestructionListenere;
 import core.events.GameObjectPhysicEvent;
 import core.events.NativeCollideEvent;
-import core.view.gameobject.GameObject;
+import core.GlobalConstants;
 import core.view.gameobject.config.GameobjectConfig;
-
+import core.view.gameobject.GameObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.geom.Point;
+
+
 
 /**
 	 * Класс для создания и работы с физическим миром
@@ -25,14 +25,14 @@ import flash.geom.Point;
 	public class Box2DWorldController 
 	{
 		private var gravity:Point;
-		private var debugInstance:Sprite;
+		private var debugInstance:DisplayObjectContainer;
 		private var isDebug:Boolean;
 		
 		private var _world:b2World;
 		private var _gameObjectsRegistry:GameobjectsRegistry;
 		private var collideListener:SimpleConcatListener;
 		
-		public function Box2DWorldController(gravity:Point, debugInstance:Sprite, isDebug:Boolean = false) 
+		public function Box2DWorldController(gravity:Point, debugInstance:DisplayObjectContainer, isDebug:Boolean = false) 
 		{
 			this.isDebug = isDebug;
 			this.debugInstance = debugInstance;
@@ -44,6 +44,7 @@ import flash.geom.Point;
 		public function gameStep():void
 		{
 			for each (var preRenderObj:GameObject in _gameObjectsRegistry.objectsList) {
+				
                 preRenderObj.preRender(0.025 * 1000); //todo calc correctly
             }
 			
@@ -185,6 +186,8 @@ import flash.geom.Point;
 			world.SetDebugDraw(debugDraw);
 			
 			debugInstance.addChild(debugSprite);
+			
+		
 		}
 		
 		

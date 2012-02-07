@@ -6,12 +6,13 @@ package core.Box2D.utils {
 import core.body.IBodyPresentation;
 import core.view.skin.Skin;
 
+
 public class EmptyBodyConstructor implements BodyConstructor {
     public function EmptyBodyConstructor() {
     }
 
     public function make(skin:Skin):IBodyPresentation {
-       return new  EmptyBody();
+       return new EmptyBody();
     }
 }
 }

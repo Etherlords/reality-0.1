@@ -4,7 +4,8 @@ package
 	import core.states.State;
 	import core.states.StatesManager;
 	import flash.display.Sprite;
-	import ui.scene.GameScene.GameSceneController;
+	import ui.scene.gameInteractionScene.GameSceneController;
+	
 	
 	/**
 	 * ...

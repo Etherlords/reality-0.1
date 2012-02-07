@@ -36,6 +36,11 @@ package ui.snow
 			generateSnow()
 		}
 		
+		public function get drawingY():Number 
+		{
+			return _drawingY;
+		}
+		
 		private function generateSnow(e:TimerEvent = null):void 
 		{
 			//trace(_drawingY);

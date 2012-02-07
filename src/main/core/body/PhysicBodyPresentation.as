@@ -101,7 +101,7 @@ package core.body
 		
 		public function get width():Number 
 		{
-			return 0;
+			return skin.phsyWidth;
 		}
 		
 		public function set width(value:Number):void 
@@ -111,7 +111,7 @@ package core.body
 		
 		public function get height():Number 
 		{
-			return 0;
+			return skin.phsyHeight;
 		}
 		
 		public function set height(value:Number):void 
