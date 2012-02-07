@@ -1,22 +1,24 @@
 package core.Box2D.utils 
 {
-	import Box2D.Collision.Shapes.b2PolygonShape;
-	import Box2D.Collision.Shapes.b2Shape;
-	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.b2Body;
-	import Box2D.Dynamics.b2BodyDef;
-	import Box2D.Dynamics.b2FixtureDef;
-	import core.body.IBodyPresentation;
-	import core.body.PhysicBodyPresentation;
-	import core.GlobalConstants;
-	import core.locators.PhysicWorldLocator;
-	import core.view.gameobject.config.PhysicConfiguration;
-	import core.view.skin.Skin;
-	/**
+import Box2D.Collision.Shapes.b2PolygonShape;
+import Box2D.Collision.Shapes.b2Shape;
+import Box2D.Common.Math.b2Vec2;
+import Box2D.Dynamics.b2Body;
+import Box2D.Dynamics.b2BodyDef;
+import Box2D.Dynamics.b2FixtureDef;
+
+import core.GlobalConstants;
+import core.body.IBodyPresentation;
+import core.body.PhysicBodyPresentation;
+import core.locators.PhysicWorldLocator;
+import core.view.gameobject.config.PhysicConfiguration;
+import core.view.skin.Skin;
+
+/**
 	 * ...
 	 * @author 
 	 */
-	public class PhysicBodyConstructor 
+	public class PhysicBodyConstructor  implements BodyConstructor
 	{
 		private var config:PhysicConfiguration;
 		

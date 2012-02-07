@@ -1,17 +1,12 @@
 package ui.rabbit 
 {
-	import Box2D.Collision.Shapes.b2Shape;
-	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.b2BodyDef;
-	import Box2D.Dynamics.b2FixtureDef;
-	import Box2D.Dynamics.b2World;
-
 import core.GlobalConstants;
+import core.view.gameobject.GameObject;
 import core.view.gameobject.config.GameobjectConfig;
-	import core.view.gameobject.GameObject;
-	import flash.display.Sprite;
-	
-	/**
+
+import flash.display.Sprite;
+
+/**
 	 * ...
 	 * @author 
 	 */
@@ -30,9 +25,9 @@ import core.view.gameobject.config.GameobjectConfig;
 			physicalProperties.applyImpulse(force, 0);
 		}
 		
-        override public function preRender():void 
+        override public function preRender(lastPreRenderCallDelay:uint):void
 		{
-            super.preRender();
+            super.preRender(lastPreRenderCallDelay);
 			
             if ((Math.abs(physicalProperties.linearVelocity.y) > 0.2)) 
 			{

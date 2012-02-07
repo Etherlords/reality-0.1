@@ -1,17 +1,19 @@
 package core.view.gameobject 
 {
-	import core.body.IBodyPresentation;
-	import core.body.PhysicBodyPresentation;
-	import core.Box2D.utils.PhysicBodyConstructor;
-	import core.events.GameObjectPhysicEvent;
-	import core.view.gameobject.config.GameobjectConfig;
-	import core.view.skin.Skin;
-	import flash.display.Sprite;
-	import flash.events.EventDispatcher;
-	import flash.events.IEventDispatcher;
-	
-	
-	/**
+import core.Box2D.utils.BodyConstructor;
+import core.Box2D.utils.EmptyBodyConstructor;
+import core.Box2D.utils.EmptyPhysicalPropertiesConstructor;
+import core.Box2D.utils.PhysicBodyConstructor;
+import core.body.IBodyPresentation;
+import core.events.GameObjectPhysicEvent;
+import core.view.gameobject.config.GameobjectConfig;
+import core.view.skin.Skin;
+
+import flash.display.Sprite;
+import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
+
+/**
 	 * [broadcast event] Диспатчится когда объект столкнулся с каким то другим объектом
 	 * @eventType	core.events.GameObjectPhysicEvent.COLLIDE
 	 */
@@ -42,7 +44,8 @@ package core.view.gameobject
 		private var instance:Sprite;
 		private var _physicalProperties:PhysicalProperties;
 		private var markToDestroy:Boolean = false;
-		
+
+        //TODO comment is not actual
 		/**
 		 * Задаем конфи и инстанс объекта, возможно инстанс лучше задавать как то иначе, но не факт. 
 		 * Для одного и того зже мира по сути должны быть соответственные(по координатами, скейлу и пр) инстансы
@@ -84,7 +87,7 @@ package core.view.gameobject
 		/**
 		 * Функция которая коммитит последние изменения в физический мир
 		 */
-		public function preRender():void
+		public function preRender(lastPreRenderCallDelay:uint):void
 		{
 			if (markToDestroy)
 			{
@@ -138,21 +141,23 @@ package core.view.gameobject
 		 */
 		protected function createBody():void 
 		{
-			var bodyConstructor:PhysicBodyConstructor;
+			var bodyConstructor:BodyConstructor;
+            var phsyPropConstructor:PhysicalPropertiesConstructor;
 			
-			if (config.isUsePhisicWorld)
+			if (config.isUsePhisicWorld) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику
 			{
 				bodyConstructor = new PhysicBodyConstructor(config.physicConfiguration);
-				
+                phsyPropConstructor = new SimplePhysicalPropertiesConstructor();
 			}
 			else
 			{
-				
+                bodyConstructor = new EmptyBodyConstructor();
+                phsyPropConstructor = new EmptyPhysicalPropertiesConstructor();
 			}
 			
 			skin = new config.skinClass;
 			_body = bodyConstructor.make(skin);
-			_physicalProperties = new PhysicalProperties(body as PhysicBodyPresentation)
+			_physicalProperties = phsyPropConstructor.make(body);
 		}
 		
 		private function addToDisplayList():void 
@@ -167,7 +172,7 @@ package core.view.gameobject
 			return _body;
 		}
 		
-		public function get physicalProperties():PhysicalProperties 
+		public function get physicalProperties():PhysicalProperties
 		{
 			return _physicalProperties;
 		}

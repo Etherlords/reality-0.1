@@ -1,9 +1,12 @@
 package core.Box2D.utils 
 {
-	import Box2D.Dynamics.b2Body;
-	import core.view.gameobject.GameObject;
-	import org.as3commons.collections.Map;
-	/**
+import Box2D.Dynamics.b2Body;
+
+import core.view.gameobject.GameObject;
+
+import org.as3commons.collections.Map;
+
+/**
 	 * ...
 	 * @author 
 	 */
@@ -50,7 +53,7 @@ package core.Box2D.utils
 			gameObjectsList.push(gameObject);
 			
 			if(gameObject.physicalProperties)
-				phyBodyToGameobjectMap.add(gameObject.physicalProperties.physicBody, gameObject);
+				phyBodyToGameobjectMap.add(gameObject.physicalProperties.physicBodyKey, gameObject);
 		}
 		
 		public function get objectsList():Vector.<GameObject> 
