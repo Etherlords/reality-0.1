@@ -55,7 +55,7 @@ package patterns.strategy
 		{
 			
 			if(hasStrategy(key))
-				return strategies[key].execute.apply(null, args);
+				return strategies[key].execute.apply(null, args || null);
 			else
 				return null;
 		}

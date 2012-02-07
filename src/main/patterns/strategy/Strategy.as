@@ -10,10 +10,10 @@ package patterns.strategy
 		protected var _isFunctionStrategy:Boolean;
 		protected var _numberOfArguments:int;
 		
-		protected var _algorithm:IAlgorithm;
+		protected var _algorithm:Object;
 		protected var _key:String;
 		
-		public function Strategy(key:String, algorithm:IAlgorithm, protect:Boolean = false) 
+		public function Strategy(key:String, algorithm:Object, protect:Boolean = false) 
 		{
 			_protect = protect;
 			_key = key;
@@ -28,7 +28,7 @@ package patterns.strategy
 			_numberOfArguments = _algorithm.length
 		}
 		
-		public function execute(args:Array):*
+		public function execute(args:Array = null):*
 		{	
 			
 			return _algorithm.apply(this, args);

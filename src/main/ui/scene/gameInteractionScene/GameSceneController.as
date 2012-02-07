@@ -4,10 +4,12 @@ package ui.scene.gameInteractionScene
 	import core.events.GameObjectPhysicEvent;
 	import core.locators.PhysicWorldLocator;
 	import core.scene.AbstractSceneController;
+	import core.ui.KeyBoardController;
 	import core.view.gameobject.config.GameobjectConfig;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	import ui.Bell;
 	import ui.camera.TracingCamera;
@@ -35,6 +37,7 @@ package ui.scene.gameInteractionScene
 		
 		private var scoresSubstractor:Number = 10;
 		private var scores:Number = 0;
+		private var keyController:KeyBoardController;
 		
 		public function GameSceneController() 
 		{
@@ -46,8 +49,15 @@ package ui.scene.gameInteractionScene
 		{
 			createWorld();
 			createViewComponents();
+			
+			keyController = new KeyBoardController(view.stage);
+			
 			manageEvents();
 			initGameInitrations();
+			
+			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
+			
+			
 			
 			camera = new TracingCamera(rabbitController.rabbit.body);
 			
@@ -99,6 +109,13 @@ package ui.scene.gameInteractionScene
 			//view.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			
 			//rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, rabbitColideWith);
+			
+			keyController.registerKeyDownReaction(Keyboard.SPACE, onSpaceIsDown);
+		}
+		
+		private function onSpaceIsDown():void 
+		{
+			trace('space is down', arguments);
 		}
 		
 		private function createWorld():void 
