@@ -24,6 +24,11 @@ package utils
 			var groundShape:b2PolygonShape = new b2PolygonShape();
 			groundShape.SetAsBox(_width * GlobalConstants.PIXELS_TO_METR, 1 * GlobalConstants.PIXELS_TO_METR);
 			var groundFixtureDef:b2FixtureDef = new b2FixtureDef();
+			
+			groundFixtureDef.density = 0;
+			groundFixtureDef.friction = 0;
+			groundFixtureDef.restitution = 0;
+			
 			groundFixtureDef.shape = groundShape;
 			var groundFixture:b2Fixture = groundBody.CreateFixture(groundFixtureDef);
 			
@@ -33,6 +38,11 @@ package utils
 			var rightWallShape:b2PolygonShape = new b2PolygonShape();
 			rightWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, _height * GlobalConstants.PIXELS_TO_METR);
 			var rightWallFixtureDef:b2FixtureDef = new b2FixtureDef();
+			
+			rightWallFixtureDef.density = 0;
+			rightWallFixtureDef.friction = 0;
+			rightWallFixtureDef.restitution = 0;
+			
 			rightWallFixtureDef.shape = rightWallShape;
 			var rightWallFixture:b2Fixture = rightWallBody.CreateFixture(rightWallFixtureDef);
 			
@@ -42,6 +52,11 @@ package utils
 			var leftWallShape:b2PolygonShape = new b2PolygonShape();
 			leftWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, _height * GlobalConstants.PIXELS_TO_METR);
 			var leftWallFixtureDef:b2FixtureDef = new b2FixtureDef();
+			
+			leftWallFixtureDef.density = 0;
+			leftWallFixtureDef.friction = 0;
+			leftWallFixtureDef.restitution = 0;
+			
 			leftWallFixtureDef.shape = leftWallShape;
 			var leftWallFixture:b2Fixture = leftWallBody.CreateFixture(leftWallFixtureDef);
 		}

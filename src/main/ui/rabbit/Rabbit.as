@@ -3,6 +3,7 @@ package ui.rabbit
 import core.GlobalConstants;
 import core.view.gameobject.GameObject;
 import core.view.gameobject.config.GameobjectConfig;
+import flash.geom.Point;
 
 import flash.display.Sprite;
 
@@ -17,11 +18,16 @@ import flash.display.Sprite;
 		public function Rabbit(config:GameobjectConfig, instance:Sprite) 
 		{
 			super(config, instance);
+			
+			
 		}
 		
 		public function applyMove(force:Number):void
 		{
-			physicalProperties.stopXVelocity();
+			var linearVelocity:Point = physicalProperties.linearVelocity;
+			linearVelocity.x /= 2;
+			physicalProperties.linearVelocity = linearVelocity;
+			//physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);
 		}
 		
@@ -48,7 +54,7 @@ import flash.display.Sprite;
 			} 
 			else 
 			{
-				applyActionView(GlobalConstants.ACTION_VIEW_WALK_LEFT);
+				//applyActionView(GlobalConstants.ACTION_VIEW_WALK_LEFT);
 			}
         }
     }

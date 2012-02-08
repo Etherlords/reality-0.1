@@ -1,16 +1,12 @@
 package  ui.scene.gameInteractionScene.view
 {
 	//import com.sociodox.theminer.TheMiner;
-	import core.camera.Camera;
+	import core.locators.ServicesLocator;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Point;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
+	import ui.scoreboard.Scoreboard;
 	import ui.snow.FallingSnowAnimation;
-	import ui.snow.Snow;
-
 	
 	/**
 	 * ...
@@ -21,8 +17,8 @@ package  ui.scene.gameInteractionScene.view
 		private var _gameObjectsInstance:DisplayObjectContainer;
 		
 		private var trackCameraInstances:Vector.<DisplayObjectContainer>
-		private var camera:Camera;
-		private var _scoresView:TextField;
+		
+		private var _scoreboard:Scoreboard;
 		private var _snow:FallingSnowAnimation;
 		
 		public function GameSceneView() 
@@ -39,7 +35,7 @@ package  ui.scene.gameInteractionScene.view
 			//if (this.y < 0)	
 			//	this.y = 0;
 			
-			var target:Point = camera.target;
+			var target:Point = ServicesLocator.cameraService.camera.target;
 			
 			for (var i:int = 0; i < trackCameraInstances.length; i++)
 			{
@@ -53,19 +49,14 @@ package  ui.scene.gameInteractionScene.view
 			_snow.drawingY = (trackCameraInstances[0].y);
 		}
 		
-		public function setCamera(camera:Camera):void
-		{
-			this.camera = camera;
-		}
-		
 		public function get gameObjectsInstance():DisplayObjectContainer 
 		{
 			return _gameObjectsInstance;
 		}
 		
-		public function get scoresView():TextField 
+		public function get scoresView():Scoreboard 
 		{
-			return _scoresView;
+			return _scoreboard;
 		}
 		
 		public function initilize():void 
@@ -80,21 +71,15 @@ package  ui.scene.gameInteractionScene.view
 			
 			_gameObjectsInstance = new Sprite();
 			
-			_scoresView = new TextField();
+			_scoreboard = new Scoreboard();
 			
 			trackCameraInstances.push(_gameObjectsInstance);
 			trackCameraInstances.push(_snow);
 			
 			
-			addChild(_scoresView);
+			addChild(_scoreboard);
 			addChild(_gameObjectsInstance);
 			addChild(_snow);
-			
-			_scoresView.y = 10;
-			_scoresView.x = 10;
-			_scoresView.autoSize = TextFieldAutoSize.LEFT;
-			_scoresView.defaultTextFormat = new TextFormat("Verdana", 20, 0xFFFFFF);
-			_scoresView.text = '0';
 		}
 		
 		

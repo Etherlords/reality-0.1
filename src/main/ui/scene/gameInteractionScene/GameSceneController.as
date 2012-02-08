@@ -3,6 +3,7 @@ package ui.scene.gameInteractionScene
 	import core.Box2D.utils.Box2DWorldController;
 	import core.events.GameObjectPhysicEvent;
 	import core.locators.PhysicWorldLocator;
+	import core.locators.ServicesLocator;
 	import core.scene.AbstractSceneController;
 	import core.ui.KeyBoardController;
 	import core.view.gameobject.config.GameobjectConfig;
@@ -11,19 +12,16 @@ package ui.scene.gameInteractionScene
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
-	import ui.Bell;
-	import ui.camera.TracingCamera;
+	import ui.gameobjects.BaseInteractiveGameObject;
+	import ui.gameobjects.GameobjectsCrationController;
 	import ui.rabbit.FlapTriggerGameObject;
 	import ui.rabbit.logic.RabbitController;
 	import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 	import ui.scene.gameInteractionScene.view.GameSceneView;
-	import ui.utils.objectContructors.BellConstructor;
+	import ui.services.CameraService;
+	import ui.services.ScoreboardService;
 	import utils.BoundariesConstructor;
 	
-	/**
-	 * ...
-	 * @author 
-	 */
 	public class GameSceneController extends AbstractSceneController 
 	{
 		
@@ -32,17 +30,27 @@ package ui.scene.gameInteractionScene
 		private var worldController:Box2DWorldController;
 		private var _boundaries:BoundariesConstructor;
 		private var rabbitController:RabbitController;
-		private var camera:TracingCamera;
-		private var lastBell:Bell;
+		
+		private var lastCrationObject:BaseInteractiveGameObject;
 		
 		private var scoresSubstractor:Number = 10;
 		private var scores:Number = 0;
 		private var keyController:KeyBoardController;
+		private var gamaobjectCreationController:GameobjectsCrationController;
 		
 		public function GameSceneController() 
 		{
 			super();
 			
+		}
+		
+		override protected function initilize():void 
+		{
+			//create using services
+			var camersService:CameraService = new CameraService();
+			var scoreboardService:ScoreboardService = new ScoreboardService();
+			
+			super.initilize();
 		}
 		
 		private function postInitilize():void 
@@ -56,25 +64,24 @@ package ui.scene.gameInteractionScene
 			initGameInitrations();
 			
 			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
+			ServicesLocator.cameraService.cameraTarget = rabbitController.rabbit.body;
+			ServicesLocator.scoreboardService.scoreboard = sceneView.scoresView;
+			
+			gamaobjectCreationController = new GameobjectsCrationController(sceneView.gameObjectsInstance, _boundaries.width, worldController);
 			
 			
-			
-			camera = new TracingCamera(rabbitController.rabbit.body);
-			
-			sceneView.setCamera(camera);
-			
-			generateBell();
-			generateBell();
-			generateBell();
-			generateBell();
-			generateBell();
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
 		}
 		
 		private function initGameInitrations():void 
 		{
-			var generateBellTimer:Timer = new Timer(1000);
-			generateBellTimer.addEventListener(TimerEvent.TIMER, generateBell);
-			generateBellTimer.start();
+			var overtimeObjectGeneration:Timer = new Timer(300);
+			overtimeObjectGeneration.addEventListener(TimerEvent.TIMER, triggerOvertimeObjectGeneration);
+			overtimeObjectGeneration.start();
 			
 			 var stepTimer:Timer = new Timer(0.025 * 1000);
 			stepTimer.addEventListener(TimerEvent.TIMER, gameStep);
@@ -87,20 +94,28 @@ package ui.scene.gameInteractionScene
 			sceneView.render();
 		}
 		
-		private function generateBell(e:* = null):void 
+		private function triggerOvertimeObjectGeneration(e:* = null):void 
 		{	
-			lastBell = BellConstructor.make(camera, lastBell, sceneView.gameObjectsInstance, _boundaries.width, worldController) as Bell;
-			lastBell.addEventListener(GameObjectPhysicEvent.DESTROY, bellDestoryReaction);
+			lastCrationObject = gamaobjectCreationController.createGameobjectOvertimeTrigger(lastCrationObject)
+			lastCrationObject.interactiveObjectConfig.creationAlgorithm.execute();
+			
+			lastCrationObject.addEventListener(GameObjectPhysicEvent.DESTROY, interactiveObjectDestructionTrigger);
+		}
+		
+		private function interactiveObjectDestructionTrigger(e:GameObjectPhysicEvent):void 
+		{
+			var interactiveObject:BaseInteractiveGameObject = e.interactionWith as BaseInteractiveGameObject;
+			
+			
+			interactiveObject.interactiveObjectConfig.destructionAlgorithm.execute();
 		}
 		
 		private function bellDestoryReaction(e:GameObjectPhysicEvent):void 
 		{
-			generateBell();
+			triggerOvertimeObjectGeneration();
 			
-			scores += scoresSubstractor;
+			sceneView.scoresView.scores += scoresSubstractor;
 			scoresSubstractor += 10;
-			
-			sceneView.scoresView.text = scores.toString();
 		}
 		
 		private function manageEvents():void 
@@ -109,6 +124,7 @@ package ui.scene.gameInteractionScene
 			//view.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			
 			//rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, rabbitColideWith);
+			
 			
 			keyController.registerKeyDownReaction(Keyboard.SPACE, onSpaceIsDown);
 		}
@@ -141,10 +157,7 @@ package ui.scene.gameInteractionScene
 			sceneView = new GameSceneView();
 			setViewComponent(sceneView);
 			super.activate(instance);
-			
-			
-			
-			
+
 			postInitilize();
 			
 		}

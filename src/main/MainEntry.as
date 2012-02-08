@@ -31,6 +31,7 @@ package
 			var gameStateConfig:StateConfig = new StateConfig('Game', GameSceneController);
 			var gameState:State = new State(gameStateConfig);
 			
+			
 			stateManager.pushState(gameState);
 			
 			stateManager.start();
