@@ -6,6 +6,7 @@ import core.Box2D.utils.EmptyBodyConstructor;
 import core.Box2D.utils.EmptyPhysicalPropertiesConstructor;
 import core.Box2D.utils.PhysicBodyConstructor;
 import core.events.GameObjectPhysicEvent;
+import core.view.direction.Direction;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.skin.Skin;
 import flash.display.DisplayObjectContainer;
@@ -44,6 +45,8 @@ import flash.events.IEventDispatcher;
 		private var instance:DisplayObjectContainer;
 		private var _physicalProperties:PhysicalProperties;
 		public var markToDestroy:Boolean = false;
+		
+		public var direction:Direction;
 
         //TODO comment is not actual
 		/**
@@ -66,6 +69,7 @@ import flash.events.IEventDispatcher;
 		
 		private function preInitilize():void 
 		{
+			direction = new Direction();
 			createBody();
 		}
 		
@@ -87,6 +91,9 @@ import flash.events.IEventDispatcher;
 		 */
 		public function preRender(lastPreRenderCallDelay:uint):void
 		{
+			if(physicalProperties)
+				direction.calcDirection();
+			
 			if (markToDestroy)
 			{
 				destructor();
@@ -155,8 +162,11 @@ import flash.events.IEventDispatcher;
 			}
 			
 			skin = new config.skinClass;
+			skin.direction = direction;
 			_body = bodyConstructor.make(skin);
 			_physicalProperties = phsyPropConstructor.make(body);
+			
+			direction.trackingObject = this;
 		}
 		
 		private function addToDisplayList():void 

@@ -12,11 +12,11 @@ package ui.snow
 	 */
 	public class Snow extends Sprite 
 	{
-		private var sinInterval:Number = 0.05 + Math.random() * 0.15;
+		private var sinInterval:Number = 0.05 + Math.random() * 0.03;
 		private var t:Number = 0;
-		private var speed:Number = Math.random() + 0.5;
+		private var speed:Number = Math.random() + 1.5;
 		
-		private var dieTimer:Timer = new Timer(13000, 1);
+		private var dieTimer:Timer = new Timer(6000, 1);
 		
 		public function Snow() 
 		{
@@ -52,7 +52,8 @@ package ui.snow
 		private function onUpdateFrame(e:Event):void 
 		{
 			this.y += speed;
-			this.x += Math.sin(t += sinInterval);
+			
+			this.x += Math.sin(t += sinInterval) / 2;
 		}
 		
 	}

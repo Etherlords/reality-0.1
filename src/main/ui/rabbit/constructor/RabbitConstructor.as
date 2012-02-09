@@ -27,7 +27,7 @@ package ui.rabbit.constructor
 			var gameObject:GameObject = worldController.constructGameObject(Rabbit, rabbitConfig, stage);
 
 			gameObject.body.x = 500;
-			gameObject.body.y = 500;
+			gameObject.body.y = 500 - gameObject.body.height;
 			
 			return gameObject;
 

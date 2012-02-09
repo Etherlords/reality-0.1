@@ -1,5 +1,6 @@
 package ui.gameobjects.simpleFlowObject 
 {
+	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.SimplePhysicalProperties;
 	import flash.display.DisplayObjectContainer;
@@ -32,6 +33,7 @@ package ui.gameobjects.simpleFlowObject
 		override public function render():void 
 		{
 			flowerEffect();
+			
 			super.render();
 		}
 		
@@ -42,7 +44,11 @@ package ui.gameobjects.simpleFlowObject
 		{
 			//this.applyImpulseFromCenter(new b2Vec2(0, -1));
 			var linearVelocity:Point = physicalProperties.linearVelocity
-			linearVelocity.y = -0.1;
+			
+			if(ServicesLocator.cameraService.camera.target.y > 200)
+				linearVelocity.y = -0.1;
+			else
+				linearVelocity.y = -0.4;
 			
 			physicalProperties.linearVelocity = linearVelocity;
 		}

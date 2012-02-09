@@ -39,7 +39,10 @@ package  ui.scene.gameInteractionScene.view
 			
 			for (var i:int = 0; i < trackCameraInstances.length; i++)
 			{
-				trackCameraInstances[i].y = stage.stageHeight / 2 - target.y;
+				if (trackCameraInstances[i].y != stage.stageHeight / 2 - target.y)
+					trackCameraInstances[i].y += ((stage.stageHeight / 2 - target.y) - trackCameraInstances[i].y) / 20;
+				
+				//trackCameraInstances[i].y = stage.stageHeight / 2 - target.y;
 				
 				if (trackCameraInstances[i].y < 0)
 					trackCameraInstances[i].y = 0

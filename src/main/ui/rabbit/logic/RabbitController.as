@@ -2,10 +2,12 @@ package ui.rabbit.logic
 {
 	import core.Box2D.utils.Box2DWorldController;
 	import core.events.GameObjectPhysicEvent;
+	import core.ui.KeyBoardController;
 	import core.view.gameobject.config.GameobjectConfig;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	import ui.rabbit.constructor.RabbitConstructor;
 	import ui.rabbit.FlapTriggerGameObject;
@@ -23,11 +25,14 @@ package ui.rabbit.logic
 		private var _rabbit:Rabbit;
 		private var worldController:Box2DWorldController;
 		private var flapTrigger:FlapTriggerGameObject;
+		private var keyController:KeyBoardController;
 		
 		public function RabbitController(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController) 
 		{
 			this.worldController = worldController;
 			this.viewInstance = viewInstance;
+			
+			keyController = new KeyBoardController(viewInstance.stage);
 			
 			initilize();
 		}
@@ -37,18 +42,21 @@ package ui.rabbit.logic
 			createRabbitView();
 			manageOvertimeEvents();
 			manageMouseEvents();
-			manageRabbitAvents();
+			manageRabbitEvents();
+			
+			keyController.registerKeyDownReaction(Keyboard.SPACE, tryFlap);
 		}
 		
-		private function manageRabbitAvents():void 
+		private function manageRabbitEvents():void 
 		{
+			
 			rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithReaction);
 		}
 		
 		private function manageMouseEvents():void 
 		{
-			viewInstance.stage.addEventListener(MouseEvent.CLICK, jumpAction);
-			viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, tryFlap);
+			 viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, jumpAction);
+			//viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, tryFlap);
 		}
 		
 		private function manageOvertimeEvents():void 
@@ -68,7 +76,7 @@ package ui.rabbit.logic
 			rabbitActionsHelper.jumpAction();
 		}
 		
-		private function tryFlap(e:MouseEvent):void 
+		private function tryFlap():void 
 		{
 			rabbitActionsHelper.flapWingsReaction();
 		}

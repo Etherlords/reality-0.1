@@ -13,8 +13,8 @@ package utils
 	 */
 	public class BoundariesConstructor 
 	{
-		private var _width:Number = 800;
-		private var _height:Number = 600;
+		private var _width:Number = 745;
+		private var _height:Number = 500;
 		
 		public function createBoundaries():void
 		{
@@ -26,7 +26,7 @@ package utils
 			var groundFixtureDef:b2FixtureDef = new b2FixtureDef();
 			
 			groundFixtureDef.density = 0;
-			groundFixtureDef.friction = 0;
+			groundFixtureDef.friction -= 0.20;
 			groundFixtureDef.restitution = 0;
 			
 			groundFixtureDef.shape = groundShape;

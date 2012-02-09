@@ -1,5 +1,6 @@
 package ui.gameobjects 
 {
+	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
 	import flash.display.DisplayObjectContainer;
@@ -19,6 +20,21 @@ package ui.gameobjects
 			super(config, instance, eventFlowTarget);	
 			_interactiveObjectConfig = interactiveObjectConfig;
 			
+		}
+		
+		override public function render():void 
+		{
+			super.render();
+			
+			if (body.y > 320)
+			{
+				destroy();
+			}
+			
+			if (this.body.y > ServicesLocator.cameraService.camera.target.y + 500)
+			{
+				destroy();
+			}
 		}
 		
 		public function get interactiveObjectConfig():InteractiveObjectConfiguration 

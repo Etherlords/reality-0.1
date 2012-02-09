@@ -43,7 +43,7 @@ package ui.rabbit.rabbitReactions
 
 		public function jumpAction():void 
 		{
-			rabbitAction(GlobalConstants.ACTION_STRATEGY_JUMP, 2);
+			rabbitAction(GlobalConstants.ACTION_STRATEGY_JUMP, 10);
 		}
 
 		public function rabbitAction(key:String, ...rest):void 

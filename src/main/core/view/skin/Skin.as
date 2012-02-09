@@ -1,5 +1,6 @@
 package core.view.skin 
 {
+	import core.view.direction.Direction;
 	import flash.display.Sprite;
 	
 	/**
@@ -17,6 +18,8 @@ package core.view.skin
 		{
 			super();
 		}
+		
+		public var direction:Direction;
 		
 		public function doAction(actionKey:uint):void
 		{
