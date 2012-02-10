@@ -2,6 +2,7 @@ package  ui.scene.gameInteractionScene.view
 {
 	//import com.sociodox.theminer.TheMiner;
 	import core.locators.ServicesLocator;
+	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -76,13 +77,20 @@ package  ui.scene.gameInteractionScene.view
 			
 			_scoreboard = new Scoreboard();
 			
+			var startBack:Sprite = new Sprite();
+			var bg:Bitmap = new Bitmap(new StartBackground());
+			startBack.addChild(bg);
+			startBack.addChild(new StartBackgroundMask());
+			
 			trackCameraInstances.push(_gameObjectsInstance);
 			trackCameraInstances.push(_snow);
+			trackCameraInstances.push(startBack);
 			
 			
-			addChild(_scoreboard);
-			addChild(_gameObjectsInstance);
+			addChild(startBack);
 			addChild(_snow);
+			addChild(_gameObjectsInstance);
+			addChild(_scoreboard);
 		}
 		
 		

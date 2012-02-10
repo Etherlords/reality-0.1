@@ -26,7 +26,7 @@ package ui.gameobjects
 		{
 			super.render();
 			
-			if (body.y > 320)
+			if (body.y > 400)
 			{
 				destroy();
 			}

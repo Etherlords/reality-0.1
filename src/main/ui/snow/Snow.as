@@ -1,9 +1,11 @@
 package ui.snow 
 {
 	import com.greensock.TweenLite;
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.filters.BlurFilter;
 	import flash.utils.Timer;
 	
 	/**
@@ -20,9 +22,19 @@ package ui.snow
 		
 		public function Snow() 
 		{
-			this.graphics.lineStyle(2, 0xFFFFFF, 0.9);
-			this.graphics.moveTo(0, 0);
-			this.graphics.lineTo(1, 0);
+			//this.graphics.lineStyle(2, 0xFFFFFF, 0.9);
+			//this.graphics.moveTo(0, 0);
+			//this.graphics.lineTo(1, 0);
+			
+			var bitmap:Bitmap = new Bitmap(new SnowSprite1(), 'auto', true);
+			addChild(bitmap);
+			bitmap.x -= bitmap.width / 2;
+			bitmap.y -= bitmap.height / 2;
+			
+			if(Math.random() > 0.7)
+				this.filters = [new BlurFilter(6, 6)];
+			
+			this.scaleX = this.scaleY = 0.1 + Math.random();
 			
 			dieTimer.addEventListener(TimerEvent.TIMER_COMPLETE, destroy);
 			dieTimer.start();

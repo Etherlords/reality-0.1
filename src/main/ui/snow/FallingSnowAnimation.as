@@ -22,7 +22,7 @@ package ui.snow
 		
 		private function initilize():void 
 		{
-			var timer:Timer = new Timer(300);
+			var timer:Timer = new Timer(200);
 			timer.addEventListener(TimerEvent.TIMER, generateSnow);
 			timer.start();
 		}
