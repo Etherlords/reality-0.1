@@ -42,6 +42,7 @@ package ui.gameobjects.simpleFlowObject
 		 */
 		private function flowerEffect():void 
 		{
+			
 			//this.applyImpulseFromCenter(new b2Vec2(0, -1));
 			var linearVelocity:Point = physicalProperties.linearVelocity
 			

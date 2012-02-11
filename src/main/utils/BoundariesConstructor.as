@@ -25,9 +25,9 @@ package utils
 			groundShape.SetAsBox(_width * GlobalConstants.PIXELS_TO_METR, 1 * GlobalConstants.PIXELS_TO_METR);
 			var groundFixtureDef:b2FixtureDef = new b2FixtureDef();
 			
-			groundFixtureDef.density = 0;
+			groundFixtureDef.density = 10;
 			groundFixtureDef.friction -= 0.20;
-			groundFixtureDef.restitution = 0;
+			groundFixtureDef.restitution = -1;
 			
 			groundFixtureDef.shape = groundShape;
 			var groundFixture:b2Fixture = groundBody.CreateFixture(groundFixtureDef);

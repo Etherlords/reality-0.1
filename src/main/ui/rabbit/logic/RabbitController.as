@@ -4,6 +4,7 @@ package ui.rabbit.logic
 	import core.events.GameObjectPhysicEvent;
 	import core.ui.KeyBoardController;
 	import core.view.gameobject.config.GameobjectConfig;
+	import features.CollectFeature;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
@@ -78,6 +79,7 @@ package ui.rabbit.logic
 		
 		private function tryFlap():void 
 		{
+			//new CollectFeature(worldController, rabbit).doAction();
 			rabbitActionsHelper.flapWingsReaction();
 		}
 		

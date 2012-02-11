@@ -458,7 +458,8 @@ public class b2World
 
 	public function CreateController(controller:b2Controller):b2Controller
 	{
-		if (controller.m_world != this)
+		
+		if (controller.m_world)
 			throw new Error("Controller can only be a member of one world");
 		
 		controller.m_next = m_controllerList;

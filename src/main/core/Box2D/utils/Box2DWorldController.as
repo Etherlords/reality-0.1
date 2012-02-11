@@ -3,8 +3,10 @@ package core.Box2D.utils
 import Box2D.Common.Math.b2Vec2;
 import Box2D.Dynamics.b2DebugDraw;
 import Box2D.Dynamics.b2World;
+import Box2D.Dynamics.Controllers.b2Controller;
 import core.Box2D.collision.SimpleConcatListener;
 import core.Box2D.SimpleDestructionListenere;
+import core.collections.SimpleMap;
 import core.events.GameObjectPhysicEvent;
 import core.events.NativeCollideEvent;
 import core.GlobalConstants;
@@ -13,6 +15,7 @@ import core.view.gameobject.GameObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.geom.Point;
+import utils.DimensionalMath;
 
 
 
@@ -31,6 +34,8 @@ import flash.geom.Point;
 		private var _world:b2World;
 		private var _gameObjectsRegistry:GameobjectsRegistry;
 		private var collideListener:SimpleConcatListener;
+		
+		private var _appliedControllersMap:SimpleMap;
 		
 		public function Box2DWorldController(gravity:Point, debugInstance:DisplayObjectContainer, isDebug:Boolean = false) 
 		{
@@ -68,10 +73,29 @@ import flash.geom.Point;
 			return _gameObjectsRegistry;
 		}
 		
+		public function get appliedControllersMap():SimpleMap 
+		{
+			return _appliedControllersMap;
+		}
+		
 		public function addToCollaboration(gameObject:GameObject):void
 		{
 			_gameObjectsRegistry.registerGameObject(gameObject);
 			gameObject.addEventListener(GameObjectPhysicEvent.DESTROY, onGameObjectDestroyed);
+		}
+		
+		public function getGameObjectsInRadius(applicationPoint:Point, radius:Number, filter:*):Vector.<GameObject>
+		{
+			var list:Vector.<GameObject> = new Vector.<GameObject>
+			
+			var object:GameObject;
+			for each(object in _gameObjectsRegistry.objectsList)
+			{
+				if(DimensionalMath.inRadius(radius, applicationPoint, object.body.position))
+					list.push(object);
+			}
+			
+			return list;
 		}
 		
 		private function onGameObjectDestroyed(e:GameObjectPhysicEvent):void 
@@ -110,10 +134,23 @@ import flash.geom.Point;
 			gameObject.registredInApplication();
 		}
 		
+		public function getController(controllerName:String):b2Controller
+		{
+			return _appliedControllersMap.getItem(controllerName) as b2Controller;
+		}
+		
+		public function addController(controller:b2Controller, controllerName:String ):void
+		{
+			controller = world.CreateController(controller);
+			_appliedControllersMap.addItem(controllerName, controller);
+			
+		}
+		
 		private function initilize():void 
 		{
 			initWorld();
 			
+			_appliedControllersMap = new SimpleMap(); 
 			_gameObjectsRegistry = new GameobjectsRegistry();
 			
 			if (isDebug)
@@ -181,7 +218,7 @@ import flash.geom.Point;
 
 			debugDraw.SetSprite(debugSprite);
 			debugDraw.SetDrawScale(GlobalConstants.METRS_TO_PIXEL);
-			debugDraw.SetFlags(b2DebugDraw.e_shapeBit);
+			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_aabbBit | b2DebugDraw.e_centerOfMassBit | b2DebugDraw.e_controllerBit | b2DebugDraw.e_pairBit);
 			
 			world.SetDebugDraw(debugDraw);
 			

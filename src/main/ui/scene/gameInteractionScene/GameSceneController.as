@@ -1,7 +1,9 @@
 package ui.scene.gameInteractionScene 
 {
+	import Box2D.Dynamics.Controllers.b2BuoyancyController;
 	import core.Box2D.utils.Box2DWorldController;
 	import core.events.GameObjectPhysicEvent;
+	import core.GlobalConstants;
 	import core.locators.PhysicWorldLocator;
 	import core.locators.ServicesLocator;
 	import core.scene.AbstractSceneController;
@@ -56,6 +58,7 @@ package ui.scene.gameInteractionScene
 			createWorld();
 			createViewComponents();
 			
+			initilizeBuoyancyController();
 			
 			
 			manageEvents();
@@ -73,6 +76,23 @@ package ui.scene.gameInteractionScene
 			triggerOvertimeObjectGeneration();
 			triggerOvertimeObjectGeneration();
 			triggerOvertimeObjectGeneration();
+		}
+		
+		private function initilizeBuoyancyController():void 
+		{
+			var controller:b2BuoyancyController = new b2BuoyancyController();
+			trace(controller.GetWorld());
+			controller.normal.Set(0, -1);
+			controller.offset = -900 * GlobalConstants.METRS_TO_PIXEL;
+			controller.density = 3;
+			//controller.useWorldGravity = false
+		//	controller.useDensity = true;
+			controller.linearDrag = 5;
+			controller.angularDrag = 2;
+			
+			worldController.addController(controller, 'nullGravityField');
+			
+			controller.AddBody(rabbitController.rabbit.physicalProperties.physicBodyKey);
 		}
 		
 		private function initGameInitrations():void 
@@ -135,7 +155,7 @@ package ui.scene.gameInteractionScene
 		private function createWorld():void 
 		{
 			
-			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, false);
+			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, true);
 			
 			PhysicWorldLocator.instance.world = worldController.world;
 		}
