@@ -1,28 +1,32 @@
 package ui.scene.gameInteractionScene 
 {
-	import Box2D.Dynamics.Controllers.b2BuoyancyController;
-	import core.Box2D.utils.Box2DWorldController;
-	import core.events.GameObjectPhysicEvent;
-	import core.GlobalConstants;
-	import core.locators.PhysicWorldLocator;
-	import core.locators.ServicesLocator;
-	import core.scene.AbstractSceneController;
-	import core.view.gameobject.config.GameobjectConfig;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.TimerEvent;
-	import flash.geom.Point;
-	import flash.utils.Timer;
-	import ui.gameobjects.BaseInteractiveGameObject;
-	import ui.gameobjects.GameobjectsCrationController;
-	import ui.rabbit.FlapTriggerGameObject;
-	import ui.rabbit.logic.RabbitController;
-	import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
-	import ui.scene.gameInteractionScene.view.GameSceneView;
-	import ui.services.CameraService;
-	import ui.services.ScoreboardService;
-	import utils.BoundariesConstructor;
-	
-	public class GameSceneController extends AbstractSceneController 
+import Box2D.Dynamics.Controllers.b2BuoyancyController;
+
+import core.Box2D.utils.Box2DWorldController;
+import core.GlobalConstants;
+import core.events.GameObjectPhysicEvent;
+import core.locators.PhysicWorldLocator;
+import core.locators.ServicesLocator;
+import core.scene.AbstractSceneController;
+import core.view.gameobject.config.GameobjectConfig;
+
+import flash.display.DisplayObjectContainer;
+import flash.events.TimerEvent;
+import flash.geom.Point;
+import flash.utils.Timer;
+
+import ui.gameobjects.BaseInteractiveGameObject;
+import ui.gameobjects.GameobjectsCrationController;
+import ui.rabbit.FlapTriggerGameObject;
+import ui.rabbit.logic.RabbitController;
+import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
+import ui.scene.gameInteractionScene.view.GameSceneView;
+import ui.services.CameraService;
+import ui.services.ScoreboardService;
+
+import utils.BoundariesConstructor;
+
+public class GameSceneController extends AbstractSceneController
 	{
 		
 		private var sceneView:GameSceneView;
@@ -47,9 +51,9 @@ package ui.scene.gameInteractionScene
 		override protected function initilize():void 
 		{
 			//create using services
-			var camersService:CameraService = new CameraService();
-			var scoreboardService:ScoreboardService = new ScoreboardService();
-			
+            ServicesLocator.instance.addService(new CameraService());
+            ServicesLocator.instance.addService(new ScoreboardService());
+
 			super.initilize();
 		}
 		
