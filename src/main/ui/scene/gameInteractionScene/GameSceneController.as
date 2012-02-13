@@ -37,6 +37,7 @@ package ui.scene.gameInteractionScene
 		private var scores:Number = 0;
 		
 		private var gamaobjectCreationController:GameobjectsCrationController;
+		private var controller:b2BuoyancyController;
 		
 		public function GameSceneController() 
 		{
@@ -80,19 +81,21 @@ package ui.scene.gameInteractionScene
 		
 		private function initilizeBuoyancyController():void 
 		{
-			var controller:b2BuoyancyController = new b2BuoyancyController();
-			trace(controller.GetWorld());
+			controller = new b2BuoyancyController();
+			
+			
 			controller.normal.Set(0, -1);
-			controller.offset = -900 * GlobalConstants.METRS_TO_PIXEL;
-			controller.density = 3;
+			controller.offset = 100000 * GlobalConstants.PIXELS_TO_METR;
+			controller.density = 2.0;
 			//controller.useWorldGravity = false
-		//	controller.useDensity = true;
+			//controller.useDensity = true;
 			controller.linearDrag = 5;
 			controller.angularDrag = 2;
 			
+
 			worldController.addController(controller, 'nullGravityField');
 			
-			controller.AddBody(rabbitController.rabbit.physicalProperties.physicBodyKey);
+			//controller.AddBody(rabbitController.rabbit.physicalProperties.physicBodyKey);
 		}
 		
 		private function initGameInitrations():void 
@@ -115,6 +118,8 @@ package ui.scene.gameInteractionScene
 		private function triggerOvertimeObjectGeneration(e:* = null):void 
 		{	
 			lastCrationObject = gamaobjectCreationController.createGameobjectOvertimeTrigger(lastCrationObject)
+			
+			controller.AddBody(lastCrationObject.physicalProperties.physicBodyKey);
 			lastCrationObject.interactiveObjectConfig.creationAlgorithm.execute();
 			
 			lastCrationObject.addEventListener(GameObjectPhysicEvent.DESTROY, interactiveObjectDestructionTrigger);

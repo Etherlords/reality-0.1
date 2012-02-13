@@ -16,6 +16,8 @@ public interface PhysicalProperties {
     function stopYVelocity():void;
 
     function applyImpulse(x:Number = 0, y:Number = 0, impulseSourceX:Number = 0, impulseSourceY:Number = 0):void;
+	
+	function applyForce(x:Number = 0, y:Number = 0, forceSourceX:Number = 0, forceSourceY:Number = 0):void;
 
 
     function get linearVelocity():Point;

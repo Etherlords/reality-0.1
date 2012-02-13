@@ -73,25 +73,34 @@ public class b2BuoyancyController extends b2Controller
 		if(useWorldGravity){
 			gravity = GetWorld().GetGravity().Copy();
 		}
-		for(var i:b2ControllerEdge=m_bodyList;i;i=i.nextBody){
+		for (var i:b2ControllerEdge = m_bodyList; i; i = i.nextBody)
+		{
 			var body:b2Body = i.body;
-			if(body.IsAwake() == false){
+			if (body.IsAwake() == false)
+			{
 				//Buoyancy force is just a function of position,
 				//so unlike most forces, it is safe to ignore sleeping bodes
 				continue;
 			}
+			
 			var areac:b2Vec2 = new b2Vec2();
 			var massc:b2Vec2 = new b2Vec2();
 			var area:Number = 0.0;
 			var mass:Number = 0.0;
-			for(var fixture:b2Fixture=body.GetFixtureList();fixture;fixture=fixture.GetNext()){
+			
+			for (var fixture:b2Fixture = body.GetFixtureList(); fixture; fixture = fixture.GetNext())
+			{
 				var sc:b2Vec2 = new b2Vec2();
+				
 				var sarea:Number = fixture.GetShape().ComputeSubmergedArea(normal, offset, body.GetTransform(), sc);
+				
 				area += sarea;
 				areac.x += sarea * sc.x;
 				areac.y += sarea * sc.y;
 				var shapeDensity:Number;
-				if (useDensity) {
+				
+				if (useDensity) 
+				{
 					//TODO: Figure out what to do now density is gone
 					shapeDensity = 1;
 				}else{
@@ -125,17 +134,30 @@ public class b2BuoyancyController extends b2Controller
 	
 	public override function Draw(debugDraw:b2DebugDraw):void
 	{
+		
 		var r:Number = 1000;
 		//Would like to draw a semi-transparent box
 		//But debug draw doesn't support that
 		var p1:b2Vec2 = new b2Vec2();
 		var p2:b2Vec2 = new b2Vec2();
+		var p3:b2Vec2 = new b2Vec2();
+		var p4:b2Vec2 = new b2Vec2();
+		
 		p1.x = normal.x * offset + normal.y * r;
 		p1.y = normal.y * offset - normal.x * r;
 		p2.x = normal.x * offset - normal.y * r;
-		p2.y = normal.y * offset + normal.x * r;
-		var color:b2Color = new b2Color(0,0,1);
-		debugDraw.DrawSegment(p1,p2,color);
+		p2.y = normal.y * offset - normal.x * r;
+		p3.x = normal.x * offset - normal.y * r;
+		p3.y = normal.y * offset + normal.x * r;
+		p4.x = normal.x * offset + normal.y * r;
+		p4.x = normal.y * offset + normal.x * r;
+		
+		
+		
+		var vertices:Vector.<b2Vec2> = new <b2Vec2>[p1, p2, p3, p4,]
+		var color:b2Color = new b2Color(0xFF, 0, 0xFF);
+		//color.Set(0.6, 0.6, 0.6);
+		debugDraw.DrawSolidPolygon(vertices, 4, color);
 	}
 }
 

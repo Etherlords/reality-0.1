@@ -15,9 +15,15 @@ package ui.gameobjects.simpleFlowObject
 	 */
 	public class FlowInteractiveObject extends BaseInteractiveGameObject 
 	{
+		private var flowStopped:Boolean = false;
 		
 		public function FlowInteractiveObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
 		{
+			config.physicConfiguration.density = 2.1;
+			config.physicConfiguration.friction = 0.3;
+			config.physicConfiguration.restitution = 0.1;
+			config.physicConfiguration.fixedRotation = true;
+			
 			super(config, interactiveObjectConfig, instance, eventFlowTarget);
 		}
 		
@@ -28,6 +34,7 @@ package ui.gameobjects.simpleFlowObject
 			//physicalProperties
 			// :C~~~~~
 			(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetSensor(true);
+			
 		}
 		
 		override public function render():void 
@@ -44,14 +51,23 @@ package ui.gameobjects.simpleFlowObject
 		{
 			
 			//this.applyImpulseFromCenter(new b2Vec2(0, -1));
-			var linearVelocity:Point = physicalProperties.linearVelocity
+			//var linearVelocity:Point = physicalProperties.linearVelocity
 			
-			if(ServicesLocator.cameraService.camera.target.y > 200)
-				linearVelocity.y = -0.1;
-			else
-				linearVelocity.y = -0.4;
+			if (!(ServicesLocator.cameraService.camera.target.y > 200) && !flowStopped )
+			{
+				//TODO: вынести куда нибудь
+				(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetDensity(2);
+				(physicalProperties as SimplePhysicalProperties).physicBodyKey.ResetMassData();
+				
+				flowStopped = true;
+			}
+			//else
+			//	linearVelocity.y = -0.4;
 			
-			physicalProperties.linearVelocity = linearVelocity;
+			//physicalProperties.linearVelocity = linearVelocity;
+			
+			//
+			
 		}
 		
 	}

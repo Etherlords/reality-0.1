@@ -2,6 +2,7 @@ package features
 {
 	import core.Box2D.utils.Box2DWorldController;
 	import core.view.gameobject.GameObject;
+	import ui.rabbit.FlapTriggerGameObject;
 	import ui.rabbit.Rabbit;
 	/**
 	 * ...
@@ -25,8 +26,9 @@ package features
 			
 			for (var i:int = 0; i < list.length; i++)
 			{
-				if (!(list[i] is Rabbit))
+				if (!(list[i] is Rabbit) && !(list[i] is FlapTriggerGameObject))
 				{
+					trace(list[i] is Rabbit);
 					list[i].physicalProperties.applyImpulse(0, 15);
 				}
 			}

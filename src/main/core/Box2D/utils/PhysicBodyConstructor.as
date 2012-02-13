@@ -6,13 +6,13 @@ import Box2D.Common.Math.b2Vec2;
 import Box2D.Dynamics.b2Body;
 import Box2D.Dynamics.b2BodyDef;
 import Box2D.Dynamics.b2FixtureDef;
-
-import core.GlobalConstants;
 import core.body.IBodyPresentation;
 import core.body.PhysicBodyPresentation;
+import core.GlobalConstants;
 import core.locators.PhysicWorldLocator;
 import core.view.gameobject.config.PhysicConfiguration;
 import core.view.skin.Skin;
+
 
 /**
 	 * ...
@@ -57,23 +57,27 @@ import core.view.skin.Skin;
 			var fixtureModel:b2FixtureDef = new b2FixtureDef();
 			
 			fixtureModel.shape = makeShapeFromSkin(skin);
-			bodyModel.fixedRotation = true;
+			//bodyModel.fixedRotation = true;
 			//Коммит этих физических свойств можно сделать одним методом
 			//Просто переберая поля создать список поелй длоя коммита и просто обходить его
 			
 			if(config.density)
 				fixtureModel.density = config.density;
-				
-			//fixtureModel.density = 1.5;
+
 			
 			if(config.friction)
 				fixtureModel.friction = config.friction;
 			
 			if(config.restitution)
 				fixtureModel.restitution = config.restitution;
+				
+			//fixtureModel.density = 3;
+			//fixtureModel.friction = 0.1;
+			//fixtureModel.restitution = 0.3;
 			
 			var body:b2Body = PhysicWorldLocator.instance.world.CreateBody(bodyModel);
 			body.CreateFixture(fixtureModel);
+		
 			
 			return new PhysicBodyPresentation(body, skin);
 		}

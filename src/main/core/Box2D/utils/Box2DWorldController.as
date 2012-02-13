@@ -53,7 +53,8 @@ import utils.DimensionalMath;
                 preRenderObj.preRender(0.025 * 1000); //todo calc correctly
             }
 			
-			world.Step(0.04, 100, 100);
+			world.Step(0.04, 10, 10);
+			world.ClearForces();
 			
 			if(isDebug)
 				world.DrawDebugData();
@@ -219,7 +220,8 @@ import utils.DimensionalMath;
 			debugDraw.SetSprite(debugSprite);
 			debugDraw.SetDrawScale(GlobalConstants.METRS_TO_PIXEL);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_aabbBit | b2DebugDraw.e_centerOfMassBit | b2DebugDraw.e_controllerBit | b2DebugDraw.e_pairBit);
-			
+			debugDraw.SetLineThickness(1);
+			debugDraw.SetFillAlpha(0.3);
 			world.SetDebugDraw(debugDraw);
 			
 			debugInstance.addChild(debugSprite);

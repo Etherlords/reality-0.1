@@ -36,6 +36,11 @@ class EmptyPhysicalProperties implements PhysicalProperties {
 
     public function applyImpulse(x:Number = 0, y:Number = 0, impulseSourceX:Number = 0, impulseSourceY:Number = 0):void {
     }
+	
+	public function applyForce(x:Number = 0, y:Number = 0, forceSourceX:Number = 0, forceSourceY:Number = 0):void
+	{
+		
+	}
 
     public function get linearVelocity():Point {
         return new Point();

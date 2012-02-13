@@ -124,9 +124,14 @@ package core.body
 			_position = body.GetPosition();
 		}
 		
+		//var f:Boolean;
+		
 		private function updatePosition():void
 		{
-			body.SetPosition(_position);
+			
+			//if(!f)
+				body.SetPosition(_position);
+				
 		}
 	}
 
