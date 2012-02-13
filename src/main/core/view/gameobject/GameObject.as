@@ -125,6 +125,7 @@ import flash.events.IEventDispatcher;
 		
 		public function collideWith(collideTarget:GameObject):void
 		{
+			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.COLLIDE, true, false, collideTarget));
 		}
 		

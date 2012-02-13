@@ -1,6 +1,11 @@
 package ui.scene.gameInteractionScene 
 {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
+import core.view.gameobject.GameObject;
+import flash.events.Event;
+import ui.Alert;
+import ui.Lables;
+import ui.rabbit.Rabbit;
 
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
@@ -42,6 +47,11 @@ public class GameSceneController extends AbstractSceneController
 		
 		private var gamaobjectCreationController:GameobjectsCrationController;
 		private var controller:b2BuoyancyController;
+		private var interactiveObjectsCount:int = 0;
+		
+		private var isGameInteractionStart:Boolean = false;
+		private var alert:Alert;
+		private var gameIsOver:Boolean;
 		
 		public function GameSceneController() 
 		{
@@ -121,6 +131,14 @@ public class GameSceneController extends AbstractSceneController
 		
 		private function triggerOvertimeObjectGeneration(e:* = null):void 
 		{	
+			if (gameIsOver)
+				return;
+			
+			if (interactiveObjectsCount > 15)
+				return;
+			
+			interactiveObjectsCount++;
+				
 			lastCrationObject = gamaobjectCreationController.createGameobjectOvertimeTrigger(lastCrationObject)
 			
 			controller.AddBody(lastCrationObject.physicalProperties.physicBodyKey);
@@ -134,7 +152,18 @@ public class GameSceneController extends AbstractSceneController
 			var interactiveObject:BaseInteractiveGameObject = e.interactionWith as BaseInteractiveGameObject;
 			
 			
-			interactiveObject.interactiveObjectConfig.destructionAlgorithm.execute();
+			interactiveObjectsCount--;
+			
+			if (!gameIsOver)
+			{
+				interactiveObject.interactiveObjectConfig.destructionAlgorithm.execute();
+				isGameInteractionStart = true;
+			}
+			
+			if (interactiveObjectsCount == 0 && gameIsOver)
+			{
+				startNewGame();
+			}
 		}
 		
 		private function bellDestoryReaction(e:GameObjectPhysicEvent):void 
@@ -163,8 +192,7 @@ public class GameSceneController extends AbstractSceneController
 		
 		private function createWorld():void 
 		{
-			
-			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, true);
+			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, false);
 			
 			PhysicWorldLocator.instance.world = worldController.world;
 		}
@@ -172,11 +200,83 @@ public class GameSceneController extends AbstractSceneController
 		private function createViewComponents():void 
 		{
 			_boundaries = new BoundariesConstructor();
-			_boundaries.createBoundaries();
+			_boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
+			
+			_boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
 			
 			rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
 			
 			var flapTrigger:FlapTriggerGameObject = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), view) as FlapTriggerGameObject;
+		}
+		
+		private function onFallOnFloor(e:GameObjectPhysicEvent):void 
+		{
+			
+			if (isGameInteractionStart)
+			{
+				gameOver();
+			}
+		}
+		
+		private function gameOver():void 
+		{
+			gameIsOver = true;
+			
+			alert = new Alert(Lables.getGAME_OVER_LABLE(sceneView.scoresView.scores, 9999999));
+			alert.x = (view.stage.stageWidth - alert.width) / 2;
+			alert.y = (view.stage.stageHeight - alert.height) / 2;
+			
+			alert.addEventListener('playAgain', replay);
+			
+			view.addChild(alert);
+			
+			rabbitController.gameOver();
+			
+			
+		}
+		
+		private function replay(e:Event):void 
+		{
+			view.removeChild(alert);
+			var objects:Vector.<GameObject> = worldController.gameObjectsRegistry.objectsList;
+			sceneView.scoresView.scores = 0;
+			
+			
+			for (var i:int = 0; i < objects.length; i++)
+			{
+				
+				if ((objects[i] is BaseInteractiveGameObject))
+				{
+					//TODO деревянный метод жду пока не удалю все объекты и патом реиницилизирую игру
+					objects[i].destroy();
+					//objects[i].preRender(0);
+					//sceneView.scoresView.scores -= 10;
+				}
+			}
+			
+			
+			
+		}
+		
+		private function startNewGame():void
+		{
+			lastCrationObject = null;
+			rabbitController.replay();
+			
+			isGameInteractionStart = false;
+			gameIsOver = false
+			
+			//interactiveObjectsCount = 0;
+			
+			triggerOvertimeObjectGeneration();
+			
+			//TODO хз почему после удаления всхе объектов координата 300 стала выше на 100..
+			lastCrationObject.body.y = 400;
+			
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
+			triggerOvertimeObjectGeneration();
 		}
 		
 		public override function activate(instance:DisplayObjectContainer):void

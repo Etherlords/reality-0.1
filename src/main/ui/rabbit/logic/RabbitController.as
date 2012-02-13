@@ -10,6 +10,7 @@ package ui.rabbit.logic
 	import flash.events.TimerEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
+	import ui.gameobjects.BaseInteractiveGameObject;
 	import ui.rabbit.constructor.RabbitConstructor;
 	import ui.rabbit.FlapTriggerGameObject;
 	import ui.rabbit.Rabbit;
@@ -36,6 +37,16 @@ package ui.rabbit.logic
 			keyController = new KeyBoardController(viewInstance.stage);
 			
 			initilize();
+		}
+		
+		public function replay():void
+		{
+			viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, jumpAction);
+		}
+		
+		public function gameOver():void
+		{
+			viewInstance.stage.removeEventListener(MouseEvent.MOUSE_DOWN, jumpAction);
 		}
 		
 		private function initilize():void 
@@ -85,7 +96,16 @@ package ui.rabbit.logic
 		
 		private function collideWithReaction(e:GameObjectPhysicEvent):void 
 		{
+			if (!(e.interactionWith is BaseInteractiveGameObject))
+			{
+				
+				return;
+			}
+			
+			
 			rabbitActionsHelper.rabbitAccelerateReaction();
+			
+			
 			//worldConstructor.destroyGameObject(e.interactionWith);
 			
 			/**

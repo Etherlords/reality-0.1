@@ -1,12 +1,18 @@
 package utils 
 {
 	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
+	import core.Box2D.utils.Box2DWorldController;
 	import core.GlobalConstants;
 	import core.locators.PhysicWorldLocator;
+	import core.view.gameobject.config.GameobjectConfig;
+	import core.view.gameobject.GameObject;
+	import flash.display.DisplayObjectContainer;
+	import ui.FloorShape;
 	/**
 	 * ...
 	 * @author 
@@ -15,28 +21,35 @@ package utils
 	{
 		private var _width:Number = 760;
 		private var _height:Number = 593;
+		private var viewInstance:DisplayObjectContainer;
 		
-		public function createBoundaries():void
+		public var floor:GameObject;
+		
+		public function createBoundaries(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController):void
 		{
-			var groundBodyDef:b2BodyDef = new b2BodyDef();
-			groundBodyDef.position.Set(0, _height * GlobalConstants.PIXELS_TO_METR);
-			var groundBody:b2Body = PhysicWorldLocator.instance.world.CreateBody(groundBodyDef);
-			var groundShape:b2PolygonShape = new b2PolygonShape();
-			groundShape.SetAsBox(_width * GlobalConstants.PIXELS_TO_METR, 1 * GlobalConstants.PIXELS_TO_METR);
-			var groundFixtureDef:b2FixtureDef = new b2FixtureDef();
+			this.viewInstance = viewInstance;
 			
-			groundFixtureDef.density = 10;
-			groundFixtureDef.friction -= 0.20;
-			groundFixtureDef.restitution = -1;
+			var wallHeight:Number = 78000 * GlobalConstants.PIXELS_TO_METR;
+			var wallWidth:Number = 1 * GlobalConstants.PIXELS_TO_METR;
 			
-			groundFixtureDef.shape = groundShape;
-			var groundFixture:b2Fixture = groundBody.CreateFixture(groundFixtureDef);
+			
+			var floorConfig:GameobjectConfig = new GameobjectConfig(true);
+			
+			
+			floorConfig.skinClass = FloorShape;
+			
+			
+
+			floor = worldController.constructGameObject(GameObject, floorConfig, viewInstance);
+			floor.body.y = _height;
+		
 			
 			var rightWallBodyDef:b2BodyDef = new b2BodyDef();
-			rightWallBodyDef.position.Set(_width * GlobalConstants.PIXELS_TO_METR, 0);
+			rightWallBodyDef.position.Set(_width * GlobalConstants.PIXELS_TO_METR, (- wallHeight + _height * GlobalConstants.PIXELS_TO_METR ) );
 			var rightWallBody:b2Body = PhysicWorldLocator.instance.world.CreateBody(rightWallBodyDef);
 			var rightWallShape:b2PolygonShape = new b2PolygonShape();
-			rightWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, _height * GlobalConstants.PIXELS_TO_METR);
+			//rightWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, 78000 * GlobalConstants.PIXELS_TO_METR);
+			rightWallShape.SetAsArray([new b2Vec2(0, 0), new b2Vec2(wallWidth, 0), new b2Vec2(wallWidth, wallHeight), new b2Vec2(0, wallHeight)]);
 			var rightWallFixtureDef:b2FixtureDef = new b2FixtureDef();
 			
 			rightWallFixtureDef.density = 0;
@@ -47,10 +60,12 @@ package utils
 			var rightWallFixture:b2Fixture = rightWallBody.CreateFixture(rightWallFixtureDef);
 			
 			var leftWallBodyDef:b2BodyDef = new b2BodyDef();
-			leftWallBodyDef.position.Set(0, 0);
+			leftWallBodyDef.position.Set(0, (- wallHeight + _height * GlobalConstants.PIXELS_TO_METR ));
 			var leftWallBody:b2Body = PhysicWorldLocator.instance.world.CreateBody(leftWallBodyDef);
 			var leftWallShape:b2PolygonShape = new b2PolygonShape();
-			leftWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, _height * GlobalConstants.PIXELS_TO_METR);
+			
+			leftWallShape.SetAsArray([new b2Vec2(0, 0), new b2Vec2(wallWidth, 0), new b2Vec2(wallWidth, wallHeight), new b2Vec2(0, wallHeight)]);
+			//leftWallShape.SetAsBox(1 * GlobalConstants.PIXELS_TO_METR, 78000 * GlobalConstants.PIXELS_TO_METR);
 			var leftWallFixtureDef:b2FixtureDef = new b2FixtureDef();
 			
 			leftWallFixtureDef.density = 0;

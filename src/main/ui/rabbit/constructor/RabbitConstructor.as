@@ -22,7 +22,7 @@ package ui.rabbit.constructor
 		public static function make(stage:DisplayObjectContainer, worldController:Box2DWorldController):GameObject
 		{
 			var rabbitConfig:GameobjectConfig = new GameobjectConfig(true);
-			//rabbitConfig.physicConfiguration.density = 0.1;
+			rabbitConfig.physicConfiguration.friction = 1;
 			rabbitConfig.physicConfiguration.type = 2; //todo replace
 			rabbitConfig.skinClass = RabbitSkin;
 			var gameObject:GameObject = worldController.constructGameObject(Rabbit, rabbitConfig, stage);

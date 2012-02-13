@@ -1,5 +1,6 @@
 package ui.gameobjects.linearMovingObject 
 {
+	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.SimplePhysicalProperties;
 	import flash.display.DisplayObjectContainer;
@@ -16,11 +17,12 @@ package ui.gameobjects.linearMovingObject
 	{
 		private var moveDirection:int = 1;
 		private var moveSpeed:Number = 5
+		private var flowStopped:Boolean = false;
 		
 		
 		public function LinearMovingInteractiveObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
 		{
-			config.physicConfiguration.density = 2.0;
+			config.physicConfiguration.density = 2.1;
 			config.physicConfiguration.friction = 0.3;
 			config.physicConfiguration.restitution = 0.1;
 			config.physicConfiguration.fixedRotation = true;
@@ -49,6 +51,15 @@ package ui.gameobjects.linearMovingObject
 				
 			if (body.x > 760)
 				moveDirection = -1;
+				
+			if (!(ServicesLocator.cameraService.camera.target.y > 200) && !flowStopped )
+			{
+				//TODO: вынести куда нибудь
+				(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetDensity(2);
+				(physicalProperties as SimplePhysicalProperties).physicBodyKey.ResetMassData();
+				
+				flowStopped = true;
+			}
 				
 			var linearVelocity:Point = physicalProperties.linearVelocity
 			linearVelocity.x = moveSpeed * moveDirection;

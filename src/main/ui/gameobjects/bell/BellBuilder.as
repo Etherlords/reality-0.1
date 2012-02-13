@@ -5,10 +5,11 @@ package ui.gameobjects.bell
 	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.skin.EmptyBoxSkin;
+	import features.gameactions.SimpleInteractiveObjectCreationAction;
+	import features.gameactions.SimpleInteractiveObjectDestroyAction;
 	import flash.display.DisplayObjectContainer;
 	import flash.utils.getQualifiedClassName;
-	import gameactions.SimpleInteractiveObjectCreationAction;
-	import gameactions.SimpleInteractiveObjectDestroyAction;
+	
 	import ui.gameobjects.BaseInteractiveGameObject;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
 	import ui.gameobjects.InteractiveGameObjectBuilder;
@@ -65,9 +66,11 @@ package ui.gameobjects.bell
 				if(!lastCreatedObject.markToDestroy)
 					interactiveGameObject.body.y = lastCreatedObject.body.y - 100;
 				else
-					interactiveGameObject.body.y = camera.target.y - viewInstance.stage.stageHeight / 2;
+					interactiveGameObject.body.y = 300
 			else
-				interactiveGameObject.body.y = camera.target.y - viewInstance.stage.stageHeight / 2;
+				interactiveGameObject.body.y = 300
+				
+			
 		}
 		
 	}

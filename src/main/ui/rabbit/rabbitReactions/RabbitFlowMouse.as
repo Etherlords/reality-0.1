@@ -33,7 +33,11 @@ package ui.rabbit.rabbitReactions
 			if (Math.abs(delta) < rabbit.body.width / 2)
 				delta = 0;
 				
-			var force:Number = delta / 65;
+			var force:Number = delta / 25;
+			
+			
+				
+			
 				
 			rabbit.applyMove(force);
 		}

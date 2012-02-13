@@ -92,11 +92,7 @@ package ui.rabbit
 			}
 			
 			if (direction.isStand)
-			{
-				//trace("IS STAND");
-				
-				
-				
+			{	
 				stand.visible = true;
 				stand.standUp();
 				
@@ -107,8 +103,9 @@ package ui.rabbit
 				standRight._isPlaying = false;
 				standLeft._isPlaying = false;
 			}
-				
-			if (direction.isJumping || direction.isFalling)
+			
+			//TODO: хардкод сделано чтобы заяц не мерцал когда линейцное ускорение становится 0
+			if (direction.isJumping || direction.isFalling || (!direction.isWalking && !direction.isStand))
 			{
 				stand.gotoAndStop(0);
 				stand.visible = true;

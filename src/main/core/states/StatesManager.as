@@ -67,6 +67,10 @@ package core.states
 		{
 			
 			currentStateIndex++;
+			
+			if (currentStateIndex > states.length - 1)
+				currentStateIndex = states.length - 1;
+			
 			activateStateByIndex(currentStateIndex);
 		}
 		

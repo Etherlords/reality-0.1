@@ -25,7 +25,7 @@ import flash.display.Sprite;
 		public function applyMove(force:Number):void
 		{
 			var linearVelocity:Point = physicalProperties.linearVelocity;
-			linearVelocity.x /= 1.5;
+			linearVelocity.x /= 4.5;
 			physicalProperties.linearVelocity = linearVelocity;
 			//physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);

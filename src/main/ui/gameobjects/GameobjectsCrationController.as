@@ -20,6 +20,8 @@ package ui.gameobjects
 		
 		private var bellsBuilded:Number = 0;
 		
+		private var tottalBells:Number = 0;
+		
 		public function GameobjectsCrationController(viewInstance:DisplayObjectContainer, displayWidth:Number, worldController:Box2DWorldController) 
 		{
 			this.worldController = worldController;
