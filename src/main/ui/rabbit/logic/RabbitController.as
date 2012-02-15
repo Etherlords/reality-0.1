@@ -114,7 +114,7 @@ package ui.rabbit.logic
 			 * взаимоедсвтие можно будет еракцию вынести на контроллер выше стоящий или баблить туда
 			 * ивенты
 			 */
-			
+			(e.interactionWith as BaseInteractiveGameObject).interactiveObjectConfig.destructionAlgorithm.execute();
 			worldController.destroyGameObject(e.interactionWith);
 		}
 		

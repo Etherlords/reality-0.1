@@ -162,7 +162,7 @@ public class GameSceneController extends AbstractSceneController
 			
 			if (!gameIsOver)
 			{
-				interactiveObject.interactiveObjectConfig.destructionAlgorithm.execute();
+				
 				
 			}
 			

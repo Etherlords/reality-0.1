@@ -26,6 +26,8 @@ package ui.gameobjects.bell
 		private var lastCreatedObject:BaseInteractiveGameObject;
 		private var camera:Camera;
 		
+		private var lastBellX:Number = 0;
+		
 		public function BellBuilder(viewInstance:DisplayObjectContainer, displayWidth:Number, worldController:Box2DWorldController) 
 		{
 			super(viewInstance, displayWidth, worldController);
@@ -62,20 +64,24 @@ package ui.gameobjects.bell
 		{
 			super.preInitilizeObjectSettings(interactiveGameObject);
 			
-			interactiveGameObject.body.x = Math.random() * displayWidth;
+			interactiveGameObject.body.x = Math.random() * displayWidth
+			
+			if (Point.distance(new Point(interactiveGameObject.body.x, 0), new Point(lastBellX, 0)) > 200)
+			{
+				interactiveGameObject.body.x = lastBellX + ( -250 + Math.random() * 500) * 2;
+			}
+			
+			if (interactiveGameObject.body.x > displayWidth - 150)
+					interactiveGameObject.body.x = displayWidth - (200 + 100 * Math.random());
+				else if (interactiveGameObject.body.x  < 0)
+					interactiveGameObject.body.x = 50 + Math.random() * 100;
+			
+			lastBellX = interactiveGameObject.body.x
 			
 			if (lastCreatedObject)
 				if (!lastCreatedObject.markToDestroy)
 				{
-					if (Point.distance(new Point(interactiveGameObject.body.x, 0), new Point(lastCreatedObject.body.x, 0)) > 200)
-					{
-						interactiveGameObject.body.x = lastCreatedObject.body.x + (-200 + Math.random() * 400) * 2;
-						
-						if (interactiveGameObject.body.x > displayWidth - 50)
-							interactiveGameObject.body.x = displayWidth - (100 + 100 * Math.random());
-						else if (interactiveGameObject.body.x  < 0)
-							interactiveGameObject.body.x = 50 + Math.random() * 100;
-					}
+					
 						
 					interactiveGameObject.body.y = lastCreatedObject.body.y - 150;
 				}
