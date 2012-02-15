@@ -8,7 +8,9 @@ package ui.gameobjects.bell
 	import features.gameactions.SimpleInteractiveObjectCreationAction;
 	import features.gameactions.SimpleInteractiveObjectDestroyAction;
 	import flash.display.DisplayObjectContainer;
+	import flash.geom.Point;
 	import flash.utils.getQualifiedClassName;
+	import ui.BellSkin;
 	
 	import ui.gameobjects.BaseInteractiveGameObject;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
@@ -37,7 +39,7 @@ package ui.gameobjects.bell
 			
 			gameobjectConfiguration = new GameobjectConfig(true);
 			gameobjectConfiguration.physicConfiguration.type = 2; //todo replace
-			gameobjectConfiguration.skinClass = EmptyBoxSkin;
+			gameobjectConfiguration.skinClass = BellSkin;
 			
 			
 			interactiveObjectConfig = new InteractiveObjectConfiguration(getQualifiedClassName(this), new SimpleInteractiveObjectDestroyAction(), new SimpleInteractiveObjectCreationAction());
@@ -63,8 +65,20 @@ package ui.gameobjects.bell
 			interactiveGameObject.body.x = Math.random() * displayWidth;
 			
 			if (lastCreatedObject)
-				if(!lastCreatedObject.markToDestroy)
-					interactiveGameObject.body.y = lastCreatedObject.body.y - 100;
+				if (!lastCreatedObject.markToDestroy)
+				{
+					if (Point.distance(new Point(interactiveGameObject.body.x, 0), new Point(lastCreatedObject.body.x, 0)) > 200)
+					{
+						interactiveGameObject.body.x = lastCreatedObject.body.x + (-200 + Math.random() * 400) * 2;
+						
+						if (interactiveGameObject.body.x > displayWidth - 50)
+							interactiveGameObject.body.x = displayWidth - (100 + 100 * Math.random());
+						else if (interactiveGameObject.body.x  < 0)
+							interactiveGameObject.body.x = 50 + Math.random() * 100;
+					}
+						
+					interactiveGameObject.body.y = lastCreatedObject.body.y - 150;
+				}
 				else
 					interactiveGameObject.body.y = 300
 			else

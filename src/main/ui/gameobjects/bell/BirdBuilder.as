@@ -6,7 +6,9 @@ package ui.gameobjects.bell
 	import features.gameactions.SimpleInteractiveObjectCreationAction;
 	import features.gameactions.SimpleInteractiveObjectDestroyAction;
 	import flash.display.DisplayObjectContainer;
+	import flash.geom.Point;
 	import flash.utils.getQualifiedClassName;
+	import ui.BirdSkin;
 
 	import ui.gameobjects.BaseInteractiveGameObject;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
@@ -33,7 +35,7 @@ package ui.gameobjects.bell
 			
 			gameobjectConfiguration = new GameobjectConfig(true);
 			gameobjectConfiguration.physicConfiguration.type = 2; //todo replace
-			gameobjectConfiguration.skinClass = EmptyBoxSkin;
+			gameobjectConfiguration.skinClass = BirdSkin;
 			
 			
 			interactiveObjectConfig = new InteractiveObjectConfiguration(getQualifiedClassName(this), new SimpleInteractiveObjectDestroyAction(), new SimpleInteractiveObjectCreationAction());
@@ -57,9 +59,15 @@ package ui.gameobjects.bell
 			
 			interactiveGameObject.body.x = Math.random() * displayWidth;
 			
+			
 			if (lastCreatedObject)
-				if(!lastCreatedObject.markToDestroy)
+				if (!lastCreatedObject.markToDestroy)
+				{
+					if (Point.distance(new Point(interactiveGameObject.body.x, 0), new Point(lastCreatedObject.body.x, 0)) > 250)
+						interactiveGameObject.body.x = (interactiveGameObject.body.x - lastCreatedObject.body.x) + 250;
+						
 					interactiveGameObject.body.y = lastCreatedObject.body.y - 100;
+				}
 				else
 					interactiveGameObject.body.y = 300
 			else

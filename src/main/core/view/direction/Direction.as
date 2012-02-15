@@ -47,8 +47,8 @@ package core.view.direction
 			
 			if (Math.abs(velocity.y) > 0.2)
 			{
-				isJumping = velocity.y > 0.2;
-				isFalling = velocity.y < 0.2;
+				isJumping = velocity.y < 0.2;
+				isFalling = velocity.y > -0.2;
 			}
 			else
 			{

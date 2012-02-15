@@ -1,5 +1,6 @@
 package ui.gameobjects 
 {
+	import core.GlobalConstants;
 	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
@@ -22,18 +23,24 @@ package ui.gameobjects
 			
 		}
 		
+		override public function destroy():void 
+		{
+			skin.doAction( GlobalConstants.ACTION_DESTROY);
+			super.destroy();
+		}
+		
 		override public function render():void 
 		{
 			super.render();
 			
 			if (body.y > 400)
 			{
-				destroy();
+				super.destroy();
 			}
 			
-			if (this.body.y > ServicesLocator.cameraService.camera.target.y + 500)
+			if (this.body.y > ServicesLocator.cameraService.camera.target.y + 700)
 			{
-				destroy();
+				super.destroy();
 			}
 		}
 		

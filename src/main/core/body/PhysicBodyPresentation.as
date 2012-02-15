@@ -44,6 +44,8 @@ package core.body
 		{
 			skin.x = x;
 			skin.y = y;
+			
+			skin.rotation = body.GetTransform().GetAngle() * GlobalConstants.RAD_TO_DEGREE;
 		}
 		
 		/**

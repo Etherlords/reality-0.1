@@ -22,10 +22,15 @@ import flash.display.Sprite;
 			
 		}
 		
+		public function resetFlyAnim():void
+		{
+			skin['resetFlyAnim']();
+		}
+		
 		public function applyMove(force:Number):void
 		{
 			var linearVelocity:Point = physicalProperties.linearVelocity;
-			linearVelocity.x /= 4.5;
+			linearVelocity.x /= 6.5;
 			physicalProperties.linearVelocity = linearVelocity;
 			//physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);

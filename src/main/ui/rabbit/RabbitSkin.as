@@ -23,6 +23,9 @@ package ui.rabbit
 		
 		private var _physWidht:Number = 0;
 		private var _physHeight:Number = 0;
+		private var flyRight:FlyingAnimation;
+		private var flyLeft:FlyingAnimation;
+
 		
 		
 		public function RabbitSkin() 
@@ -36,11 +39,21 @@ package ui.rabbit
 			standLeft = new StandAnimation();
 			standRight = new StandAnimation();
 			
+			flyRight = new FlyingAnimation();
+			flyLeft = new FlyingAnimation();
+			
+			
+			
+			//flyLeft.scaleX *= -1;
+			
+			
 			standRight.scaleX *= -1;
 			standRight.x = standRight.width + 5;
 			
 			right.scaleX *= -1;
 			right.x = left.x = 40;
+			flyLeft.x = flyRight.x = 40;
+
 			//right.x += 53.15
 			//left.x += 53.15
 			
@@ -61,6 +74,11 @@ package ui.rabbit
 			addChild(standLeft);
 			addChild(standRight);
 			
+			addChild(flyRight);
+			addChild(flyLeft);
+			
+
+			
 			_physHeight = 25;
 			_physWidht = 40;
 		}
@@ -75,13 +93,26 @@ package ui.rabbit
 			return _physWidht;
 		}
 
+		public function resetFlyAnim():void
+		{
+			flyRight._isPlaying = false;
+			flyLeft._isPlaying = false;
+		}
+		
+		private var isFlyLeft:Boolean = true;
+		
 		override public function doAction(actionKey:uint):void 
 		{
 			super.doAction(actionKey);
 			
 			left.visible = right.visible = jumpLeft.visible = jumpRight.visible = standLeft.visible = standRight.visible = false;
+			flyLeft.visible = flyRight.visible = false;
+			
 			
 			var stand:StandAnimation
+			var fly:FlyingAnimation;
+		
+			
 			if (direction.isLeftDiretion)
 			{
 				stand = standLeft
@@ -95,7 +126,6 @@ package ui.rabbit
 			{	
 				stand.visible = true;
 				stand.standUp();
-				
 			}
 			else
 			{
@@ -104,12 +134,61 @@ package ui.rabbit
 				standLeft._isPlaying = false;
 			}
 			
+			
 			//TODO: хардкод сделано чтобы заяц не мерцал когда линейцное ускорение становится 0
-			if (direction.isJumping || direction.isFalling || (!direction.isWalking && !direction.isStand))
-			{
-				stand.gotoAndStop(0);
-				stand.visible = true;
-			}
+			//if (!direction.isWalking && !direction.isStand)
+			//{
+			/*	if (direction.isFalling)
+				{
+					if (direction.isLeftDiretion)
+					{
+						falling = fallRight;
+					}
+					else
+					{
+						falling = fallLeft;
+					}
+					
+					falling.standUp();
+					falling.visible = true;
+				}
+				else
+				{
+					fallRight._isPlaying = false;
+					fallLeft._isPlaying = false;
+				}*/
+				
+				//if (direction.isJumping || direction.isFalling || (!direction.isWalking && !direction.isStand))
+				//{
+				//	stand.gotoAndStop(0);
+				//	stand.visible = true;
+				//}
+				
+				if (direction.isJumping || direction.isFalling || (!direction.isWalking && !direction.isStand))
+				{
+					if (isFlyLeft)
+					{
+						if (!direction.isLeftDiretion)
+							flyLeft.scaleX *= -1;
+					}
+					else
+					{
+						if (direction.isLeftDiretion)
+							flyLeft.scaleX *= -1;
+					}
+					
+					isFlyLeft = direction.isLeftDiretion;
+					
+					
+					flyLeft.standUp();
+					flyLeft.visible = true;
+				}
+				else
+				{
+					flyLeft._isPlaying = false;
+				}
+			//}
+			
 			
 			if (direction.isWalking)
 			{

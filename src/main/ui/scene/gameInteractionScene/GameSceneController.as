@@ -4,6 +4,7 @@ import Box2D.Dynamics.Controllers.b2BuoyancyController;
 import core.view.gameobject.GameObject;
 import flash.events.Event;
 import ui.Alert;
+import ui.gameobjects.simpleFlowObject.FlowInteractiveObject;
 import ui.Lables;
 import ui.rabbit.Rabbit;
 
@@ -104,7 +105,7 @@ public class GameSceneController extends AbstractSceneController
 			//controller.useWorldGravity = false
 			//controller.useDensity = true;
 			controller.linearDrag = 5;
-			controller.angularDrag = 2;
+			//controller.angularDrag = 2;
 			
 
 			worldController.addController(controller, 'nullGravityField');
@@ -139,12 +140,17 @@ public class GameSceneController extends AbstractSceneController
 			
 			interactiveObjectsCount++;
 				
-			lastCrationObject = gamaobjectCreationController.createGameobjectOvertimeTrigger(lastCrationObject)
+			var currentObject:BaseInteractiveGameObject = gamaobjectCreationController.createGameobjectOvertimeTrigger(lastCrationObject)
 			
-			controller.AddBody(lastCrationObject.physicalProperties.physicBodyKey);
-			lastCrationObject.interactiveObjectConfig.creationAlgorithm.execute();
+			//if (currentObject is FlowInteractiveObject)
+			//{
+				lastCrationObject = currentObject;
+			//}
 			
-			lastCrationObject.addEventListener(GameObjectPhysicEvent.DESTROY, interactiveObjectDestructionTrigger);
+			controller.AddBody(currentObject.physicalProperties.physicBodyKey);
+			currentObject.interactiveObjectConfig.creationAlgorithm.execute();
+			
+			currentObject.addEventListener(GameObjectPhysicEvent.DESTROY, interactiveObjectDestructionTrigger);
 		}
 		
 		private function interactiveObjectDestructionTrigger(e:GameObjectPhysicEvent):void 
@@ -157,7 +163,7 @@ public class GameSceneController extends AbstractSceneController
 			if (!gameIsOver)
 			{
 				interactiveObject.interactiveObjectConfig.destructionAlgorithm.execute();
-				isGameInteractionStart = true;
+				
 			}
 			
 			if (interactiveObjectsCount == 0 && gameIsOver)
@@ -206,11 +212,25 @@ public class GameSceneController extends AbstractSceneController
 			
 			rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
 			
+			rabbitController.rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, onRabbitColide);
+			
 			var flapTrigger:FlapTriggerGameObject = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), view) as FlapTriggerGameObject;
+		}
+		
+		private function onRabbitColide(e:GameObjectPhysicEvent):void 
+		{
+			if (!(e.interactionWith is BaseInteractiveGameObject))
+			{
+				return;
+			}
+			
+			
+			isGameInteractionStart = true;
 		}
 		
 		private function onFallOnFloor(e:GameObjectPhysicEvent):void 
 		{
+			trace(e.interactionWith.physicalProperties.linearVelocity);
 			
 			if (isGameInteractionStart)
 			{
@@ -271,7 +291,7 @@ public class GameSceneController extends AbstractSceneController
 			triggerOvertimeObjectGeneration();
 			
 			//TODO хз почему после удаления всхе объектов координата 300 стала выше на 100..
-			lastCrationObject.body.y = 400;
+			lastCrationObject.body.y = 500;
 			
 			triggerOvertimeObjectGeneration();
 			triggerOvertimeObjectGeneration();

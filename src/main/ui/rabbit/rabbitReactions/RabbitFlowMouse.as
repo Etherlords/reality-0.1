@@ -30,10 +30,30 @@ package ui.rabbit.rabbitReactions
 			var rabbitX:Number = rabbit.body.x + rabbit.body.width / 2;
 			var delta:Number = mouseX - rabbitX;
 			
-			if (Math.abs(delta) < rabbit.body.width / 2)
-				delta = 0;
+			var moveDirection:int;
+			
+			if (mouseX < rabbitX)
+				moveDirection = -1;
+			else
+				moveDirection = 1;
 				
-			var force:Number = delta / 25;
+				
+			var force:Number;
+			
+			if (!(Math.abs(delta) < rabbit.body.width / 2))
+			{
+				if (!rabbit.direction.isWalking)
+					force = delta / 20;
+				else
+				{	
+					force = 4 * moveDirection;
+				}
+			}
+			else
+				force = 0;
+				
+			
+			
 			
 			
 				

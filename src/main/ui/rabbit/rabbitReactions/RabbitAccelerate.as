@@ -21,6 +21,8 @@ package ui.rabbit.rabbitReactions
 			linearVelocity.y = 0;
 			
 			rabbit.physicalProperties.linearVelocity = linearVelocity;
+			
+			rabbit.resetFlyAnim();
 				
 			rabbit.physicalProperties.applyImpulse(0, -10);
 			

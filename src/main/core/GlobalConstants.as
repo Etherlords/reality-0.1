@@ -14,7 +14,11 @@ package core
 		public static var RAD_TO_DEGREE:Number = 180 / Math.PI;
 		public static var DEGREE_TO_RAD:Number = Math.PI / 180;
 		
+		
+		public static const ACTION_DESTROY:uint = 901;
+		
         public static const ACTION_VIEW_STOP:uint = 0;
+        
         public static const ACTION_VIEW_WALK_RIGHT:uint = 1;
         public static const ACTION_VIEW_WALK_LEFT:uint = 2;
         public static const ACTION_VIEW_JUMP_LEFT:uint = 3;

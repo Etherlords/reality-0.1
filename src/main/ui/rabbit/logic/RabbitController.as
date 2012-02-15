@@ -90,8 +90,8 @@ package ui.rabbit.logic
 		
 		private function tryFlap():void 
 		{
-			//new CollectFeature(worldController, rabbit).doAction();
-			rabbitActionsHelper.flapWingsReaction();
+			new CollectFeature(worldController, rabbit).doAction();
+			//rabbitActionsHelper.flapWingsReaction();
 		}
 		
 		private function collideWithReaction(e:GameObjectPhysicEvent):void 
@@ -101,6 +101,7 @@ package ui.rabbit.logic
 				
 				return;
 			}
+			
 			
 			
 			rabbitActionsHelper.rabbitAccelerateReaction();

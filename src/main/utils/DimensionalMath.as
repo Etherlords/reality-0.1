@@ -29,6 +29,14 @@ package utils
 			return Math.sqrt(pow1 + pow2);
 		}
 		
+		public static function angle(a:Point, b:Point):Number
+		{
+			var dx:Number = a.x - b.x;
+			var dy:Number = a.y - b.y;
+
+			return Math.atan2(dy,dx);  
+        }
+		
 	}
 
 }
