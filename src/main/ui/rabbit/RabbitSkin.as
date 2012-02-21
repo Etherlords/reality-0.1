@@ -14,8 +14,8 @@ package ui.rabbit
 		
 		private var left:MovieClip;
 		private var right:MovieClip;
-		private var jumpRight:MovieClip;
-		private var jumpLeft:MovieClip;
+		private var jumpRight:JumpAnimation;
+		private var jumpLeft:JumpAnimation;
 		private var standLeft:StandAnimation;
 		private var standRight:StandAnimation;
 		
@@ -109,7 +109,7 @@ package ui.rabbit
 			flyLeft.visible = flyRight.visible = false;
 			
 			
-			var stand:StandAnimation
+			var stand:StandAnimation;
 			var fly:FlyingAnimation;
 		
 			

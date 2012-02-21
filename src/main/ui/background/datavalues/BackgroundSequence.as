@@ -1,9 +1,6 @@
 package ui.background.datavalues 
 {
-	/**
-	 * ...
-	 * @author 
-	 */
+
 	public class BackgroundSequence 
 	{
 		
@@ -20,6 +17,8 @@ package ui.background.datavalues
 		public function getVackgroundsByY():Vector.<BackgroundModel>
 		{
 			
+			
+			return new Vector.<BackgroundModel>
 		}
 		
 		
