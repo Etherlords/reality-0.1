@@ -7,7 +7,7 @@
     <option name="OUTPUT_FILE_NAME" value="_Main.swf" />
     <option name="TARGET_PLAYER_VERSION" value="10.2.0" />
     <option name="STATIC_LINK_RUNTIME_SHARED_LIBRARIES" value="false" />
-    <option name="ADDITIONAL_COMPILER_OPTIONS" value="-default-size=800,600 -default-background-color=#FFFFFF -include-inheritance-dependencies-only=true " />
+    <option name="ADDITIONAL_COMPILER_OPTIONS" value="-default-size=800,600 -default-background-color=#000000 -include-inheritance-dependencies-only=true " />
     <option name="VERSION" value="3" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
