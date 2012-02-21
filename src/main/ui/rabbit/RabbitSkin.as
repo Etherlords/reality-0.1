@@ -4,12 +4,12 @@
  */
 package ui.rabbit 
 {
-	import core.GlobalConstants;
-	import core.view.skin.AnimatedSprite;
-	import core.view.skin.Skin;
-	import flash.display.MovieClip;
+import core.GlobalConstants;
+import core.view.skin.Skin;
 
-	public class RabbitSkin extends Skin 
+import flash.display.MovieClip;
+
+public class RabbitSkin extends Skin
 	{
 		
 		private var left:MovieClip;
@@ -25,9 +25,11 @@ package ui.rabbit
 		private var _physHeight:Number = 0;
 		private var flyRight:FlyingAnimation;
 		private var flyLeft:FlyingAnimation;
+        private var deathLeft:DeathLeftAnimation;
+        private var deathRight:DeathLeftAnimation;
 
-		
-		
+        private var wasDided:Boolean = false;
+
 		public function RabbitSkin() 
 		{
 			super();
@@ -66,7 +68,13 @@ package ui.rabbit
 			right.visible = false;
 			jumpRight.visible = false;
 			jumpLeft.visible = false;
-			
+
+
+            deathLeft = new DeathLeftAnimation();
+            deathRight = new DeathLeftAnimation();
+            deathRight.scaleX *= -1;
+            deathRight.visible = deathLeft.visible = false;
+
 			addChild(left);
 			addChild(right);
 			addChild(jumpRight);
@@ -76,7 +84,9 @@ package ui.rabbit
 			
 			addChild(flyRight);
 			addChild(flyLeft);
-			
+			addChild(deathLeft);
+			addChild(deathRight);
+
 
 			
 			_physHeight = 25;
@@ -104,10 +114,25 @@ package ui.rabbit
 		override public function doAction(actionKey:uint):void 
 		{
 			super.doAction(actionKey);
-			
+			if (wasDided) {
+                return;
+            }
+
 			left.visible = right.visible = jumpLeft.visible = jumpRight.visible = standLeft.visible = standRight.visible = false;
 			flyLeft.visible = flyRight.visible = false;
-			
+
+            if (actionKey == GlobalConstants.ACTION_VIEW_EXPOSE_ON_FLOOR) {
+                wasDided = true;
+                if (direction.isLeftDiretion) {
+                    deathLeft.visible = true;
+                    deathLeft.play();
+                } else {
+                    deathRight.visible = true;
+                    deathRight.play();
+                }
+                return;
+            }
+
 			
 			var stand:StandAnimation;
 			var fly:FlyingAnimation;

@@ -12,10 +12,14 @@ import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
 
+import emosuicide.emo.emoReactions.ExposeOnFloorReaction;
+
 import flash.display.DisplayObjectContainer;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
+
+import patterns.strategy.Strategy;
 
 import ui.rabbit.logic.RabbitController;
 import ui.scene.gameInteractionScene.view.GameSceneView;
@@ -93,6 +97,7 @@ public class GameSuicideSceneController extends AbstractSceneController {
         _boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
 
         _rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
+        _rabbitController.rabbitActionsHelper.behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR, new ExposeOnFloorReaction));
 
         //rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
 
@@ -120,6 +125,10 @@ public class GameSuicideSceneController extends AbstractSceneController {
 
     private function onFallOnFloor(event:GameObjectPhysicEvent):void {
         //todo add suicide here
+        trace("collide with floor " + event.interactionWith.physicalProperties.linearVelocity.y);
+        if (_rabbitController.rabbit == event.interactionWith) {
+            _rabbitController.rabbitActionsHelper.rabbitAction(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR);
+        }
     }
 
 

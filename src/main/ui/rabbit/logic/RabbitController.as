@@ -1,21 +1,25 @@
 package ui.rabbit.logic 
 {
-	import core.Box2D.utils.Box2DWorldController;
-	import core.events.GameObjectPhysicEvent;
-	import core.ui.KeyBoardController;
-	import core.view.gameobject.config.GameobjectConfig;
-	import features.CollectFeature;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
-	import flash.ui.Keyboard;
-	import flash.utils.Timer;
-	import ui.gameobjects.BaseInteractiveGameObject;
-	import ui.rabbit.constructor.RabbitConstructor;
-	import ui.rabbit.FlapTriggerGameObject;
-	import ui.rabbit.Rabbit;
-	import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
-	/**
+import core.Box2D.utils.Box2DWorldController;
+import core.events.GameObjectPhysicEvent;
+import core.ui.KeyBoardController;
+import core.view.gameobject.config.GameobjectConfig;
+
+import features.CollectFeature;
+
+import flash.display.DisplayObjectContainer;
+import flash.events.MouseEvent;
+import flash.events.TimerEvent;
+import flash.ui.Keyboard;
+import flash.utils.Timer;
+
+import ui.gameobjects.BaseInteractiveGameObject;
+import ui.rabbit.FlapTriggerGameObject;
+import ui.rabbit.Rabbit;
+import ui.rabbit.constructor.RabbitConstructor;
+import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
+
+/**
 	 * ...
 	 * @author 
 	 */
@@ -23,7 +27,7 @@ package ui.rabbit.logic
 	{
 		private var viewInstance:DisplayObjectContainer;
 		
-		private var rabbitActionsHelper:RabbitReactionsHelper;
+		public var rabbitActionsHelper:RabbitReactionsHelper;
 		private var _rabbit:Rabbit;
 		private var worldController:Box2DWorldController;
 		private var flapTrigger:FlapTriggerGameObject;

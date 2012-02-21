@@ -1,18 +1,22 @@
 package ui.rabbit.rabbitReactions 
 {
-	import core.GlobalConstants;
-	import flash.display.Stage;
-	import patterns.strategy.Strategy;
-	import patterns.strategy.StrategyController;
-	import ui.rabbit.FlapTriggerGameObject;
-	import ui.rabbit.Rabbit;
-	/**
+import core.GlobalConstants;
+
+import flash.display.Stage;
+
+import patterns.strategy.Strategy;
+import patterns.strategy.StrategyController;
+
+import ui.rabbit.FlapTriggerGameObject;
+import ui.rabbit.Rabbit;
+
+/**
 	 * ...
 	 * @author 
 	 */
 	public class RabbitReactionsHelper 
 	{
-		private var behaviorStrategyController:StrategyController;
+		public var behaviorStrategyController:StrategyController;
 		
 		private var rabbit:Rabbit;
 		private var stage:Stage;
