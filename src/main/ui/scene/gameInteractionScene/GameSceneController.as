@@ -29,6 +29,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 import ui.services.ScoreboardService;
+import ui.services.ScoresService;
 
 import utils.BoundariesConstructor;
 
@@ -43,8 +44,7 @@ public class GameSceneController extends AbstractSceneController
 		
 		private var lastCrationObject:BaseInteractiveGameObject;
 		
-		private var scoresSubstractor:Number = 10;
-		private var scores:Number = 0;
+
 		
 		private var gamaobjectCreationController:GameobjectsCrationController;
 		private var controller:b2BuoyancyController;
@@ -53,7 +53,9 @@ public class GameSceneController extends AbstractSceneController
 		private var isGameInteractionStart:Boolean = false;
 		private var alert:Alert;
 		private var gameIsOver:Boolean;
-		
+
+        private var scoresService:ScoresService;
+
 		public function GameSceneController() 
 		{
 			super();
@@ -63,6 +65,7 @@ public class GameSceneController extends AbstractSceneController
 		override protected function initilize():void 
 		{
 			//create using services
+
             ServicesLocator.instance.addService(new CameraService());
             ServicesLocator.instance.addService(new ScoreboardService());
 
@@ -71,6 +74,7 @@ public class GameSceneController extends AbstractSceneController
 		
 		private function postInitilize():void 
 		{
+            scoresService = ServicesLocator.instance.getServiceByClass(ScoresService) as ScoresService;
 			createWorld();
 			createViewComponents();
 			
@@ -175,9 +179,6 @@ public class GameSceneController extends AbstractSceneController
 		private function bellDestoryReaction(e:GameObjectPhysicEvent):void 
 		{
 			triggerOvertimeObjectGeneration();
-			
-			sceneView.scoresView.scores += scoresSubstractor;
-			scoresSubstractor += 10;
 		}
 		
 		private function manageEvents():void 
@@ -241,8 +242,8 @@ public class GameSceneController extends AbstractSceneController
 		private function gameOver():void 
 		{
 			gameIsOver = true;
-			
-			alert = new Alert(Lables.getGAME_OVER_LABLE(sceneView.scoresView.scores, 9999999));
+            scoresService.currentPlayerMaxScope = scoresService.scores > scoresService.currentPlayerMaxScope ? scoresService.scores : scoresService.currentPlayerMaxScope;
+			alert = new Alert(Lables.getGAME_OVER_LABLE(scoresService.scores, scoresService.currentPlayerMaxScope));
 			alert.x = (view.stage.stageWidth - alert.width) / 2;
 			alert.y = (view.stage.stageHeight - alert.height) / 2;
 			
@@ -259,7 +260,8 @@ public class GameSceneController extends AbstractSceneController
 		{
 			view.removeChild(alert);
 			var objects:Vector.<GameObject> = worldController.gameObjectsRegistry.objectsList;
-			sceneView.scoresView.scores = 0;
+            scoresService.scores = 0;
+			//sceneView.scoresView.scores = 0;
 			
 			
 			for (var i:int = 0; i < objects.length; i++)

@@ -7,7 +7,8 @@ package  ui.scene.gameInteractionScene.view
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import ui.scoreboard.Scoreboard;
-	import ui.snow.FallingSnowAnimation;
+import ui.services.ScoresService;
+import ui.snow.FallingSnowAnimation;
 	
 	/**
 	 * ...
@@ -21,7 +22,9 @@ package  ui.scene.gameInteractionScene.view
 		
 		private var _scoreboard:Scoreboard;
 		private var _snow:FallingSnowAnimation;
-		
+
+        private var scoresService:ScoresService;
+
 		public function GameSceneView() 
 		{
 			super();
@@ -30,7 +33,7 @@ package  ui.scene.gameInteractionScene.view
 		
 		public function render():void
 		{
-			
+			scoresView.scores = scoresService.scores;
 			//this.y = stage.stageHeight / 2 - rabbit.dimensionalProperties.y;
 			
 			//if (this.y < 0)	
@@ -65,6 +68,7 @@ package  ui.scene.gameInteractionScene.view
 		
 		public function initilize():void 
 		{
+            scoresService = ServicesLocator.instance.getServiceByClass(ScoresService) as ScoresService;
 			trackCameraInstances = new Vector.<DisplayObjectContainer>;
 			createInstances();
 		}

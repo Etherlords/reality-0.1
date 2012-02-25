@@ -4,15 +4,21 @@
  */
 package ui.rabbit.rabbitReactions
 {
-	import flash.geom.Point;
+import core.locators.ServicesLocator;
+
+import flash.geom.Point;
 	import patterns.strategy.SimpleAlgorithm;
 
 	import ui.rabbit.Rabbit;
+import ui.services.ScoresService;
 
-	public class RabbitAccelerate extends SimpleAlgorithm 
+public class RabbitAccelerate extends SimpleAlgorithm
 	{
+        private var scoresService:ScoresService;
+
 		public function RabbitAccelerate() {
 			super();
+            scoresService = ServicesLocator.instance.getServiceByClass(ScoresService) as ScoresService;
 		}
 
 		public function execute(rabbit:Rabbit):void 
@@ -25,6 +31,10 @@ package ui.rabbit.rabbitReactions
 			rabbit.resetFlyAnim();
 				
 			rabbit.physicalProperties.applyImpulse(0, -10);
+
+            scoresService.scores += scoresService.scoresSubstractor;
+            //sceneView.scoresView.scores += scoresSubstractor;
+            scoresService.scoresSubstractor += 10;
 			
 		}
 	}

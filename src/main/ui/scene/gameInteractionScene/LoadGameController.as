@@ -3,6 +3,7 @@
  * Date: 25.02.12 Time: 22:18
  */
 package ui.scene.gameInteractionScene{
+import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
 
 import flash.display.DisplayObjectContainer;
@@ -10,6 +11,8 @@ import flash.display.Sprite;
 import flash.text.TextField;
 
 import mx.controls.Text;
+
+import ui.services.ScoresService;
 
 public class LoadGameController extends AbstractSceneController {
     public function LoadGameController() {
@@ -27,6 +30,7 @@ public class LoadGameController extends AbstractSceneController {
 
     override public function activate(instance:DisplayObjectContainer):void {
         super.activate(instance);
+        ServicesLocator.instance.addService(new ScoresService());
         exit();
     }
 }

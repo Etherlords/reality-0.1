@@ -40,6 +40,10 @@ package ui.scoreboard
 		
 		public function set scores(value:Number):void 
 		{
+            if (_scores == value) {
+                return;
+            }
+
 			_scores = value;
 			
 			_scoresView.text = value.toString();
