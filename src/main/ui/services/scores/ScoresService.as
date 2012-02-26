@@ -25,7 +25,7 @@ public class ScoresService extends AbstractService {
     }
 
     public function get currentPlayerMaxScope():Number {
-        return _storage.getCurrentUserMaxScores();;
+        return _storage.getCurrentUserMaxScores();
     }
 
     public function get scores():Number {
