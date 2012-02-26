@@ -29,7 +29,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 import ui.services.ScoreboardService;
-import ui.services.ScoresService;
+import ui.services.scores.ScoresService;
 
 import utils.BoundariesConstructor;
 

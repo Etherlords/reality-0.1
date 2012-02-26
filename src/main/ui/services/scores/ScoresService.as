@@ -2,7 +2,7 @@
  * author: chaos-encoder
  * Date: 25.02.12 Time: 22:40
  */
-package ui.services {
+package ui.services.scores {
 import core.services.AbstractService;
 
 public class ScoresService extends AbstractService {

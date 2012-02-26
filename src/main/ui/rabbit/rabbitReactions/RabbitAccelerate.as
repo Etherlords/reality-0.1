@@ -10,7 +10,7 @@ import flash.geom.Point;
 	import patterns.strategy.SimpleAlgorithm;
 
 	import ui.rabbit.Rabbit;
-import ui.services.ScoresService;
+import ui.services.scores.ScoresService;
 
 public class RabbitAccelerate extends SimpleAlgorithm
 	{

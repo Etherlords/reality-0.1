@@ -12,7 +12,7 @@ import flash.text.TextField;
 
 import mx.controls.Text;
 
-import ui.services.ScoresService;
+import ui.services.scores.ScoresService;
 
 public class LoadGameController extends AbstractSceneController {
     public function LoadGameController() {

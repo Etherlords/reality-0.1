@@ -7,7 +7,7 @@ package  ui.scene.gameInteractionScene.view
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import ui.scoreboard.Scoreboard;
-import ui.services.ScoresService;
+import ui.services.scores.ScoresService;
 import ui.snow.FallingSnowAnimation;
 	
 	/**
