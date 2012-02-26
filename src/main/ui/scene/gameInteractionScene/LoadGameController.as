@@ -8,12 +8,15 @@ import core.scene.AbstractSceneController;
 
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
+import flash.events.Event;
 import flash.text.TextField;
 
 import mx.controls.Text;
 
+import ui.services.kongreate.KongreateService;
+
 import ui.services.scores.ScoresService;
-import ui.services.scores.store.RuntimeStorage;
+import ui.services.scores.store.AbstractScoresStorageService;
 
 public class LoadGameController extends AbstractSceneController {
     public function LoadGameController() {
@@ -31,8 +34,14 @@ public class LoadGameController extends AbstractSceneController {
 
     override public function activate(instance:DisplayObjectContainer):void {
         super.activate(instance);
-        ServicesLocator.instance.addService(new ScoresService(new RuntimeStorage()));
-        exit();
+        var kongreateService:KongreateService = new KongreateService();
+        kongreateService.addEventListener(Event.CONNECT, function (event:Event):void {
+            ServicesLocator.instance.addService(kongreateService);
+            ServicesLocator.instance.addService(new ScoresService());
+            exit();
+        });
+
+        kongreateService.connect(instance);
     }
 }
 }

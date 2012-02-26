@@ -37,7 +37,10 @@ package core.services
 		{
 			return _serviceName;
 		}
-		
-	}
+
+        public function registered(servicesLocator:ServicesLocator):void {
+
+        }
+    }
 
 }

@@ -3,21 +3,27 @@
  * Date: 25.02.12 Time: 22:40
  */
 package ui.services.scores {
+import core.locators.ServicesLocator;
 import core.services.AbstractService;
+import ui.services.scores.store.AbstractScoresStorageService;
 
-import ui.services.scores.store.IScoresStorage;
 
 public class ScoresService extends AbstractService {
 
     private var _scores:Number = 0;
     public var scoresSubstractor:Number = 0;
-    private var _storage:IScoresStorage;
+    private var _storage:AbstractScoresStorageService;
 
 
-    public function ScoresService(storage:IScoresStorage) {
-        this._storage = storage;
+    public function ScoresService() {
+
     }
 
+
+    override public function registered(servicesLocator:ServicesLocator):void {
+        super.registered(servicesLocator);
+        _storage = servicesLocator.getServiceByClass(AbstractScoresStorageService) as AbstractScoresStorageService;
+    }
 
     override protected function initilize():void
     {

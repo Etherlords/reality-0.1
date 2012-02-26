@@ -3,11 +3,13 @@
  * Date: 26.02.12 Time: 9:16
  */
 package ui.services.scores.store {
-public class RuntimeStorage implements IScoresStorage {
+import core.services.AbstractService;
+
+public class AbstractScoresStorageService extends AbstractService {
 
     private var _currentPlayerMaxScope:Number;
 
-    public function RuntimeStorage() {
+    public function AbstractScoresStorageService() {
         _currentPlayerMaxScope = 0;
     }
 

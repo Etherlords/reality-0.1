@@ -3,7 +3,8 @@ package core.locators
 	import core.collections.SimpleMap;
 	import core.services.AbstractService;
 	import flash.utils.Dictionary;
-	import flash.utils.getQualifiedClassName;
+import flash.utils.getDefinitionByName;
+import flash.utils.getQualifiedClassName;
 	import ui.services.CameraService;
 	import ui.services.ScoreboardService;
 	/**
@@ -47,18 +48,32 @@ package core.locators
 		
 		public function addService(service:AbstractService):void
 		{
-			classMap.addItem(getQualifiedClassName(service), service);
-			nameMap.addItem(service.serviceName, service);
+            var className:String = getQualifiedClassName(service);
+            addServiceAs(service, getDefinitionByName( className ) as Class, service.serviceName);
+
 		}
+
+        public function addServiceAs(service:AbstractService, targetServiceClass:Class, targetServiceName:String = null):void {
+            addInstanceAsClass(service, targetServiceClass);
+            if (targetServiceName) {
+                nameMap.addItem(targetServiceName, service);
+            }
+            service.registered(this);
+        }
 		
 		public function getServiceByClass(serviceClass:Class):AbstractService
 		{
-			
-			return classMap.getItem(getQualifiedClassName(serviceClass))
+			return getInstanceByClass(serviceClass);
 		}
-		
 
-		
-	}
+
+        private function addInstanceAsClass(instance:*, targetClass:Class):void {
+            classMap.addItem(getQualifiedClassName(targetClass), instance);
+        }
+
+        private function getInstanceByClass(targetClass:Class):* {
+           return classMap.getItem(getQualifiedClassName(targetClass));
+        }
+    }
 
 }
