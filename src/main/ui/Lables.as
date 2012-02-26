@@ -13,7 +13,7 @@ package ui
 												+ '\n\n\n\n'
 												+ '<scores>%score%</scores>'
 												+ '\n\n\n\n'
-												+ '<header>Your highest score</header>'
+												+ '<header>Your highest in this game session score</header>'
 												+ '\n\n\n\n'
 												+ '<scores>%highScore%</scores>'
 												+ '\n\n\n\n'

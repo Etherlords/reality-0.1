@@ -19,13 +19,6 @@ package core.services
 		protected function initilize():void 
 		{
 			_serviceName = getQualifiedClassName(this);
-			
-			registerService();
-		}
-		
-		private function registerService():void 
-		{
-			ServicesLocator.instance.addService(this);
 		}
 		
 		public function get serviceName():String

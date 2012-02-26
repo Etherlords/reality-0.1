@@ -35,7 +35,7 @@ public class LoadGameController extends AbstractSceneController {
     override public function activate(instance:DisplayObjectContainer):void {
         super.activate(instance);
         var kongreateService:KongreateService = new KongreateService();
-        kongreateService.addEventListener(Event.CONNECT, function (event:Event):void {
+        kongreateService.addEventListener(Event.COMPLETE, function (event:Event):void {
             ServicesLocator.instance.addService(kongreateService);
             ServicesLocator.instance.addService(new ScoresService());
             exit();
