@@ -242,7 +242,7 @@ public class GameSceneController extends AbstractSceneController
 		private function gameOver():void 
 		{
 			gameIsOver = true;
-            scoresService.currentPlayerMaxScope = scoresService.scores > scoresService.currentPlayerMaxScope ? scoresService.scores : scoresService.currentPlayerMaxScope;
+            scoresService.flushScores();
 			alert = new Alert(Lables.getGAME_OVER_LABLE(scoresService.scores, scoresService.currentPlayerMaxScope));
 			alert.x = (view.stage.stageWidth - alert.width) / 2;
 			alert.y = (view.stage.stageHeight - alert.height) / 2;
@@ -260,7 +260,7 @@ public class GameSceneController extends AbstractSceneController
 		{
 			view.removeChild(alert);
 			var objects:Vector.<GameObject> = worldController.gameObjectsRegistry.objectsList;
-            scoresService.scores = 0;
+            scoresService.resetScores();
 			//sceneView.scoresView.scores = 0;
 			
 			

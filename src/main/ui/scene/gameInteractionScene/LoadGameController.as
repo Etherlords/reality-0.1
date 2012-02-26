@@ -13,6 +13,7 @@ import flash.text.TextField;
 import mx.controls.Text;
 
 import ui.services.scores.ScoresService;
+import ui.services.scores.store.RuntimeStorage;
 
 public class LoadGameController extends AbstractSceneController {
     public function LoadGameController() {
@@ -30,7 +31,7 @@ public class LoadGameController extends AbstractSceneController {
 
     override public function activate(instance:DisplayObjectContainer):void {
         super.activate(instance);
-        ServicesLocator.instance.addService(new ScoresService());
+        ServicesLocator.instance.addService(new ScoresService(new RuntimeStorage()));
         exit();
     }
 }

@@ -5,13 +5,17 @@
 package ui.services.scores {
 import core.services.AbstractService;
 
+import ui.services.scores.store.IScoresStorage;
+
 public class ScoresService extends AbstractService {
 
     private var _scores:Number = 0;
     public var scoresSubstractor:Number = 0;
-    private var _currentPlayerMaxScope:Number = 0;
+    private var _storage:IScoresStorage;
 
-    public function ScoresService() {
+
+    public function ScoresService(storage:IScoresStorage) {
+        this._storage = storage;
     }
 
 
@@ -21,7 +25,7 @@ public class ScoresService extends AbstractService {
     }
 
     public function get currentPlayerMaxScope():Number {
-        return _currentPlayerMaxScope;
+        return _storage.getCurrentUserMaxScores();;
     }
 
     public function get scores():Number {
@@ -32,8 +36,12 @@ public class ScoresService extends AbstractService {
         _scores = value;
     }
 
-    public function set currentPlayerMaxScope(currentPlayerMaxScope:Number):void {
-        _currentPlayerMaxScope = currentPlayerMaxScope;
+    public function resetScores():void {
+        scores = 0;
+    }
+
+    public function flushScores():void {
+        _storage.saveScores(scores);
     }
 }
 }
