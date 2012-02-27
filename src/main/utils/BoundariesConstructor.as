@@ -20,7 +20,7 @@ package utils
 	public class BoundariesConstructor 
 	{
 		private var _width:Number = 760;
-		private var _height:Number = 500;
+		private var _height:Number = 593;
 		private var viewInstance:DisplayObjectContainer;
 		
 		public var floor:GameObject;

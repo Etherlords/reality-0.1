@@ -246,6 +246,7 @@ public class GameSceneController extends AbstractSceneController
 			alert = new Alert(Lables.getGAME_OVER_LABLE(scoresService.scores, scoresService.currentPlayerMaxScope));
 			alert.x = (view.stage.stageWidth - alert.width) / 2;
 			alert.y = (view.stage.stageHeight - alert.height) / 2;
+			alert.y += 100;
 			
 			alert.addEventListener('playAgain', replay);
 			
@@ -293,7 +294,7 @@ public class GameSceneController extends AbstractSceneController
 			triggerOvertimeObjectGeneration();
 			
 			//TODO хз почему после удаления всхе объектов координата 300 стала выше на 100..
-			lastCrationObject.body.y = 500;
+			lastCrationObject.body.y = 300;
 			
 			triggerOvertimeObjectGeneration();
 			triggerOvertimeObjectGeneration();

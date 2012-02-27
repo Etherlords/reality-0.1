@@ -27,6 +27,9 @@ import ui.scene.gameInteractionScene.LoadGameController;
 		
 		private function craeteScenes():void 
 		{
+			stage.align = 'TL';
+			stage.scaleMode = 'noScale';
+			
 			var stateManager:StatesManager = new StatesManager(this);
 
             var loadStateConfig:StateConfig = new StateConfig('Load', LoadGameController);

@@ -19,7 +19,7 @@ package ui.gameobjects.simpleFlowObject
 		
 		public function FlowInteractiveObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
 		{
-			config.physicConfiguration.density = 2.1;
+			config.physicConfiguration.density = 2.2;
 			config.physicConfiguration.friction = 0.3;
 			config.physicConfiguration.restitution = 0.1;
 			config.physicConfiguration.fixedRotation = true;

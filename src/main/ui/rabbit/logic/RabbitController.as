@@ -94,12 +94,13 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		private function tryFlap():void 
 		{
-			new CollectFeature(worldController, rabbit).doAction();
+			//new CollectFeature(worldController, rabbit).doAction();
 			//rabbitActionsHelper.flapWingsReaction();
 		}
 		
 		private function collideWithReaction(e:GameObjectPhysicEvent):void 
 		{
+			
 			if (!(e.interactionWith is BaseInteractiveGameObject))
 			{
 				

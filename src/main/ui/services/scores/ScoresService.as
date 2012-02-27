@@ -44,6 +44,7 @@ public class ScoresService extends AbstractService {
 
     public function resetScores():void {
         scores = 0;
+		scoresSubstractor = 0;
     }
 
     public function flushScores():void {
