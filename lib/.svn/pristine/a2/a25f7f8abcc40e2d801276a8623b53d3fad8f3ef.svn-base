@@ -1,1 +1,0 @@
-<testsuite errors='0' failures='0' name='demo.SampleTest' tests='4' time='0' ><testcase name="testSampleError" time="0"/><testcase name="testSuccess" time="0"/><testcase name="testSampleExpectError" time="0"/><testcase name="testSampleFailure" time="0"/></testsuite>
