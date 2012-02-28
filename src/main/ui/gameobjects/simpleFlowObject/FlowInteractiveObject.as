@@ -2,12 +2,12 @@ package ui.gameobjects.simpleFlowObject
 {
 	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
-	import core.view.gameobject.SimplePhysicalProperties;
+	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
-	import flash.geom.Point;
 	import ui.gameobjects.BaseInteractiveGameObject;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
+
 	
 	/**
 	 * ...

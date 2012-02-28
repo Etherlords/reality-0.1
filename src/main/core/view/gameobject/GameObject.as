@@ -3,11 +3,14 @@ package core.view.gameobject
 import core.body.IBodyPresentation;
 import core.Box2D.utils.BodyConstructor;
 import core.Box2D.utils.EmptyBodyConstructor;
-import core.Box2D.utils.EmptyPhysicalPropertiesConstructor;
 import core.Box2D.utils.PhysicBodyConstructor;
 import core.events.GameObjectPhysicEvent;
 import core.view.direction.Direction;
 import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.physicalpropeties.constructor.EmptyPhysicalPropertiesConstructor;
+import core.view.gameobject.physicalpropeties.constructor.IPhysicalPropertiesConstructor;
+import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalPropertiesConstructor;
+import core.view.gameobject.physicalpropeties.IPhysicalProperties;
 import core.view.skin.Skin;
 import flash.display.DisplayObjectContainer;
 import flash.events.EventDispatcher;
@@ -43,7 +46,7 @@ import flash.events.IEventDispatcher;
 		
 		private var config:GameobjectConfig;
 		private var instance:DisplayObjectContainer;
-		private var _physicalProperties:PhysicalProperties;
+		private var _physicalProperties:core.view.gameobject.physicalpropeties.IPhysicalProperties;
 		public var markToDestroy:Boolean = false;
 		
 		public var direction:Direction;
@@ -149,7 +152,7 @@ import flash.events.IEventDispatcher;
 		protected function createBody():void 
 		{
 			var bodyConstructor:BodyConstructor;
-            var phsyPropConstructor:PhysicalPropertiesConstructor;
+            var phsyPropConstructor:IPhysicalPropertiesConstructor;
 			
 			if (config.isUsePhisicWorld) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику
 			{
@@ -184,7 +187,7 @@ import flash.events.IEventDispatcher;
 			return _body;
 		}
 		
-		public function get physicalProperties():PhysicalProperties
+		public function get physicalProperties():IPhysicalProperties
 		{
 			return _physicalProperties;
 		}

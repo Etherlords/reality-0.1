@@ -114,12 +114,9 @@ import ui.snow.FallingSnowAnimation;
 			moon.y -= 35;
 			moon.x -= 160;
 			
-			
 			createMoon();
 			
 			addChild(startBack);
-			
-			
 			
 			addChild(moon);
 			
