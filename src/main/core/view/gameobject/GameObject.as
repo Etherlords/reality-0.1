@@ -47,7 +47,7 @@ import flash.events.IEventDispatcher;
 		
 		private var config:GameobjectConfig;
 		private var instance:DisplayObjectContainer;
-		private var _physicalProperties:core.view.gameobject.physicalpropeties.IPhysicalProperties;
+		private var _physicalProperties:IPhysicalProperties;
 		public var markToDestroy:Boolean = false;
 		
 		public var direction:Direction;
@@ -197,7 +197,8 @@ import flash.events.IEventDispatcher;
          *  азадиние апиранса по ключу, типа rabbit.walk
          * @param key
          */
-        public function applyActionView(key:uint):void {
+        public function applyActionView(key:uint):void 
+		{
             skin.doAction(key);
         }
 	}
