@@ -1,9 +1,9 @@
 package core.view.gameobject.physicalpropeties 
 {
 	import Box2D.Common.Math.b2Vec2;
+	import core.view.gameobject.body.PhysicBodyPresentation;
 
-	import core.body.PhysicBodyPresentation;
-
+	
 	import flash.geom.Point;
 
 	/**

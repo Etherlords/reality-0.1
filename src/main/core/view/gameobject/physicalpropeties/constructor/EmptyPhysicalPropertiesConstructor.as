@@ -1,6 +1,7 @@
 package core.view.gameobject.physicalpropeties.constructor 
 {
-	import core.body.IBodyPresentation;
+
+	import core.view.gameobject.body.IBodyPresentation;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 
 
