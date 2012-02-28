@@ -18,73 +18,130 @@
    <packaging>swf</packaging>
    <name>Rabbit Game</name>
 
+
+    <scm>
+        <url>http://svn.triplecstudios.org/house_of_fun/trunk/</url>
+        <connection>csm:svn:http://svn.triplecstudios.org/house_of_fun/trunk/</connection>
+        <developerConnection>csm:svn:http://svn.triplecstudios.org/house_of_fun/trunk/</developerConnection>
+    </scm>
+
    <properties>
 		<flex.sdk.version>4.5.1.21328</flex.sdk.version>
 		<flexmojos.version>4.0-RC2</flexmojos.version>
    </properties>
 
    <build>
-      <sourceDirectory>D:\reality-0.1\reality-0.1\src\main</sourceDirectory>
-      <testSourceDirectory>D:\reality-0.1\reality-0.1\src\main</testSourceDirectory>
+
+      <sourceDirectory>.\src\main</sourceDirectory>
+      <testSourceDirectory>.\src\main</testSourceDirectory>
 	  
 
 	  
       <plugins>
          <plugin>
-			 
-			 
-            <groupId>org.sonatype.flexmojos</groupId>
-            <artifactId>flexmojos-maven-plugin</artifactId>
-            <version>${flexmojos.version}</version>
-            <extensions>true</extensions>
-			
-			<configuration>
-				
-				
-				<defaultBackgroundColor>0x000000</defaultBackgroundColor>
-				
-				<defaultFrameRate>31</defaultFrameRate>
-				
-				<defaultSize>
-					<width>760</width>
-					<height>593</height>
-				</defaultSize>
-				
-				<as3>true</as3>
-				<compress>true</compress>
-				<targetPlayer>10.0.0</targetPlayer>
-				
-				<coverage>true</coverage>
-				<headlessServer>true</headlessServer>
-				<verboseStacktraces>true</verboseStacktraces>
-				
-				<includeTestFiles>
-					<includeTestFile>*Test.as</includeTestFile>
-				</includeTestFiles>
-				
-			</configuration>
-				
-            <dependencies>
-               <!-- Nice POM bundle available per SDK on Sonatype thanks to Flex-Mojos -->
-               <dependency>
-                  <groupId>com.adobe.flex</groupId>
-                  <artifactId>compiler</artifactId>
-                  <version>${flex.sdk.version}</version>
-                  <type>pom</type>
-               </dependency>
-			   
-			   
-			   
-            </dependencies>
-			
+
+             <groupId>org.sonatype.flexmojos</groupId>
+             <artifactId>flexmojos-maven-plugin</artifactId>
+             <version>${flexmojos.version}</version>
+             <extensions>true</extensions>
+
+             <configuration>
+
+                 <finalName>${project.name}${timestamp}</finalName>
+
+                 <compilerWarnings>
+                     <warn-no-constructor>false</warn-no-constructor>
+                 </compilerWarnings>
+
+                 <headlessServer>true</headlessServer>
+                 <verboseStacktraces>true</verboseStacktraces>
+
+                 <coverage>true</coverage>
+                 <coverageProvider>cobertura</coverageProvider>
+
+                 <aggregate>true</aggregate>
+                 <as3>true</as3>
+                 <compress>true</compress>
+                 <optimize>true</optimize>
+
+                 <defaultFrameRate>31</defaultFrameRate>
+
+                 <defaultSize>
+                     <width>760</width>
+                     <height>593</height>
+                 </defaultSize>
+
+                 <swfVersion>10</swfVersion>
+                 <targetPlayer>10</targetPlayer>
+
+                 <includeTestFiles>
+                     <includeTestFile>*Test.as</includeTestFile>
+                 </includeTestFiles>
+
+             </configuration>
+
+             <dependencies>
+                 <!-- Nice POM bundle available per SDK on Sonatype thanks to Flex-Mojos -->
+                 <dependency>
+                     <groupId>com.adobe.flex</groupId>
+                     <artifactId>compiler</artifactId>
+                     <version>${flex.sdk.version}</version>
+                     <type>pom</type>
+                 </dependency>
+             </dependencies>
+
          </plugin>
-		 
+
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-scm-plugin</artifactId>
+              <version>1.3</version>
+              <configuration>
+                  <providerImplementations>
+                      <svn>javasvn</svn>
+                  </providerImplementations>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                      <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
+                      <artifactId>maven-scm-provider-svnjava</artifactId>
+                      <version>1.9</version>
+                  </dependency>
+              </dependencies>
+          </plugin>
+
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>buildnumber-maven-plugin</artifactId>
+              <version>1.1-SNAPSHOT</version>
+              <executions>
+                  <execution>
+                      <phase>validate</phase>
+                      <goals>
+                          <goal>create</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <doCheck>false</doCheck>
+                  <doUpdate>true</doUpdate>
+              </configuration>
+          </plugin>
+
       </plugins>
    </build>
-   
+
   
 
    <dependencies>
+
+       <dependency>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-scm-plugin</artifactId>
+           <version>1.3</version>
+
+       </dependency>
+
       <!-- Nice POM bundle available per SDK on Sonatype thanks to Flex-Mojos -->
       <dependency>
          <groupId>com.adobe.flex.framework</groupId>
@@ -168,57 +225,5 @@
          </snapshots>
       </pluginRepository>
    </pluginRepositories>
-   
-   <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.1.2</version>
-      </plugin>
-    </plugins>
-  </reporting>
-  
-   <profiles>
-    <profile>
-      <id>site</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>verify</phase>
-                <goals>
-                  <goal>site</goal>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>com.sonatype.maven.plugins</groupId>
-            <artifactId>maven-upload-plugin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <executions>
-              <execution>
-                <id>publish-site</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>upload-file</goal>
-                </goals>
-                <configuration>
-                  <serverId>forge</serverId>
-                  <repositoryUrl>http://repository.sonatype.org/service/local/repositories/flexmojos-site/content-compressed</repositoryUrl>
-                  <file>target/${project.artifactId}-${project.version}-site.jar</file>
-                  <repositoryPath>flexmojos/sample</repositoryPath>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
    
 </project>

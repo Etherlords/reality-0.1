@@ -1,0 +1,1 @@
+<testsuite errors='0' failures='0' name='example.movieLister.MovieListerTest' tests='2' time='0' ><testcase name="testMovieFinderGetMoviesList" time="0"/><testcase name="testMovieFinderGetMoviesListFail" time="0"/></testsuite>

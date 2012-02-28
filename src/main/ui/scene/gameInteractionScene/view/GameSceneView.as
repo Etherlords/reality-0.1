@@ -126,6 +126,18 @@ import ui.snow.FallingSnowAnimation;
 			addChild(_snow);
 			addChild(_gameObjectsInstance);
 			addChild(_scoreboard);
+			
+			removeFromMouseWorld(_scoreboard);
+			removeFromMouseWorld(_snow);
+			removeFromMouseWorld(_gameObjectsInstance);
+			removeFromMouseWorld(startBack);
+			removeFromMouseWorld(moon);
+		}
+		
+		private function removeFromMouseWorld(obj:DisplayObjectContainer):void
+		{
+			obj.mouseEnabled = false;
+			obj.mouseChildren = false;
 		}
 		
 		private function createMoon():void 
