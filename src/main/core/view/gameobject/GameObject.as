@@ -1,9 +1,9 @@
 package core.view.gameobject 
 {
+import core.body.constructor.EmptyBodyConstructor;
+import core.body.constructor.IBodyConstructor;
+import core.body.constructor.PhysicBodyConstructor;
 import core.body.IBodyPresentation;
-import core.Box2D.utils.BodyConstructor;
-import core.Box2D.utils.EmptyBodyConstructor;
-import core.Box2D.utils.PhysicBodyConstructor;
 import core.events.GameObjectPhysicEvent;
 import core.view.direction.Direction;
 import core.view.gameobject.config.GameobjectConfig;
@@ -151,7 +151,7 @@ import flash.events.IEventDispatcher;
 		 */
 		protected function createBody():void 
 		{
-			var bodyConstructor:BodyConstructor;
+			var bodyConstructor:IBodyConstructor;
             var phsyPropConstructor:IPhysicalPropertiesConstructor;
 			
 			if (config.isUsePhisicWorld) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику

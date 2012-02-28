@@ -9,35 +9,42 @@ import core.view.gameobject.GameObject;
 import flash.display.Sprite;
 import flash.events.IEventDispatcher;
 
-public class LifeTimeGameObject extends GameObject {
+public class LifeTimeGameObject extends GameObject 
+{
     
     private var _lifeTime:uint = 0;
     private var _lastLifeRecalTime:Date;
     
-    public function LifeTimeGameObject(config:GameobjectConfig, skinHolderInstance:Sprite, eventFlowTarget:IEventDispatcher = null) {
+    public function LifeTimeGameObject(config:GameobjectConfig, skinHolderInstance:Sprite, eventFlowTarget:IEventDispatcher = null) 
+	{
         super(config, skinHolderInstance, eventFlowTarget);
     }
 
 
-    override protected function initilize():void {
+    override protected function initilize():void 
+	{
         super.initilize();
     }
 
 
-    override public function preRender(lastPreRenderCallDelay:uint):void {
+    override public function preRender(lastPreRenderCallDelay:uint):void 
+	{
         super.preRender(lastPreRenderCallDelay);
         addLife(lastPreRenderCallDelay);
     }
 
-    protected function addLife(time:uint):void {
+    protected function addLife(time:uint):void 
+	{
         _lifeTime += time;
     }
 
-    public function get lifeTime():Number {
+    public function get lifeTime():Number 
+	{
         return _lifeTime;
     }
 
-    protected function resetLifeTime():void {
+    protected function resetLifeTime():void 
+	{
         _lifeTime = 0;
     }
 }
