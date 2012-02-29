@@ -4,6 +4,7 @@ package ui.gameobjects
 	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
+	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
@@ -16,9 +17,10 @@ package ui.gameobjects
 	{
 		private var _interactiveObjectConfig:InteractiveObjectConfiguration;
 		
-		public function BaseInteractiveGameObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
+		public function BaseInteractiveGameObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, phyciModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
 		{
-			super(config, instance, eventFlowTarget);	
+			super(config, phyciModel, instance, eventFlowTarget);	
+			
 			_interactiveObjectConfig = interactiveObjectConfig;
 			
 		}

@@ -4,6 +4,7 @@ import core.Box2D.utils.Box2DWorldController;
 import core.events.GameObjectPhysicEvent;
 import core.ui.KeyBoardController;
 import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.physicalpropeties.PhysicModel;
 
 import features.CollectFeature;
 
@@ -127,7 +128,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		{
 			_rabbit = RabbitConstructor.make(viewInstance, worldController) as Rabbit;
 			
-			flapTrigger = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), viewInstance) as FlapTriggerGameObject;
+			//flapTrigger = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), new PhysicModel(), viewInstance) as FlapTriggerGameObject;
 			
 			rabbitActionsHelper = new RabbitReactionsHelper(_rabbit, viewInstance.stage, flapTrigger);
 		}

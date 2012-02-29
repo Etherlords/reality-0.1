@@ -33,7 +33,7 @@ package ui.gameobjects.bell
 			super.initilize();
 			
 			gameobjectConfiguration = new GameobjectConfig(true);
-			gameobjectConfiguration.physicConfiguration.type = 2; //todo replace
+			gameobjectConfiguration.type = 2; //todo replace
 			gameobjectConfiguration.skinClass = BirdSkin;
 			
 			

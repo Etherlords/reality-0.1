@@ -6,13 +6,12 @@ import Box2D.Common.Math.b2Vec2;
 import Box2D.Dynamics.b2Body;
 import Box2D.Dynamics.b2BodyDef;
 import Box2D.Dynamics.b2FixtureDef;
-import core.view.gameobject.body.PhysicBodyPresentation;
-
 import core.GlobalConstants;
 import core.locators.PhysicWorldLocator;
 import core.view.gameobject.body.IBodyPresentation;
-import core.view.gameobject.config.PhysicConfiguration;
+import core.view.gameobject.body.PhysicBodyPresentation;
 import core.view.skin.Skin;
+
 
 
 /**
@@ -21,11 +20,12 @@ import core.view.skin.Skin;
 	 */
 	public class PhysicBodyConstructor  implements IBodyConstructor
 	{
-		private var config:PhysicConfiguration;
-		
-		public function PhysicBodyConstructor(config:PhysicConfiguration) 
+		private var type:uint;
+
+		public function PhysicBodyConstructor(type:uint) 
 		{
-			this.config = config;
+			this.type = type;
+			
 		}
 		
 		/**
@@ -52,8 +52,8 @@ import core.view.skin.Skin;
 		public function make(skin:Skin):IBodyPresentation
 		{
 			var bodyModel:b2BodyDef = new b2BodyDef();
-			bodyModel.type = config.type;
-			bodyModel.fixedRotation = config.fixedRotation;
+			bodyModel.type = type;
+			//bodyModel.fixedRotation = config.fixedRotation;
 			
 			var fixtureModel:b2FixtureDef = new b2FixtureDef();
 			
@@ -61,20 +61,6 @@ import core.view.skin.Skin;
 			//bodyModel.fixedRotation = true;
 			//Коммит этих физических свойств можно сделать одним методом
 			//Просто переберая поля создать список поелй длоя коммита и просто обходить его
-			
-			if(config.density)
-				fixtureModel.density = config.density;
-
-			
-			if(config.friction)
-				fixtureModel.friction = config.friction;
-			
-			if(config.restitution)
-				fixtureModel.restitution = config.restitution;
-				
-			//fixtureModel.density = 3;
-			//fixtureModel.friction = 0.1;
-			//fixtureModel.restitution = 0.3;
 			
 			var body:b2Body = PhysicWorldLocator.instance.world.CreateBody(bodyModel);
 			body.CreateFixture(fixtureModel);

@@ -13,9 +13,11 @@ package core.view.gameobject.physicalpropeties
 	public class SimplePhysicalProperties implements IPhysicalProperties 
 	{
 		private var body:PhysicBodyPresentation;
+		private var _physicModel:PhysicModel;
 		
-		public function SimplePhysicalProperties(body:PhysicBodyPresentation)
+		public function SimplePhysicalProperties(body:PhysicBodyPresentation, physicModel:PhysicModel)
 		{
+			this._physicModel = physicModel;
 			this.body = body;
 			
 			initilize();
@@ -23,34 +25,23 @@ package core.view.gameobject.physicalpropeties
 		
 		private function initilize():void 
 		{
-			
+			_physicModel.setBody(body.body);
 		}
 
 		public function stopXVelocity():void 
 		{
-			var linearVelocity:Point = this.linearVelocity;
+			var linearVelocity:Point = _physicModel.linearVelocity;
 			linearVelocity.x = 0;
 
-			this.linearVelocity = linearVelocity;
+			_physicModel.linearVelocity = linearVelocity;
 		}
 
 		public function stopYVelocity():void 
 		{
-			var linearVelocity:Point = this.linearVelocity;
+			var linearVelocity:Point = _physicModel.linearVelocity;
 			linearVelocity.y = 0;
 
-			this.linearVelocity = linearVelocity;
-		}
-
-		public function set linearVelocity(value:Point):void
-		{
-			body.body.SetLinearVelocity(new b2Vec2(value.x, value.y));
-		}
-		
-		public function get linearVelocity():Point
-		{
-			var linearVelocity:b2Vec2 = body.body.GetLinearVelocity();
-			return new Point(linearVelocity.x, linearVelocity.y);
+			_physicModel.linearVelocity = linearVelocity;
 		}
 		
 		public function applyForce(x:Number = 0, y:Number = 0, forceSourceX:Number = 0, iforceSourceY:Number = 0):void 
@@ -66,6 +57,11 @@ package core.view.gameobject.physicalpropeties
 		public function get physicBodyKey():*
 		{
 			return body.body;
+		}
+		
+		public function get physicModel():PhysicModel 
+		{
+			return _physicModel;
 		}
 
 	}

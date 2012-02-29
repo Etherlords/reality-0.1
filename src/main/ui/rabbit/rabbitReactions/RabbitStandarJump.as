@@ -24,7 +24,7 @@ import patterns.strategy.SimpleAlgorithm;
 		{
 			
 			
-			if (Math.abs(rabbit.physicalProperties.linearVelocity.y) > 0.2)
+			if (Math.abs(rabbit.physicalProperties.physicModel.linearVelocity.y) > 0.2)
 				return;
 			
 			rabbit.physicalProperties.applyImpulse(0, -jumpForce);

@@ -5,11 +5,12 @@
 package ui.rabbit 
 {
 	import core.view.gameobject.config.GameobjectConfig;
+	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.lifetimeobject.LifeTimeGameObject;
-	
-	
-	import flash.display.Sprite;
+	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
+	
+	
 
 
 	public class FlapTriggerGameObject extends LifeTimeGameObject
@@ -17,8 +18,8 @@ package ui.rabbit
 
 		private var _isAbleToFlap:Boolean;
 
-		public function FlapTriggerGameObject(config:GameobjectConfig, skinHolderInstance:Sprite, eventFlowTarget:IEventDispatcher = null) {
-			super(config, skinHolderInstance, eventFlowTarget);
+		public function FlapTriggerGameObject(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) {
+			super(config, physicModel, instance, eventFlowTarget);
 		}
 
 

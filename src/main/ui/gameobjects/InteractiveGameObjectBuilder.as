@@ -3,6 +3,7 @@ package ui.gameobjects
 	import core.Box2D.utils.Box2DWorldController;
 	import core.camera.Camera;
 	import core.view.gameobject.config.GameobjectConfig;
+	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import flash.display.DisplayObjectContainer;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
 	/**
@@ -11,6 +12,7 @@ package ui.gameobjects
 	 */
 	public class InteractiveGameObjectBuilder 
 	{
+		private var physicModel:PhysicModel;
 		protected var interactiveObjectConfig:InteractiveObjectConfiguration;
 		protected var gameobjectConfiguration:GameobjectConfig;
 		protected var viewInstance:DisplayObjectContainer;
@@ -41,7 +43,13 @@ package ui.gameobjects
 			preInitilizeObjectSettings(interactiveGameObject);
 			registerGameObject(interactiveGameObject);
 			
+			
 			return interactiveGameObject;
+		}
+		
+		protected function managePhysicModel():void 
+		{
+			physicModel = new PhysicModel();
 		}
 		
 		protected function preInitilizeObjectSettings(interactiveGameObject:BaseInteractiveGameObject):void
@@ -57,7 +65,9 @@ package ui.gameobjects
 		
 		protected function craeteGameObject():BaseInteractiveGameObject
 		{
-			return new BaseInteractiveGameObject(gameobjectConfiguration, interactiveObjectConfig, viewInstance);
+			managePhysicModel();
+			
+			return new BaseInteractiveGameObject(gameobjectConfiguration, interactiveObjectConfig, physicModel, viewInstance);
 		}
 		
 	}

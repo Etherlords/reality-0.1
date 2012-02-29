@@ -2,13 +2,14 @@ package ui.gameobjects.linearMovingObject
 {
 	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
+	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
-
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
 	import flash.geom.Point;
 	import ui.gameobjects.BaseInteractiveGameObject;
 	import ui.gameobjects.datavalues.InteractiveObjectConfiguration;
+
 	
 	/**
 	 * ...
@@ -25,14 +26,11 @@ package ui.gameobjects.linearMovingObject
 		
 		public function LinearMovingInteractiveObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
 		{
-			config.physicConfiguration.density = 2.1;
-			config.physicConfiguration.friction = 0.3;
-			config.physicConfiguration.restitution = 0.1;
-			config.physicConfiguration.fixedRotation = true;
+			var physicModel:PhysicModel = new PhysicModel(2.1, 0.3, 0.1);
 			
 			birdBehavior = linearMoving;
 			
-			super(config, interactiveObjectConfig, instance, eventFlowTarget);
+			super(config, interactiveObjectConfig, physicModel, instance, eventFlowTarget);
 			
 		}
 		
@@ -73,11 +71,11 @@ package ui.gameobjects.linearMovingObject
 			if (body.x > 760)
 				super.destroy();
 			
-			var linearVelocity:Point = physicalProperties.linearVelocity
+			var linearVelocity:Point = physicalProperties.physicModel.linearVelocity
 			linearVelocity.x = moveSpeed * moveDirection;
 			//linearVelocity.y = -0.4
 			
-			physicalProperties.linearVelocity = linearVelocity;
+			physicalProperties.physicModel.linearVelocity = linearVelocity;
 		}
 		
 		private function linearMoving():void 
@@ -91,17 +89,18 @@ package ui.gameobjects.linearMovingObject
 			if (!(ServicesLocator.cameraService.camera.target.y > 200) && !flowStopped )
 			{
 				//TODO: вынести куда нибудь
-				(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetDensity(2);
+				//(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetDensity(2);
+				physicalProperties.physicModel.density = 2;
 				(physicalProperties as SimplePhysicalProperties).physicBodyKey.ResetMassData();
 				
 				flowStopped = true;
 			}
 				
-			var linearVelocity:Point = physicalProperties.linearVelocity
+			var linearVelocity:Point = physicalProperties.physicModel.linearVelocity
 			linearVelocity.x = moveSpeed * moveDirection;
 			//linearVelocity.y = -0.4
 			
-			physicalProperties.linearVelocity = linearVelocity;
+			physicalProperties.physicModel.linearVelocity = linearVelocity;
 		}
 	}
 

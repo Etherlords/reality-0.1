@@ -2,12 +2,14 @@
  * author: chaos-encoder
  * Date: 06.02.12 Time: 7:59
  */
-package core.view.lifetimeobject {
+package core.view.lifetimeobject 
+{
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.GameObject;
-
-import flash.display.Sprite;
+import core.view.gameobject.physicalpropeties.PhysicModel;
+import flash.display.DisplayObjectContainer;
 import flash.events.IEventDispatcher;
+
 
 public class LifeTimeGameObject extends GameObject 
 {
@@ -15,9 +17,9 @@ public class LifeTimeGameObject extends GameObject
     private var _lifeTime:uint = 0;
     private var _lastLifeRecalTime:Date;
     
-    public function LifeTimeGameObject(config:GameobjectConfig, skinHolderInstance:Sprite, eventFlowTarget:IEventDispatcher = null) 
+    public function LifeTimeGameObject(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 	{
-        super(config, skinHolderInstance, eventFlowTarget);
+        super(config, physicModel, instance, eventFlowTarget);
     }
 
 

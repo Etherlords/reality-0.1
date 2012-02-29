@@ -2,6 +2,7 @@ package core.view.gameobject.physicalpropeties.constructor
 {
 
 	import core.view.gameobject.body.IBodyPresentation;
+	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 
 
@@ -12,7 +13,7 @@ package core.view.gameobject.physicalpropeties.constructor
 			
 		}
 
-		public function make(body:IBodyPresentation):SimplePhysicalProperties 
+		public function make(body:IBodyPresentation, physicModel:PhysicModel):SimplePhysicalProperties 
 		{
 			return null;
 		}

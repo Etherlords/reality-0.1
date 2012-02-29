@@ -2,6 +2,7 @@ package ui.gameobjects.simpleFlowObject
 {
 	import core.locators.ServicesLocator;
 	import core.view.gameobject.config.GameobjectConfig;
+	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
@@ -19,12 +20,9 @@ package ui.gameobjects.simpleFlowObject
 		
 		public function FlowInteractiveObject(config:GameobjectConfig, interactiveObjectConfig:InteractiveObjectConfiguration, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher=null) 
 		{
-			config.physicConfiguration.density = 2.2;
-			config.physicConfiguration.friction = 0.3;
-			config.physicConfiguration.restitution = 0.1;
-			config.physicConfiguration.fixedRotation = true;
+			var physicModel:PhysicModel = new PhysicModel(2.2, 0.3, 0.1);
 			
-			super(config, interactiveObjectConfig, instance, eventFlowTarget);
+			super(config, interactiveObjectConfig, physicModel, instance, eventFlowTarget);
 		}
 		
 		override protected function initilize():void 
@@ -56,7 +54,8 @@ package ui.gameobjects.simpleFlowObject
 			if (!(ServicesLocator.cameraService.camera.target.y > 200) && !flowStopped )
 			{
 				//TODO: вынести куда нибудь
-				(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetDensity(2);
+				//(physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetDensity(2);
+				physicalProperties.physicModel.density = 2;
 				(physicalProperties as SimplePhysicalProperties).physicBodyKey.ResetMassData();
 				
 				flowStopped = true;

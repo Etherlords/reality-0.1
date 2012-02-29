@@ -12,7 +12,7 @@ package core.view.gameobject.config
 		public var friction:Number;
 		public var restitution:Number;
 		
-		public var type:uint
+		
 			
 		public function PhysicConfiguration() 
 		{

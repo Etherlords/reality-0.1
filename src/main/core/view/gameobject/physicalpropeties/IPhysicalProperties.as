@@ -6,12 +6,9 @@ package core.view.gameobject.physicalpropeties
 {
 	import flash.geom.Point;
 
-	public interface IPhysicalProperties {
-		/**
-		 * Пока хз как сделать лучше но нужен контроль за ускорением временами
-		 * Хотя если инкапсулировать работу с боксом тут а наружу выдавать лишь интерфепйс
-		 * из поинтов и методов то ОК вроде
-		 */
+	public interface IPhysicalProperties 
+	{
+		
 		function stopXVelocity():void;
 
 		function stopYVelocity():void;
@@ -20,10 +17,7 @@ package core.view.gameobject.physicalpropeties
 		
 		function applyForce(x:Number = 0, y:Number = 0, forceSourceX:Number = 0, forceSourceY:Number = 0):void;
 
-
-		function get linearVelocity():Point;
-
-		function set linearVelocity(linearVelocity:Point):void;
+		function get physicModel():PhysicModel;
 
 		function get physicBodyKey():*;
 	}

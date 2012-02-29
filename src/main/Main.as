@@ -23,6 +23,7 @@ import ui.scene.gameInteractionScene.LoadGameController;
 		private function initilzie():void 
 		{
 			craeteScenes();
+			
 		}
 		
 		private function craeteScenes():void 

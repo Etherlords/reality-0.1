@@ -2,6 +2,7 @@ package ui.scene.gameInteractionScene
 {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
 import core.view.gameobject.GameObject;
+import core.view.gameobject.physicalpropeties.PhysicModel;
 import flash.events.Event;
 import ui.Alert;
 import ui.gameobjects.simpleFlowObject.FlowInteractiveObject;
@@ -199,7 +200,7 @@ public class GameSceneController extends AbstractSceneController
 		
 		private function createWorld():void 
 		{
-			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, false);
+			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, true);
 			
 			PhysicWorldLocator.instance.world = worldController.world;
 		}
@@ -215,7 +216,7 @@ public class GameSceneController extends AbstractSceneController
 			
 			rabbitController.rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, onRabbitColide);
 			
-			var flapTrigger:FlapTriggerGameObject = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), view) as FlapTriggerGameObject;
+			//var flapTrigger:FlapTriggerGameObject = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), new PhysicModel(), view) as FlapTriggerGameObject;
 		}
 		
 		private function onRabbitColide(e:GameObjectPhysicEvent):void 
@@ -231,7 +232,7 @@ public class GameSceneController extends AbstractSceneController
 		
 		private function onFallOnFloor(e:GameObjectPhysicEvent):void 
 		{
-			trace(e.interactionWith.physicalProperties.linearVelocity);
+		
 			
 			if (isGameInteractionStart)
 			{

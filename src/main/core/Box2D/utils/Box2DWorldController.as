@@ -12,6 +12,7 @@ import core.events.NativeCollideEvent;
 import core.GlobalConstants;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.GameObject;
+import core.view.gameobject.physicalpropeties.PhysicModel;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.geom.Point;
@@ -110,9 +111,9 @@ import utils.DimensionalMath;
 			_gameObjectsRegistry.unRegisterGameObject(gameObject);
 		}
 		
-		public function constructGameObject(objectClass:Class, config:GameobjectConfig, displayInstance:DisplayObjectContainer):GameObject
+		public function constructGameObject(objectClass:Class, config:GameobjectConfig, physicModel:PhysicModel, displayInstance:DisplayObjectContainer):GameObject
 		{
-			var processedGameObject:GameObject = new objectClass(config, displayInstance);
+			var processedGameObject:GameObject = new objectClass(config, physicModel, displayInstance);
 			registerGameObject(processedGameObject);
 			addToCollaboration(processedGameObject);
 			

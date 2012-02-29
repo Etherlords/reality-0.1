@@ -12,6 +12,7 @@ import core.view.gameobject.physicalpropeties.constructor.EmptyPhysicalPropertie
 import core.view.gameobject.physicalpropeties.constructor.IPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.IPhysicalProperties;
+import core.view.gameobject.physicalpropeties.PhysicModel;
 import core.view.skin.Skin;
 import flash.display.DisplayObjectContainer;
 import flash.events.EventDispatcher;
@@ -45,7 +46,7 @@ import flash.events.IEventDispatcher;
 		protected var skin:Skin;
 		protected var _body:IBodyPresentation
 		
-		private var config:GameobjectConfig;
+		
 		private var instance:DisplayObjectContainer;
 		private var _physicalProperties:IPhysicalProperties;
 		public var markToDestroy:Boolean = false;
@@ -61,20 +62,20 @@ import flash.events.IEventDispatcher;
 		 * @param	config
 		 * @param	instance
 		 */
-		public function GameObject(config:GameobjectConfig, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
+		public function GameObject(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 		{
 			super(eventFlowTarget);
 			
 			this.instance = instance;
-			this.config = config;
+		
 			
-			preInitilize();
+			preInitilize(physicModel, config);
 		}
 		
-		private function preInitilize():void 
+		private function preInitilize(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
 			direction = new Direction();
-			createBody();
+			createBody(physicModel, config);
 		}
 		
 		public function registredInApplication():void
@@ -121,7 +122,7 @@ import flash.events.IEventDispatcher;
 			
 			this.skin = null;
 			this.instance = null;
-			this.config = null;
+			
 			this._body = null;
 			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.DESTROY, true, false, this));
@@ -150,14 +151,14 @@ import flash.events.IEventDispatcher;
 		 * но пока для всех созадем просто физическое представление
 		 * и создаем боди в физическом мире.
 		 */
-		protected function createBody():void 
+		protected function createBody(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
 			var bodyConstructor:IBodyConstructor;
             var phsyPropConstructor:IPhysicalPropertiesConstructor;
 			
-			if (config.isUsePhisicWorld) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику
+			if (true) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику
 			{
-				bodyConstructor = new PhysicBodyConstructor(config.physicConfiguration);
+				bodyConstructor = new PhysicBodyConstructor(config.type);
                 phsyPropConstructor = new SimplePhysicalPropertiesConstructor();
 			}
 			else
@@ -169,7 +170,7 @@ import flash.events.IEventDispatcher;
 			skin = new config.skinClass;
 			skin.direction = direction;
 			_body = bodyConstructor.make(skin);
-			_physicalProperties = phsyPropConstructor.make(body);
+			_physicalProperties = phsyPropConstructor.make(body, physicModel);
 			
 			direction.trackingObject = this;
 		}

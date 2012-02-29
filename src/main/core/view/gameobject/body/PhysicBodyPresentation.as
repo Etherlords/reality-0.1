@@ -33,6 +33,9 @@ package core.view.gameobject.body
 		 */
 		public function preRender():void
 		{
+			//if(!body.IsAwake())
+			//	return;
+				
 			updatePosition();
 		}
 		
@@ -42,6 +45,9 @@ package core.view.gameobject.body
 		 */
 		public function render():void
 		{
+			//if(!body.IsAwake())
+			//	return;
+			
 			skin.x = x;
 			skin.y = y;
 			

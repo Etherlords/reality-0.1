@@ -29,10 +29,10 @@ public class RabbitFlapWings extends SimpleAlgorithm
             return;
         }
 		
-		var linearVelocity:Point = rabbit.physicalProperties.linearVelocity
+		var linearVelocity:Point = rabbit.physicalProperties.physicModel.linearVelocity
 		linearVelocity.y = linearVelocity.y / 2;
 		
-		rabbit.physicalProperties.linearVelocity = linearVelocity;
+		rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
 		
         _flapTrigger.flap();
         rabbit.physicalProperties.applyImpulse(0, -5);

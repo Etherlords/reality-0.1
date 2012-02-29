@@ -36,7 +36,7 @@ package core.view.direction
 		
 		public function calcDirection():void
 		{
-			velocity = trackingObject.physicalProperties.linearVelocity;
+			velocity = trackingObject.physicalProperties.physicModel.linearVelocity;
 			
 			analyzDirection();
 		}

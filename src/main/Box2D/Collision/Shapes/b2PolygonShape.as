@@ -108,6 +108,7 @@ public class b2PolygonShape extends b2Shape
 			var i1:int = i;
 			var i2:int = i + 1 < m_vertexCount ? i + 1 : 0;
 			var edge:b2Vec2 = b2Math.SubtractVV(m_vertices[i2], m_vertices[i1]);
+			
 			b2Settings.b2Assert(edge.LengthSquared() > Number.MIN_VALUE /* * Number.MIN_VALUE*/);
 			m_normals[i].SetV(b2Math.CrossVF(edge, 1.0));
 			m_normals[i].Normalize();

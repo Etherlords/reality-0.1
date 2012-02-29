@@ -1,11 +1,12 @@
 package ui.rabbit 
 {
-import core.GlobalConstants;
-import core.view.gameobject.GameObject;
 import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.GameObject;
+import core.view.gameobject.physicalpropeties.PhysicModel;
+import flash.display.DisplayObjectContainer;
+import flash.events.IEventDispatcher;
 import flash.geom.Point;
 
-import flash.display.Sprite;
 
 /**
 	 * ...
@@ -15,9 +16,9 @@ import flash.display.Sprite;
 	{
 		//public var movementFlag:
 		
-		public function Rabbit(config:GameobjectConfig, instance:Sprite) 
+		public function Rabbit(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 		{
-			super(config, instance);
+			super(config, physicModel, instance, eventFlowTarget);
 			
 			
 		}
@@ -29,9 +30,9 @@ import flash.display.Sprite;
 		
 		public function applyMove(force:Number):void
 		{
-			var linearVelocity:Point = physicalProperties.linearVelocity;
+			var linearVelocity:Point = physicalProperties.physicModel.linearVelocity;
 			linearVelocity.x /= 6.5;
-			physicalProperties.linearVelocity = linearVelocity;
+			physicalProperties.physicModel.linearVelocity = linearVelocity;
 			//physicalProperties.stopXVelocity();
 			physicalProperties.applyImpulse(force, 0);
 		}

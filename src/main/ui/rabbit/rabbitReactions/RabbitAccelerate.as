@@ -21,10 +21,10 @@ public class RabbitAccelerate extends SimpleAlgorithm
 
 		public function execute(rabbit:Rabbit):void 
 		{
-			var linearVelocity:Point = rabbit.physicalProperties.linearVelocity
+			var linearVelocity:Point = rabbit.physicalProperties.physicModel.linearVelocity
 			linearVelocity.y = 0;
 			
-			rabbit.physicalProperties.linearVelocity = linearVelocity;
+			rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
 			
 			rabbit.resetFlyAnim();
 				
