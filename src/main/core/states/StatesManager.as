@@ -60,12 +60,11 @@ package core.states
 			states.push(state);
 			statesMap.addItem(state.id, state);
 			
-			state.addEventListener(StateEvents.STATE_OUT, nextState);
+			state.addEventListener(StateEvents.STATE_OUT, stateOutHandler);
 		}
 		
-		private function nextState(e:StateEvents):void 
+		private function stateOutHandler(e:StateEvents):void
 		{
-			
 			currentStateIndex++;
 			
 			if (currentStateIndex > states.length - 1)
