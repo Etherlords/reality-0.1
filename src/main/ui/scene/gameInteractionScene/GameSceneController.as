@@ -24,12 +24,9 @@ import flash.utils.Timer;
 
 import ui.gameobjects.BaseInteractiveGameObject;
 import ui.gameobjects.GameobjectsCrationController;
-import ui.rabbit.FlapTriggerGameObject;
 import ui.rabbit.logic.RabbitController;
-import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
-import ui.services.ScoreboardService;
 import ui.services.scores.ScoresService;
 
 import utils.BoundariesConstructor;
@@ -67,7 +64,6 @@ public class GameSceneController extends AbstractSceneController
 			//create using services
 
             ServicesLocator.instance.addService(new CameraService());
-            ServicesLocator.instance.addService(new ScoreboardService());
 
 			super.initilize();
 		}
@@ -86,8 +82,7 @@ public class GameSceneController extends AbstractSceneController
 			
 			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
 			ServicesLocator.cameraService.cameraTarget = rabbitController.rabbit.body;
-			ServicesLocator.scoreboardService.scoreboard = sceneView.scoresView;
-			
+
 			gamaobjectCreationController = new GameobjectsCrationController(sceneView.gameObjectsInstance, _boundaries.width, worldController);
 			
 			

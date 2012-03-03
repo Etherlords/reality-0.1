@@ -24,7 +24,6 @@ import patterns.strategy.Strategy;
 import ui.rabbit.logic.RabbitController;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
-import ui.services.ScoreboardService;
 
 import utils.BoundariesConstructor;
 
@@ -45,7 +44,6 @@ public class GameSuicideSceneController extends AbstractSceneController {
     {
         //create using services
         ServicesLocator.instance.addService(new CameraService());
-        ServicesLocator.instance.addService(new ScoreboardService());
 
         super.initilize();
     }
@@ -60,7 +58,6 @@ public class GameSuicideSceneController extends AbstractSceneController {
         initGameInitrations();
 
         ServicesLocator.cameraService.cameraTarget = _rabbitController.rabbit.body;
-        ServicesLocator.scoreboardService.scoreboard = sceneView.scoresView;
     }
 
     private function initGameInitrations():void {
@@ -125,7 +122,7 @@ public class GameSuicideSceneController extends AbstractSceneController {
 
     private function onFallOnFloor(event:GameObjectPhysicEvent):void {
         //todo add suicide here
-        trace("collide with floor " + event.interactionWith.physicalProperties.linearVelocity.y);
+        //trace("collide with floor " + event.interactionWith.physicalProperties.linearVelocity.y);
         if (_rabbitController.rabbit == event.interactionWith) {
             _rabbitController.rabbitActionsHelper.rabbitAction(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR);
         }

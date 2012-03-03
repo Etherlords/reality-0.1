@@ -2,11 +2,9 @@ package core.locators
 {
 	import core.collections.SimpleMap;
 	import core.services.AbstractService;
-	import flash.utils.Dictionary;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 	import ui.services.CameraService;
-	import ui.services.ScoreboardService;
 	/**
 	 * ...
 	 * @author 
@@ -26,11 +24,6 @@ import flash.utils.getQualifiedClassName;
 		{
 			classMap = new SimpleMap();
 			nameMap = new SimpleMap();
-		}
-		
-		public static function get scoreboardService():ScoreboardService
-		{
-			return instance.getServiceByClass(ScoreboardService) as ScoreboardService;
 		}
 		
 		public static function get cameraService():CameraService
