@@ -40,7 +40,7 @@ public class GameSceneController extends AbstractSceneController
 
 
 		private var gamaobjectCreationController:GameobjectsCrationController;
-		private var controller:b2BuoyancyController;
+		private var _b2BuoyancyController:b2BuoyancyController;
 		private var interactiveObjectsCount:int = 0;
 
 		private var isGameInteractionStart:Boolean = false;
@@ -89,19 +89,19 @@ public class GameSceneController extends AbstractSceneController
 
 		private function initilizeBuoyancyController():void
 		{
-			controller = new b2BuoyancyController();
+			_b2BuoyancyController = new b2BuoyancyController();
 
 
-			controller.normal.Set(0, -1);
-			controller.offset = 100000 * GlobalConstants.PIXELS_TO_METR;
-			controller.density = 2.0;
+			_b2BuoyancyController.normal.Set(0, -1);
+			_b2BuoyancyController.offset = 100000 * GlobalConstants.PIXELS_TO_METR;
+			_b2BuoyancyController.density = 2.0;
 			//controller.useWorldGravity = false
 			//controller.useDensity = true;
-			controller.linearDrag = 5;
+			_b2BuoyancyController.linearDrag = 5;
 			//controller.angularDrag = 2;
 
 
-			worldController.addController(controller, 'nullGravityField');
+			worldController.addController(_b2BuoyancyController, 'nullGravityField');
 
 			//controller.AddBody(rabbitController.rabbit.physicalProperties.physicBodyKey);
 		}
@@ -140,7 +140,7 @@ public class GameSceneController extends AbstractSceneController
 				lastCrationObject = currentObject;
 			//}
 
-			controller.AddBody(currentObject.physicalProperties.physicBodyKey);
+			_b2BuoyancyController.AddBody(currentObject.physicalProperties.physicBodyKey);
 			currentObject.interactiveObjectConfig.creationAlgorithm.execute();
 
 			currentObject.addEventListener(GameObjectPhysicEvent.DESTROY, interactiveObjectDestructionTrigger);
