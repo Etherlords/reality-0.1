@@ -72,7 +72,7 @@ public class GameSceneController extends AbstractSceneController
 
 			initilizeBuoyancyController();
 
-			initGameInitrations();
+			initGameCycles();
 
 			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
 			ServicesLocator.cameraService.cameraTarget = rabbitController.rabbit.body;
@@ -106,7 +106,7 @@ public class GameSceneController extends AbstractSceneController
 			//controller.AddBody(rabbitController.rabbit.physicalProperties.physicBodyKey);
 		}
 
-		private function initGameInitrations():void
+		private function initGameCycles():void
 		{
 			var overtimeObjectGeneration:Timer = new Timer(300);
 			overtimeObjectGeneration.addEventListener(TimerEvent.TIMER, triggerOvertimeObjectGeneration);
