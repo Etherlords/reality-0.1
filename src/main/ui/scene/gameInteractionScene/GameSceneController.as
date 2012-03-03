@@ -38,7 +38,6 @@ public class GameSceneController extends AbstractSceneController
 	{
 		
 		private var sceneView:GameSceneView;
-		private var rabbitReactonsHelper:RabbitReactionsHelper;
 		private var worldController:Box2DWorldController;
 		private var _boundaries:BoundariesConstructor;
 		private var rabbitController:RabbitController;
