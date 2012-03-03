@@ -1,13 +1,6 @@
 package ui.scene.gameInteractionScene
 {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
-import core.view.gameobject.GameObject;
-import core.view.gameobject.physicalpropeties.PhysicModel;
-import flash.events.Event;
-import ui.Alert;
-import ui.gameobjects.simpleFlowObject.FlowInteractiveObject;
-import ui.Lables;
-import ui.rabbit.Rabbit;
 
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
@@ -15,13 +8,16 @@ import core.events.GameObjectPhysicEvent;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
-import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.GameObject;
 
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
 
+import ui.Alert;
+import ui.Lables;
 import ui.gameobjects.BaseInteractiveGameObject;
 import ui.gameobjects.GameobjectsCrationController;
 import ui.rabbit.logic.RabbitController;
@@ -76,8 +72,6 @@ public class GameSceneController extends AbstractSceneController
 
 			initilizeBuoyancyController();
 
-
-			manageEvents();
 			initGameInitrations();
 
 			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
@@ -169,27 +163,6 @@ public class GameSceneController extends AbstractSceneController
 			{
 				startNewGame();
 			}
-		}
-
-		private function bellDestoryReaction(e:GameObjectPhysicEvent):void
-		{
-			triggerOvertimeObjectGeneration();
-		}
-
-		private function manageEvents():void
-		{
-			//view.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			//view.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-
-			//rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, rabbitColideWith);
-
-
-
-		}
-
-		private function onSpaceIsDown():void
-		{
-
 		}
 
 		private function createWorld():void
