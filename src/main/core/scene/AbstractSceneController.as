@@ -11,7 +11,7 @@ package core.scene
 	public class AbstractSceneController extends EventDispatcher
 	{
 		protected var view:DisplayObjectContainer;
-		protected var currentInstance:DisplayObjectContainer;
+		protected var currentViewContainer:DisplayObjectContainer;
 		
 		protected var isActivated:Boolean = false;
 		
@@ -57,9 +57,9 @@ package core.scene
 			if (!view)
 				throw new Error("View component should be define");
 			
-			currentInstance = instance;
+			currentViewContainer = instance;
 			isActivated = true;
-			currentInstance.addChild(view);
+			currentViewContainer.addChild(view);
 		}
 		
 		/**
@@ -69,8 +69,8 @@ package core.scene
 		public function deactivate():void
 		{
 			isActivated = false;
-			currentInstance.removeChild(view);
-			currentInstance = null;
+			currentViewContainer.removeChild(view);
+			currentViewContainer = null;
 		}
 		
 	}
