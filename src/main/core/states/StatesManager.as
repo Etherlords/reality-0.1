@@ -55,7 +55,7 @@ package core.states
 			statesMap = new SimpleMap();
 		}
 		
-		public function pushState(state:State):void
+		public function nextState(state:State):void
 		{
 			states.push(state);
 			statesMap.addItem(state.id, state);

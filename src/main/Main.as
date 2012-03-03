@@ -39,10 +39,8 @@ import ui.scene.gameInteractionScene.LoadGameController;
 			var gameStateConfig:StateConfig = new StateConfig('Game', GameSceneController);
 			var gameState:State = new State(gameStateConfig);
 
-
-			
-			stateManager.pushState(loadState);
-			stateManager.pushState(gameState);
+			stateManager.nextState(loadState);
+			stateManager.nextState(gameState);
 
 			stateManager.start();
 			

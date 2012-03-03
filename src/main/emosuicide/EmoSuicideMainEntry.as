@@ -29,7 +29,7 @@ public class EmoSuicideMainEntry extends Sprite {
         var gameState:State = new State(gameStateConfig);
 
 
-        stateManager.pushState(gameState);
+        stateManager.nextState(gameState);
 
         stateManager.start();
     }
