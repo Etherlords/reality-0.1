@@ -77,6 +77,16 @@ import flash.events.IEventDispatcher;
 			preInitilize(physicModel, config);
 		}
 		
+		/**
+		 * Преиницилизация гейм обжекта
+		 * Тут мы создаем боди, физикал пропершис, дирекшен, конткекст
+		 * Отделение preInitilize от initilize нужно для того чтобы была возможность 
+		 * закомитить физические параметры объекта в box2dBody до его появления и активации на сцене
+		 * вобщем для синхронизации с вьювом
+		 * 
+		 * @param	physicModel
+		 * @param	config
+		 */
 		private function preInitilize(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
 			var context:GameobjectContext = new GameobjectContext();
@@ -119,6 +129,10 @@ import flash.events.IEventDispatcher;
 			body.preRender();
 		}
 		
+		/**
+		 * Помечает объект для удаления, помеченый объект будет
+		 * удален на следующем гейм степе на этапе пре рендера
+		 */
 		public function destroy():void
 		{
 			markToDestroy = true;
@@ -141,13 +155,11 @@ import flash.events.IEventDispatcher;
 		
 		public function collideWith(collideTarget:GameObject):void
 		{
-			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.COLLIDE, true, false, collideTarget));
 		}
 		
 		protected function initilize():void 
 		{
-			
 			addToDisplayList();
 			
 			//_dimensionalProperties = new DimensionalProperties(body);
