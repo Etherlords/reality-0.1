@@ -8,6 +8,7 @@ import core.view.gameobject.body.constructor.IBodyConstructor;
 import core.view.gameobject.body.constructor.PhysicBodyConstructor;
 import core.view.gameobject.body.IBodyPresentation;
 import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.context.IGameObjectContext;
 import core.view.gameobject.physicalpropeties.constructor.EmptyPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.IPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalPropertiesConstructor;
@@ -52,6 +53,8 @@ import flash.events.IEventDispatcher;
 		public var markToDestroy:Boolean = false;
 		
 		public var direction:Direction;
+		
+		public var context:IGameObjectContext;
 
         //TODO comment is not actual
 		/**

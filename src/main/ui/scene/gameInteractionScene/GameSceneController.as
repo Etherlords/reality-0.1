@@ -1,31 +1,31 @@
 package ui.scene.gameInteractionScene
 {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
-
 import core.Box2D.utils.Box2DWorldController;
-import core.GlobalConstants;
 import core.events.GameObjectPhysicEvent;
+import core.GlobalConstants;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
 import core.view.gameobject.GameObject;
-
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
-
 import ui.Alert;
-import ui.Lables;
 import ui.gameobjects.BaseInteractiveGameObject;
 import ui.gameobjects.GameobjectsCrationController;
+import ui.Lables;
 import ui.rabbit.logic.RabbitController;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 import ui.services.scores.ScoresService;
-
 import utils.BoundariesConstructor;
+
+
+
+
 
 public class GameSceneController extends AbstractSceneController
 	{
@@ -228,7 +228,7 @@ public class GameSceneController extends AbstractSceneController
 		private function replay(e:Event):void
 		{
 			view.removeChild(alert);
-			var objects:Vector.<GameObject> = worldController.gameObjectsRegistry.objectsList;
+			var objects:Vector.<GameObject> = worldController.gameObjectRegistryController.gameObjectsRegistry.objectsList;
             scoresService.resetScores();
 			//sceneView.scoresView.scores = 0;
 
