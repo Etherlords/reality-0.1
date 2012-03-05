@@ -71,14 +71,12 @@ import flash.events.IEventDispatcher;
 		
 		//public var events:IGameObjectEvents;
 
-        //TODO comment is not actual
 		/**
-		 * Задаем конфи и инстанс объекта, возможно инстанс лучше задавать как то иначе, но не факт. 
-		 * Для одного и того зже мира по сути должны быть соответственные(по координатами, скейлу и пр) инстансы
-		 * Но все же могут быть разными
-		 * 
-		 * @param	config
-		 * @param	instance
+		 * Создаем гейм обэект
+		 * @param	config  - статичные настройки объекта итпа, создаетс ли он в физическом мире и тд, по ходу работы эти настройки не меняются и нужны только для иницилизации
+		 * @param	physicModel - физическая модель объекта содержет в себе физические параметры(NOTE: пока это работает так но в будущем физик модель будет отрефакторена чтобы быть назвисимой от боди)
+		 * @param	instance - дисплей контейнер в который добавляется скин текущего объекта
+		 * @param	eventFlowTarget - вышестоящий в цепочки ивент флоу объект
 		 */
 		public function GameObject(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 		{

@@ -26,6 +26,19 @@ package core.Box2D.utils
 			getObjectsInRadiusAlgorithm = new GetGameobjectsInRadius(_gameObjectsRegistry);
 		}
 		
+		/**
+		 * TODO: на будущее нужно будет привести работу подобных утилит для какого то запроса к обжект ригистри в какую то систему
+		 * чтобы можно было легко добавлять и работать с алгоритмами запросов
+		 * 
+		 * Типа дай мне объекты в радиусе отностилеьно точки
+		 * Дай мне все динамические объекты
+		 * 
+		 * Диай мне все объекты помеченые на уничтожение
+		 * 
+		 * Дай мне все объекты которые имеют столкновения и тд
+		 * 
+		 * хотя по сути возможно это все можно свести к array.filter(filterFunction);
+		 */
 		public function getObjectsInRadius(applicationPoint:Point, radius:Number, filterFunction:*):void
 		{
 			getObjectsInRadiusAlgorithm.execute(applicationPoint, radius, filterFunction);
