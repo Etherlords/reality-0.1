@@ -8,7 +8,7 @@ import core.view.gameobject.body.constructor.IBodyConstructor;
 import core.view.gameobject.body.constructor.PhysicBodyConstructor;
 import core.view.gameobject.body.IBodyPresentation;
 import core.view.gameobject.config.GameobjectConfig;
-import core.view.gameobject.context.IGameObjectContext;
+import core.view.gameobject.context.GameobjectContext;
 import core.view.gameobject.physicalpropeties.constructor.EmptyPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.IPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalPropertiesConstructor;
@@ -54,7 +54,9 @@ import flash.events.IEventDispatcher;
 		
 		public var direction:Direction;
 		
-		public var context:IGameObjectContext;
+		public var context:GameobjectContext;
+		
+		//public var events:IGameObjectEvents;
 
         //TODO comment is not actual
 		/**
@@ -77,8 +79,14 @@ import flash.events.IEventDispatcher;
 		
 		private function preInitilize(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
+			var context:GameobjectContext = new GameobjectContext();
+			
 			direction = new Direction();
 			createBody(physicModel, config);
+			
+			context.direction = direction;
+			context.physicalProperties = _physicalProperties;
+			context.body = _body;
 		}
 		
 		public function registredInApplication():void

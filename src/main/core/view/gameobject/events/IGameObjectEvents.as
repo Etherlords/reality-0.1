@@ -1,4 +1,4 @@
-package core.view.gameobject.context 
+package core.view.gameobject.events 
 {
 	import patterns.strategy.Strategy;
 	

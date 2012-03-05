@@ -131,7 +131,6 @@ package core.Box2D.collision
 		 * 
 		 * но тут помойму куча лишних действий хотя и легко будет работать с такой моделью потому что все рбаотает не зависимо
 		 * но обработка колайдов в одном месте скопом была бы явно производительней
-		 * @param	e
 		 */
 		private function notifObjectsCollide(bodyA:b2Body, bodyB:b2Body):void 
 		{
