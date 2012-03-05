@@ -105,6 +105,7 @@ import flash.events.IEventDispatcher;
 			direction = new Direction();
 			createBody(physicModel, config);
 			
+			//Есть сомнения на счет целесообразности такого использования контекста
 			context.direction = direction;
 			context.physicalProperties = _physicalProperties;
 			context.body = _body;
@@ -198,10 +199,16 @@ import flash.events.IEventDispatcher;
 		 */
 		protected function createBody(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
+			/**
+			 * TODO:
+				 * нужно вынести это создание в отдельный объект, помойму использования вот этих 2х конструкторов не совсем целесообразно
+				 * и body и properties создание монжо было просто вынести в отделньый объект
+				 * Ну естественно создание боди и пропов должно быть сделано стратегией но инкапсулировано от этого класса
+			 */
 			var bodyConstructor:IBodyConstructor;
             var phsyPropConstructor:IPhysicalPropertiesConstructor;
 			
-			if (true) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику
+			if (true) 
 			{
 				bodyConstructor = new PhysicBodyConstructor(config.type);
                 phsyPropConstructor = new SimplePhysicalPropertiesConstructor();
@@ -212,6 +219,7 @@ import flash.events.IEventDispatcher;
                 phsyPropConstructor = new EmptyPhysicalPropertiesConstructor();
 			}
 			
+			//Кажется что скин лучше кууда то еще вынести но хз
 			skin = new config.skinClass;
 			skin.direction = direction;
 			_body = bodyConstructor.make(skin);
