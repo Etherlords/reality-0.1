@@ -9,6 +9,7 @@ import core.view.gameobject.body.constructor.PhysicBodyConstructor;
 import core.view.gameobject.body.IBodyPresentation;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.context.GameobjectContext;
+import core.view.gameobject.events.IGameObjectEvents;
 import core.view.gameobject.physicalpropeties.constructor.EmptyPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.IPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalPropertiesConstructor;
@@ -55,6 +56,8 @@ import flash.events.IEventDispatcher;
 		public var direction:Direction;
 		
 		public var context:GameobjectContext;
+		
+		public var events:IGameObjectEvents;
 		
 		//public var events:IGameObjectEvents;
 
@@ -150,11 +153,24 @@ import flash.events.IEventDispatcher;
 			
 			this._body = null;
 			
+			/**
+			 * Theory:
+			 * @see DefaultGameobjectEvents
+			 * events.destroy(context);
+			 */
+			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.DESTROY, true, false, this));
 		}
 		
 		public function collideWith(collideTarget:GameObject):void
 		{
+			
+			/**
+			 * Theory:
+			 * @see DefaultGameobjectEvents
+			 * events.colllide(context);
+			 */
+			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.COLLIDE, true, false, collideTarget));
 		}
 		
@@ -164,8 +180,6 @@ import flash.events.IEventDispatcher;
 			
 			//_dimensionalProperties = new DimensionalProperties(body);
 		}
-		
-		
 		
 		/**
 		 * Создаем представление боди

@@ -6,7 +6,7 @@ package core.view.gameobject.events
 	 * ...
 	 * @author 
 	 */
-	public interface IGameObjectContext 
+	public interface IGameObjectEvents 
 	{
 		
 		function get creation():Strategy;
