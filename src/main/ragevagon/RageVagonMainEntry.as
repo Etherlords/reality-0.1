@@ -2,21 +2,21 @@
  * author: chaos-encoder
  * Date: 21.02.12 Time: 20:06
  */
-package emosuicide {
+package ragevagon {
 import core.locators.ServicesLocator;
 import core.states.State;
 import core.states.StatesManager;
 import core.states.config.StateConfig;
 
-import emosuicide.scene.gameInteractionScene.GameSuicideSceneController;
+import ragevagon.scene.gameInteractionScene.GameRageVagonSceneController;
 
 import flash.display.Sprite;
 
 import ui.services.scores.ScoresService;
 import ui.services.scores.store.AbstractScoresStorageService;
 
-public class EmoSuicideMainEntry extends Sprite {
-    public function EmoSuicideMainEntry() {
+public class RageVagonMainEntry extends Sprite {
+    public function RageVagonMainEntry() {
         initilzie();
     }
 
@@ -32,7 +32,7 @@ public class EmoSuicideMainEntry extends Sprite {
         ServicesLocator.instance.addService(new AbstractScoresStorageService())
         ServicesLocator.instance.addService(new ScoresService());
 
-        var gameStateConfig:StateConfig = new StateConfig('Game', GameSuicideSceneController);
+        var gameStateConfig:StateConfig = new StateConfig('Game', GameRageVagonSceneController);
         var gameState:State = new State(gameStateConfig);
 
 

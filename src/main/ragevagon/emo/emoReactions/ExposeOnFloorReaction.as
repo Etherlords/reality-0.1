@@ -2,7 +2,7 @@
  * author: chaos-encoder
  * Date: 21.02.12 Time: 20:59
  */
-package emosuicide.emo.emoReactions {
+package ragevagon.emo.emoReactions {
 import core.GlobalConstants;
 
 import patterns.strategy.SimpleAlgorithm;
