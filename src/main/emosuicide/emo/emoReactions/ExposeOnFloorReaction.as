@@ -15,7 +15,7 @@ public class ExposeOnFloorReaction extends SimpleAlgorithm {
     }
 
     public function execute(rabbit:Rabbit):void {
-        if (rabbit.physicalProperties.linearVelocity.y > 8) {
+        if (rabbit.physicalProperties.physicModel.linearVelocity.y > 8) {
             rabbit.applyActionView(GlobalConstants.ACTION_VIEW_EXPOSE_ON_FLOOR);
         }
 
