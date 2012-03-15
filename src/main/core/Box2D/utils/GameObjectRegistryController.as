@@ -39,9 +39,9 @@ package core.Box2D.utils
 		 * 
 		 * хотя по сути возможно это все можно свести к array.filter(filterFunction);
 		 */
-		public function getObjectsInRadius(applicationPoint:Point, radius:Number, filterFunction:*):void
+		public function getObjectsInRadius(applicationPoint:Point, radius:Number, filterFunction:*):Vector.<GameObject>
 		{
-			getObjectsInRadiusAlgorithm.execute(applicationPoint, radius, filterFunction);
+			return getObjectsInRadiusAlgorithm.execute(applicationPoint, radius, filterFunction);
 		}
 		
 		public function get gameObjectsRegistry():GameobjectsRegistry 

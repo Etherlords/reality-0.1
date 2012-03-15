@@ -1,6 +1,8 @@
 package ui.services 
 {
+	import core.camera.Camera;
 	import core.services.AbstractService;
+	import flash.geom.Point;
 	import ui.camera.TracingCamera;
 	
 	/**
@@ -10,26 +12,26 @@ package ui.services
 	public class CameraService extends AbstractService 
 	{
 		
-		private var _camera:TracingCamera
+		private var _camera:Camera
 		
-		public function CameraService() 
+		public function CameraService(camera:Camera) 
 		{
 			super();
+			this._camera = camera;
+			
 		}
 		
 		override protected function initilize():void 
 		{
 			super.initilize();
-			
-			_camera = new TracingCamera();
 		}
 		
 		public function set cameraTarget(tracingTarget:Object):void
 		{
-			_camera.tracingTarget = tracingTarget;
+			//_camera.tracingTarget = tracingTarget;
 		}
 		
-		public function get camera():TracingCamera 
+		public function get camera():Camera 
 		{
 			return _camera;
 		}

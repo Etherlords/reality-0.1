@@ -22,11 +22,25 @@ package core.Box2D.utils
 			var list:Vector.<GameObject> = new Vector.<GameObject>
 			var objectsList:Vector.<GameObject> = registry.objectsList;
 			
+			var isUseFilter:Boolean = filter != null;
+			
 			var object:GameObject;
-			for each(object in objectsList)
+			var len:int = objectsList.length;
+			
+			for (var i:int = 0; i < len; i++)
 			{
-				if(DimensionalMath.inRadius(radius, applicationPoint, object.body.position))
-					list.push(object);
+				object = objectsList[i];
+				
+				if (DimensionalMath.inRadius(radius, applicationPoint, object.body.position))
+				{
+					if (isUseFilter)
+					{
+						if (filter(object))
+							list.push(object);
+					}
+					else	
+						list.push(object);
+				}
 			}
 			
 			return list;

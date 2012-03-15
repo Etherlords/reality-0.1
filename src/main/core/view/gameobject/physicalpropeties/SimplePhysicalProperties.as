@@ -44,9 +44,9 @@ package core.view.gameobject.physicalpropeties
 			_physicModel.linearVelocity = linearVelocity;
 		}
 		
-		public function applyForce(x:Number = 0, y:Number = 0, forceSourceX:Number = 0, iforceSourceY:Number = 0):void 
+		public function applyForce(x:Number = 0, y:Number = 0, forceSourceX:Number = 0, forceSourceY:Number = 0):void 
 		{
-			body.body.ApplyForce(new b2Vec2(x, y), new b2Vec2(forceSourceX, iforceSourceY));
+			body.body.ApplyForce(new b2Vec2(x, y), new b2Vec2(forceSourceX, forceSourceY));
 		}
 
 		public function applyImpulse(x:Number = 0, y:Number = 0, impulseSourceX:Number = 0, impulseSourceY:Number = 0):void 

@@ -4,6 +4,7 @@ package utils
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2FilterData;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	import core.Box2D.utils.Box2DWorldController;
@@ -12,8 +13,10 @@ package utils
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
 	import core.view.gameobject.physicalpropeties.PhysicModel;
+	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 	import flash.display.DisplayObjectContainer;
 	import ui.FloorShape;
+	import ui.rabbit.Rabbit;
 	/**
 	 * ...
 	 * @author 
@@ -34,15 +37,24 @@ package utils
 			var wallWidth:Number = 1 * GlobalConstants.PIXELS_TO_METR;
 			
 			
-			var floorConfig:GameobjectConfig = new GameobjectConfig(true);
+			var floorConfig:GameobjectConfig = new GameobjectConfig();
 			
 			
 			floorConfig.skinClass = FloorShape;
 			
 			
 
-			floor = worldController.constructGameObject(GameObject, floorConfig, new PhysicModel(), viewInstance);
+			floor = worldController.constructGameObject(Rabbit, floorConfig, new PhysicModel(), viewInstance);
 			floor.body.y = _height;
+			
+			var fix:b2Fixture = (floor.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
+			var filter:b2FilterData = new b2FilterData();
+			//filter.maskBits = 0x0004;
+			filter.categoryBits = 4;
+			fix.SetFilterData(filter);
+			
+			//var roof:GameObject = worldController.constructGameObject(Rabbit, floorConfig, new PhysicModel(), viewInstance);
+			//roof.body.y = 0;
 		
 			
 			var rightWallBodyDef:b2BodyDef = new b2BodyDef();

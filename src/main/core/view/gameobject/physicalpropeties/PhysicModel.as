@@ -13,6 +13,8 @@ package core.view.gameobject.physicalpropeties
 		private var _friction:Number;
 		private var _restitution:Number;
 		
+		private var _fixedRotation:Boolean;
+		
 		private var _linearVelocity:Point
 		private var b2Velocity:b2Vec2;
 		
@@ -42,10 +44,14 @@ package core.view.gameobject.physicalpropeties
 		 */
 		public function setBody(body:b2Body):void
 		{
+			
 			this.body = body;
 			initilized = true;
 			
+			
 			density = _density;
+			fixedRotation = _fixedRotation;
+			
 		}
 		
 		private function initilize():void 
@@ -54,6 +60,14 @@ package core.view.gameobject.physicalpropeties
 			b2Velocity = new b2Vec2();
 		}
 		
+		public function set fixedRotation(value:Boolean):void
+		{
+			_fixedRotation = value;
+			
+			
+			if(initilized)
+				this.body.SetFixedRotation(_fixedRotation);
+		}
 		
 		public function set linearVelocity(value:Point):void
 		{
@@ -61,6 +75,7 @@ package core.view.gameobject.physicalpropeties
 			
 			if (initilized)
 			{
+				
 				b2Velocity.x = _linearVelocity.x;
 				b2Velocity.y = _linearVelocity.y;
 				
@@ -102,7 +117,10 @@ package core.view.gameobject.physicalpropeties
 			_density = value;
 			
 			if (initilized)
+			{
 				body.GetFixtureList().SetDensity(_density);
+				body.ResetMassData();
+			}
 		}
 		
 		/**

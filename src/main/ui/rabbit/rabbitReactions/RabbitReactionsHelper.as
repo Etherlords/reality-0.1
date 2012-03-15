@@ -1,16 +1,16 @@
 package ui.rabbit.rabbitReactions 
 {
 import core.GlobalConstants;
-
 import flash.display.Stage;
-
 import patterns.strategy.Strategy;
 import patterns.strategy.StrategyController;
-
 import ui.rabbit.FlapTriggerGameObject;
 import ui.rabbit.Rabbit;
 
-/**
+
+
+
+	/**
 	 * ...
 	 * @author 
 	 */
@@ -38,6 +38,11 @@ import ui.rabbit.Rabbit;
 		public function flapWingsReaction():void 
 		{
 			rabbitAction(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS);
+		}
+		
+		public function rabbitMove(direction:Number):void
+		{
+			rabbitAction(GlobalConstants.ACTION_MOVE, direction);
 		}
 		
 		public function calculateObjectMoving():void 
@@ -68,11 +73,13 @@ import ui.rabbit.Rabbit;
 			
 			var standarJump:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_JUMP, new RabbitStandarJump());
 			var followMouse:Strategy = new Strategy(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE, new RabbitFlowMouse(stage));
+			var move:Strategy = new Strategy(GlobalConstants.ACTION_MOVE, new RabbitMove());
 			
 			behaviorStrategyController.addStrategy(standarJump);
 			behaviorStrategyController.addStrategy(followMouse);
+			behaviorStrategyController.addStrategy(move);
 			behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_ACCELERATE, new RabbitAccelerate()));
-		    behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS, new RabbitFlapWings(flapTrigger)));
+		  behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS, new RabbitFlapWings(flapTrigger)));
 		}
 		
 	}

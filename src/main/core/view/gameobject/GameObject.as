@@ -210,7 +210,7 @@ import flash.events.IEventDispatcher;
 			
 			if (true) 
 			{
-				bodyConstructor = new PhysicBodyConstructor(config.type);
+				bodyConstructor = new PhysicBodyConstructor(config.type, config.shapeType);
                 phsyPropConstructor = new SimplePhysicalPropertiesConstructor();
 			}
 			else

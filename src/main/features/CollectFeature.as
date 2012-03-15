@@ -24,18 +24,18 @@ package features
 		
 		public function doAction():void
 		{
-			var list:Vector.<GameObject> = worldController.getGameObjectsInRadius(rabbit.body.position, 300, null);
+			var list:Vector.<GameObject> = worldController.gameObjectRegistryController.getObjectsInRadius(rabbit.body.position, 300, null);
 			var dir:Point = new Point();
 			
-			trace(list);
+			
 			for (var i:int = 0; i < list.length; i++)
 			{
 				if (!(list[i] is Rabbit) && !(list[i] is FlapTriggerGameObject))
 				{
 					var ang:Number = DimensionalMath.angle(rabbit.body.position, list[i].body.position);
 					
-					var intensity:Number = 100;
-					var currVel:Point = list[i].physicalProperties.linearVelocity;
+					var intensity:Number = 10;
+					var currVel:Point = list[i].physicalProperties.physicModel.linearVelocity;
 
 					dir.x = currVel.x + intensity * Math.cos(ang);
 					dir.y = currVel.y + intensity * Math.sin(ang);

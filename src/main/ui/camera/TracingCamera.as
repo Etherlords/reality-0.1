@@ -29,8 +29,8 @@ package ui.camera
 			if (!_tracingTarget)
 				return;
 			
-			_target.x = tracingTarget.x + tracingTarget.width / 2;
-			_target.y = tracingTarget.y + tracingTarget.height / 2;
+			_target.x = tracingTarget.body.x + tracingTarget.body.width / 2;
+			_target.y = tracingTarget.body.y + tracingTarget.body.height / 2;
 		}
 		
 		public override function set target(value:Point):void 
