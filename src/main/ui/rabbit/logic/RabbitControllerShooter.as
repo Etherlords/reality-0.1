@@ -115,7 +115,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			bullet.body.x = rabbit.body.x + rabbit.body.height / 2;
 			bullet.body.y = rabbit.body.y + rabbit.body.height / 2;
 			
-			bullet.physicalProperties.applyImpulse(e.stageX / 10, -e.stageY / 10);
+			bullet.physicalProperties.applyImpulse((e.stageX - rabbit.body.x ) / 10, (e.stageY - rabbit.body.y)/ 10);
 		}
 		
 		private function manageOvertimeEvents():void 
