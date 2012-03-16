@@ -7,12 +7,11 @@ import Box2D.Dynamics.Controllers.b2BuoyancyController;
 
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
+import core.camera.Camera;
 import core.events.GameObjectPhysicEvent;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
-
-import ragevagon.emo.emoReactions.ExposeOnFloorReaction;
 
 import flash.display.DisplayObjectContainer;
 import flash.events.TimerEvent;
@@ -21,7 +20,10 @@ import flash.utils.Timer;
 
 import patterns.strategy.Strategy;
 
-import ui.rabbit.logic.RabbitController;
+import ragevagon.emo.emoReactions.ExposeOnFloorReaction;
+
+import ui.rabbit.constructor.RabbitConstructor;
+import ui.rabbit.logic.RabbitControllerShooter;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 
@@ -33,7 +35,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     private var sceneView:GameSceneView;
     private var _boundaries:BoundariesConstructor;
     private var controller:b2BuoyancyController;
-    private var _rabbitController:RabbitController;
+    private var _rabbitController:RabbitControllerShooter;
 
     public function GameRageVagonSceneController()
     {
@@ -43,7 +45,9 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     override protected function initilize():void
     {
         //create using services
-        ServicesLocator.instance.addService(new CameraService());
+        var camera:Camera = new Camera();
+        camera.target.y = 500;
+        ServicesLocator.instance.addService(new CameraService(camera));
 
         super.initilize();
     }
@@ -93,7 +97,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
         _boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
 
-        _rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
+        _rabbitController = new RabbitControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor);
         _rabbitController.rabbitActionsHelper.behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR, new ExposeOnFloorReaction));
 
         //rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
