@@ -7,23 +7,30 @@ import core.GlobalConstants;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
+import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.GameObject;
-import extendsReality.GameObjectTailTracker;
+import core.view.gameobject.physicalpropeties.PhysicModel;
+import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
+import features.MagnetField;
+import flash.display.BitmapData;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
+import flash.ui.Mouse;
+import flash.ui.MouseCursor;
+import flash.ui.MouseCursorData;
 import flash.utils.Timer;
-import shaders.effects.tail.taileffects.PerlinEffect;
-import shaders.effects.tail.TailRenderer;
-import shaders.effects.tail.TailSource;
 import ui.Alert;
-import ui.camera.TracingCamera;
+import ui.BaloonShape;
 import ui.gameobjects.BaseInteractiveGameObject;
 import ui.gameobjects.GameobjectsCrationController;
 import ui.Lables;
-import ui.rabbit.constructor.RabbitConstructor;
+import ui.rabbit.constructor.TestWithJoint;
+import ui.rabbit.FlapTriggerGameObject;
 import ui.rabbit.logic.RabbitController;
+import ui.rabbit.Rabbit;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 import ui.services.scores.ScoresService;
@@ -33,7 +40,7 @@ import utils.BoundariesConstructor;
 
 
 
-public class GameSceneController extends AbstractSceneController
+public class HighDelivery extends AbstractSceneController
 	{
 
 		private var sceneView:GameSceneView;
@@ -55,7 +62,7 @@ public class GameSceneController extends AbstractSceneController
 
         private var scoresService:ScoresService;
 
-		public function GameSceneController()
+		public function HighDelivery()
 		{
 			super();
 
@@ -65,7 +72,7 @@ public class GameSceneController extends AbstractSceneController
 		{
 			//create using services
 
-            
+            ServicesLocator.instance.addService(new CameraService());
 
 			super.initilize();
 		}
@@ -73,12 +80,17 @@ public class GameSceneController extends AbstractSceneController
 		private function postInitilize():void
 		{
             scoresService = ServicesLocator.instance.getServiceByClass(ScoresService) as ScoresService;
+			
 			createWorld();
-			createViewComponents();
-			ServicesLocator.instance.addService(new CameraService(new TracingCamera(rabbitController.rabbit)));
 			
 			initilizeBuoyancyController();
 
+			
+			createViewComponents();
+			
+			
+
+			
 			initGameCycles();
 
 			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
@@ -87,20 +99,11 @@ public class GameSceneController extends AbstractSceneController
 			gamaobjectCreationController = new GameobjectsCrationController(sceneView.gameObjectsInstance, _boundaries.width, worldController);
 
 
-			triggerOvertimeObjectGeneration();
-			triggerOvertimeObjectGeneration();
-			triggerOvertimeObjectGeneration();
-			triggerOvertimeObjectGeneration();
-			triggerOvertimeObjectGeneration();
-			initTailRenderer();
-		}
-		
-		private function initTailRenderer():void 
-		{
-			var tailReactor:PerlinEffect = new PerlinEffect();
-			var tailSource:TailSource = new TailSource(tailReactor, view.stage.stageWidth, view.stage.stageHeight);
-			
-			var tailRenderer:TailRenderer = new TailRenderer(tailSource.source, sceneView.effects, new GameObjectTailTracker(rabbitController.rabbit));
+			//triggerOvertimeObjectGeneration();
+			//triggerOvertimeObjectGeneration();
+			//triggerOvertimeObjectGeneration();
+			//triggerOvertimeObjectGeneration();
+			//triggerOvertimeObjectGeneration();
 		}
 
 		private function initilizeBuoyancyController():void
@@ -110,11 +113,11 @@ public class GameSceneController extends AbstractSceneController
 
 			_b2BuoyancyController.normal.Set(0, -1);
 			_b2BuoyancyController.offset = 100000 * GlobalConstants.PIXELS_TO_METR;
-			_b2BuoyancyController.density = 2.0;
+			_b2BuoyancyController.density = 2.6;
 			//controller.useWorldGravity = false
 			//controller.useDensity = true;
 			_b2BuoyancyController.linearDrag = 5;
-			//controller.angularDrag = 2;
+			_b2BuoyancyController.angularDrag = 0;
 
 
 			worldController.addController(_b2BuoyancyController, 'nullGravityField');
@@ -124,19 +127,66 @@ public class GameSceneController extends AbstractSceneController
 
 		private function initGameCycles():void
 		{
-			var overtimeObjectGeneration:Timer = new Timer(300);
+			var overtimeObjectGeneration:Timer = new Timer(1);
 			overtimeObjectGeneration.addEventListener(TimerEvent.TIMER, triggerOvertimeObjectGeneration);
 			overtimeObjectGeneration.start();
 
 			 var stepTimer:Timer = new Timer(0.025 * 1000);
 			stepTimer.addEventListener(TimerEvent.TIMER, gameStep);
 			stepTimer.start();
+			
+			view.addEventListener(MouseEvent.MOUSE_MOVE, onMouse);
+			
+			//Mouse.hide();
+			
+			Mouse.cursor = 'noCursor';
 		}
-
+		
+		private function onMouse(e:MouseEvent):void 
+		{
+			if (!cameraView || view)
+				return;
+				
+			cameraView.body.x = view.mouseX - cameraView.body.width / 2;
+			cameraView.body.y =  (view.mouseY) - cameraView.body.height / 2;
+			//Mouse.hide();
+		}
+		
+		private var cameraView:GameObject;
 		private function gameStep(e:TimerEvent):void
 		{
+			if (!cameraView && worldController.world)
+			{
+				var conf:GameobjectConfig = new GameobjectConfig();
+				conf.skinClass = BaloonShape;
+				conf.type = 3;
+				
+				cameraView = worldController.constructGameObject(GameObject, conf, new PhysicModel, this.sceneView);
+				(cameraView.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList().SetSensor(true);
+			}
+
 			worldController.gameStep();
 			sceneView.render();
+			//trace(ServicesLocator.cameraService.camera.tracingTarget.y + (view.mouseY - 560));
+			cameraView.body.x = view.mouseX - cameraView.body.width / 2;
+			cameraView.body.y =  (view.mouseY) - cameraView.body.height / 2;// + ServicesLocator.cameraService.camera.tracingTarget.y - 270;
+			//trace( ServicesLocator.cameraService.camera.target.y);
+			//trace('viewY', view.mouseY + ServicesLocator.cameraService.camera.target.y);
+			var newControll:MagnetField = new MagnetField(worldController, new Point(view.mouseX, (view.mouseY)));
+			newControll.doAction(25, 150, false, flotterFilter);
+			
+			newControll = new MagnetField(worldController, new Point(rabbitController.rabbit.body.x + rabbitController.rabbit.body.width/2, rabbitController.rabbit.body.y + rabbitController.rabbit.body.height/2));
+			newControll.doAction(15, 100, true, collectorFilter);
+		}
+		
+		private function collectorFilter(object:GameObject):Boolean 
+		{
+			return !(object is Rabbit) && !(object is FlapTriggerGameObject);
+		}
+		
+		private function flotterFilter(object:GameObject):Boolean 
+		{
+			return !(object is Rabbit) && !(object is FlapTriggerGameObject) && !(object is BaseInteractiveGameObject);
 		}
 
 		private function triggerOvertimeObjectGeneration(e:* = null):void
@@ -148,14 +198,20 @@ public class GameSceneController extends AbstractSceneController
 				return;
 
 			interactiveObjectsCount++;
-
+			
+			
 			var currentObject:BaseInteractiveGameObject = gamaobjectCreationController.createGameobjectOvertimeTrigger(lastCrationObject)
-
+			currentObject.body.y = -40;
+			
+			
 			//if (currentObject is FlowInteractiveObject)
 			//{
 				lastCrationObject = currentObject;
 			//}
-
+			
+			currentObject.physicalProperties.physicModel.density = 2.8;
+			currentObject.physicalProperties.physicModel.fixedRotation = true;
+			
 			_b2BuoyancyController.AddBody(currentObject.physicalProperties.physicBodyKey);
 			currentObject.interactiveObjectConfig.creationAlgorithm.execute();
 
@@ -169,12 +225,6 @@ public class GameSceneController extends AbstractSceneController
 
 			interactiveObjectsCount--;
 
-			if (!gameIsOver)
-			{
-
-
-			}
-
 			if (interactiveObjectsCount == 0 && gameIsOver)
 			{
 				startNewGame();
@@ -183,7 +233,7 @@ public class GameSceneController extends AbstractSceneController
 
 		private function createWorld():void
 		{
-			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, false);
+			worldController = new Box2DWorldController(new Point(0, 10), sceneView.gameObjectsInstance, true);
 
 			PhysicWorldLocator.instance.world = worldController.world;
 		}
@@ -193,9 +243,9 @@ public class GameSceneController extends AbstractSceneController
 			_boundaries = new BoundariesConstructor();
 			_boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
 
-			_boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
-
-			rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController, new RabbitConstructor);
+			//_boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
+			
+			rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController, new TestWithJoint());
 
 			rabbitController.rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, onRabbitColide);
 

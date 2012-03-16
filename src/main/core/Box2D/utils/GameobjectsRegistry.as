@@ -28,6 +28,7 @@ import org.as3commons.collections.Map;
 			phyBodyToGameobjectMap = new Map();
 		}
 		
+		
 		public function getGameObjectBy_b2body(b2body:b2Body):GameObject
 		{
 			return phyBodyToGameobjectMap.itemFor(b2body);

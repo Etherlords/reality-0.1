@@ -1,7 +1,6 @@
 package ui.gameobjects 
 {
 	import core.Box2D.utils.Box2DWorldController;
-	import core.camera.Camera;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import flash.display.DisplayObjectContainer;
@@ -59,8 +58,8 @@ package ui.gameobjects
 		
 		protected function registerGameObject(interactiveGameObject:BaseInteractiveGameObject):void
 		{
-			worldController.registerGameObject(interactiveGameObject);
-			worldController.addToCollaboration(interactiveGameObject);
+			worldController.gameObjectRegistryController.registerGameObject(interactiveGameObject);
+			worldController.gameObjectRegistryController.addToCollaboration(interactiveGameObject);
 		}
 		
 		protected function craeteGameObject():BaseInteractiveGameObject

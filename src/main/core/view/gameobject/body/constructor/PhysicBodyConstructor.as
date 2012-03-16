@@ -1,5 +1,6 @@
 package core.view.gameobject.body.constructor 
 {
+import Box2D.Collision.Shapes.b2CircleShape;
 import Box2D.Collision.Shapes.b2PolygonShape;
 import Box2D.Collision.Shapes.b2Shape;
 import Box2D.Common.Math.b2Vec2;
@@ -21,9 +22,11 @@ import core.view.skin.Skin;
 	public class PhysicBodyConstructor  implements IBodyConstructor
 	{
 		private var type:uint;
+		private var shapeType:uint;
 
-		public function PhysicBodyConstructor(type:uint) 
+		public function PhysicBodyConstructor(type:uint, shapeType:uint) 
 		{
+			this.shapeType = shapeType;
 			this.type = type;
 			
 		}
@@ -35,13 +38,26 @@ import core.view.skin.Skin;
 		 */
 		private function makeShapeFromSkin(skin:Skin):b2Shape
 		{
+			
+			
 			var width:Number = skin.phsyWidth * GlobalConstants.PIXELS_TO_METR;
 			var height:Number = skin.phsyHeight * GlobalConstants.PIXELS_TO_METR;
 			
-			var shape:b2PolygonShape = new b2PolygonShape();
+			var shape:b2Shape
 			
-			shape.SetAsArray([new b2Vec2(0, 0), new b2Vec2(width, 0), new b2Vec2(width, height), new b2Vec2(0, height)]);
 			
+			if (shapeType == 0)
+			{
+				shape = new b2PolygonShape();
+				//var shape:b2CircleShape = new b2CircleShape(30*GlobalConstants.PIXELS_TO_METR);
+				
+				(shape as b2PolygonShape).SetAsArray([new b2Vec2(0, 0), new b2Vec2(width, 0), new b2Vec2(width, height), new b2Vec2(0, height)]);
+			}
+			else
+			{
+				shape = new b2CircleShape((width) / 2);
+				//(shape as b2CircleShape).SetLocalPosition(new b2Vec2(width / 2, height / 2));
+			}
 			return shape;
 		}
 		

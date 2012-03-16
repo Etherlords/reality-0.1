@@ -4,7 +4,6 @@ package  ui.scene.gameInteractionScene.view
 	import core.locators.ServicesLocator;
 	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.filters.GlowFilter;
@@ -18,7 +17,7 @@ import ui.snow.FallingSnowAnimation;
 	 * @author 
 	 */
 	
-	public class GameSceneView extends Sprite 
+	public class GameSceneViewTest extends Sprite 
 	{
 		
 		[Embed(source="../../../../../../assets/compiled/bt_moon_masked_but_not_filtered.png")]
@@ -37,7 +36,7 @@ import ui.snow.FallingSnowAnimation;
 		private var startBack:Sprite;
 		private var _effects:Sprite;
 
-		public function GameSceneView() 
+		public function GameSceneViewTest() 
 		{
 			super();
 			initilize();
@@ -63,7 +62,7 @@ import ui.snow.FallingSnowAnimation;
 			for (var i:int = 0; i < trackCameraInstances.length; i++)
 			{
 				if (trackCameraInstances[i].y != stage.stageHeight / 2 - target.y)
-					trackCameraInstances[i].y += ((stage.stageHeight / 2 - target.y) - trackCameraInstances[i].y) / 2;
+					trackCameraInstances[i].y += ((stage.stageHeight / 2 - target.y) - trackCameraInstances[i].y) / 10;
 				
 				//trackCameraInstances[i].y = stage.stageHeight / 2 - target.y;
 				
@@ -71,9 +70,8 @@ import ui.snow.FallingSnowAnimation;
 					trackCameraInstances[i].y = 0
 			}
 			
-			moon.y = (trackCameraInstances[0].y - moon.y) / 100;
+			moon.y = -(target.y - moon.y) / 150;
 			_snow.drawingY = (trackCameraInstances[0].y);
-			//_effects.y = -trackCameraInstances[0].y + 550;
 		}
 		
 		public function get gameObjectsInstance():DisplayObjectContainer 
@@ -118,11 +116,6 @@ import ui.snow.FallingSnowAnimation;
 			
 			startBack = new Sprite();
 			var bg:Bitmap = new Bitmap(new StartBackground());
-			
-			var background:Shape = new Shape();
-			background.graphics.beginFill(0x0);
-			background.graphics.drawRect(0, 0, 760, 650);
-			
 			startBack.addChild(bg);
 			startBack.addChild(new StartBackgroundMask());
 			startBack.addChild(new StartBackgroundMask());
@@ -130,7 +123,6 @@ import ui.snow.FallingSnowAnimation;
 			trackCameraInstances.push(_gameObjectsInstance);
 			trackCameraInstances.push(_snow);
 			trackCameraInstances.push(startBack);
-			//trackCameraInstances.push(_effects);
 			
 			moon = new Sprite();
 			moon.y -= 35;
@@ -138,8 +130,6 @@ import ui.snow.FallingSnowAnimation;
 			
 			createMoon();
 			
-			
-			addChild(background);
 			addChild(startBack);
 			
 			addChild(moon);
@@ -147,6 +137,7 @@ import ui.snow.FallingSnowAnimation;
 			addChild(_snow);
 			addChild(_effects);
 			addChild(_gameObjectsInstance);
+			
 			addChild(_scoreboard);
 			
 			removeFromMouseWorld(_scoreboard);

@@ -7,7 +7,11 @@ package core.camera
 	 */
 	public class Camera 
 	{
-		
+		/**
+		 * TODO 
+		 * Камера наверно будет модифицирована и добавится z индекс для определения какой слой мы сейчас видимо и степени движения
+		 * различных слоев на бек граунде
+		 */
 		protected var _target:Point
 		
 		public function Camera() 

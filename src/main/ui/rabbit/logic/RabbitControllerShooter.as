@@ -1,13 +1,21 @@
 package ui.rabbit.logic 
 {
+import Box2D.Dynamics.b2FilterData;
+import Box2D.Dynamics.b2Fixture;
 import core.Box2D.utils.Box2DWorldController;
 import core.events.GameObjectPhysicEvent;
 import core.ui.KeyBoardController;
+import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.GameObject;
+import core.view.gameobject.physicalpropeties.PhysicModel;
+import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 import flash.display.DisplayObjectContainer;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
+import flash.geom.Point;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
+import ui.BulletSkin;
 import ui.gameobjects.BaseInteractiveGameObject;
 import ui.rabbit.constructor.PlayerConstructor;
 import ui.rabbit.FlapTriggerGameObject;
@@ -21,7 +29,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 	 * ...
 	 * @author 
 	 */
-	public class RabbitController 
+	public class RabbitControllerShooter 
 	{
 		private var viewInstance:DisplayObjectContainer;
 		
@@ -30,11 +38,11 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		private var worldController:Box2DWorldController;
 		private var flapTrigger:FlapTriggerGameObject;
 		private var keyController:KeyBoardController;
-		private var direction:Number;
-		private var moving:Boolean;
+		private var _direction:Number;
+		private var _moving:Boolean;
 		private var constructor:PlayerConstructor;
 		
-		public function RabbitController(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, constructor:PlayerConstructor) 
+		public function RabbitControllerShooter(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, constructor:PlayerConstructor) 
 		{
 			this.constructor = constructor;
 			this.worldController = worldController;
@@ -63,8 +71,8 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			manageRabbitEvents();
 			
 			keyController.registerKeyDownReaction(Keyboard.SPACE, tryFlap);
-			keyController.registerKeyDownReaction(Keyboard.LEFT, Delegate.create(isMove, -1));
-			keyController.registerKeyDownReaction(Keyboard.RIGHT, Delegate.create(isMove, 1));
+			
+			keyController.registerKeyDownReaction(Keyboard.UP, jumpAction);
 			
 			keyController.registerKeyUpReaction(Keyboard.LEFT, stop);
 			keyController.registerKeyUpReaction(Keyboard.RIGHT, stop);
@@ -72,16 +80,13 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		private function stop():void 
 		{
-			moving = false;
+			
+			var velocity:Point = rabbit.physicalProperties.physicModel.linearVelocity;
+			velocity.x /= 3;
+			rabbit.physicalProperties.physicModel.linearVelocity = velocity;
 		}
 		
-		private function isMove(direction:Number):void 
-		{
-			
-			this.direction = direction;
-			moving = true;
-			
-		}
+		
 		
 		private function manageRabbitEvents():void 
 		{
@@ -91,8 +96,26 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		private function manageMouseEvents():void 
 		{
-			 viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, jumpAction);
-			//viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, tryFlap);
+			viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, addBullet);
+		}
+		
+		private function addBullet(e:MouseEvent):void 
+		{
+			var bulletConfig:GameobjectConfig = new GameobjectConfig();
+			bulletConfig.shapeType = 1;
+			bulletConfig.type = 2;
+			bulletConfig.skinClass = BulletSkin;
+			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel, viewInstance); 
+			
+			var fix:b2Fixture = (bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
+			var filter:b2FilterData = new b2FilterData();
+			filter.maskBits = 6;
+			fix.SetFilterData(filter);
+			
+			bullet.body.x = rabbit.body.x + rabbit.body.height / 2;
+			bullet.body.y = rabbit.body.y + rabbit.body.height / 2;
+			
+			bullet.physicalProperties.applyImpulse((e.stageX - rabbit.body.x ) / 10, (e.stageY - rabbit.body.y)/ 10);
 		}
 		
 		private function manageOvertimeEvents():void 
@@ -104,13 +127,11 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		private function rabbitMovieTime(e:TimerEvent):void 
 		{
-			rabbitActionsHelper.calculateObjectMoving();
-			
 			if (moving)
 				rabbitActionsHelper.rabbitMove(direction);
 		}
 		
-		private function jumpAction(e:MouseEvent):void 
+		private function jumpAction(e:* = null):void 
 		{
 			rabbitActionsHelper.jumpAction();
 		}
@@ -118,13 +139,10 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		private function tryFlap():void 
 		{
 			rabbitActionsHelper.jumpAction();
-			//new CollectFeature(worldController, rabbit).doAction();
-			//rabbitActionsHelper.flapWingsReaction();
 		}
 		
 		private function collideWithReaction(e:GameObjectPhysicEvent):void 
 		{
-			
 			if (!(e.interactionWith is BaseInteractiveGameObject))
 			{
 				return;
@@ -132,9 +150,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			
 			rabbitActionsHelper.rabbitAccelerateReaction();
 			
-			
-			//worldConstructor.destroyGameObject(e.interactionWith);
-			
+
 			/**
 			 * Конечно не правильно тут объект уничтожать поидеи но когда понадабится дополнительное
 			 * взаимоедсвтие можно будет еракцию вынести на контроллер выше стоящий или баблить туда
@@ -146,11 +162,9 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		private function createRabbitView():void 
 		{
-			//_rabbit = TestWithJoint.make(viewInstance, worldController) as Rabbit;
+			
 			_rabbit = constructor.make(viewInstance, worldController) as Rabbit;
-			
-			//flapTrigger = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), new PhysicModel(), viewInstance) as FlapTriggerGameObject;
-			
+
 			rabbitActionsHelper = new RabbitReactionsHelper(_rabbit, viewInstance.stage, flapTrigger);
 		}
 		
@@ -158,6 +172,22 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		{
 			return _rabbit;
 		}
+		
+		public function get moving():Boolean 
+		{
+			return keyController.isKeyDown(Keyboard.LEFT) || keyController.isKeyDown(Keyboard.RIGHT);
+		}
+		
+		public function get direction():Number 
+		{
+			if (keyController.isKeyDown(Keyboard.LEFT))
+				return -1;
+			else if(keyController.isKeyDown(Keyboard.RIGHT))
+				return 1;
+			else
+				return 0;
+		}
+		
 		
 	}
 

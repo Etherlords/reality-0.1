@@ -8,6 +8,8 @@ import core.view.gameobject.body.constructor.IBodyConstructor;
 import core.view.gameobject.body.constructor.PhysicBodyConstructor;
 import core.view.gameobject.body.IBodyPresentation;
 import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.context.GameobjectContext;
+import core.view.gameobject.events.IGameObjectEvents;
 import core.view.gameobject.physicalpropeties.constructor.EmptyPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.IPhysicalPropertiesConstructor;
 import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalPropertiesConstructor;
@@ -52,15 +54,29 @@ import flash.events.IEventDispatcher;
 		public var markToDestroy:Boolean = false;
 		
 		public var direction:Direction;
-
-        //TODO comment is not actual
+		
+		public var context:GameobjectContext;
+		
+		public var events:IGameObjectEvents;
+		
 		/**
-		 * Задаем конфи и инстанс объекта, возможно инстанс лучше задавать как то иначе, но не факт. 
-		 * Для одного и того зже мира по сути должны быть соответственные(по координатами, скейлу и пр) инстансы
-		 * Но все же могут быть разными
-		 * 
-		 * @param	config
-		 * @param	instance
+		 * TODO: гейм обжект должен содержать список объектов с которыми он взаимодействует в данный момент(столкнулся но не разъеденился типа встал на платформу и тд)
+		 * возможно для такого рода данных нужно создать объект что то вроде "окружения" чтобы можно
+		 * Как минимум это нужно будет для реализации какого то AI
+		 * Но так же такая вещь необходима чтобы понимать стоим мы на платформе или взаимодействуем с каким то объектом
+		 * Хотя пока как понять стоим мы на платформе или нет хз, но наверно что то вроде если есть взаимоедйствие
+		 * Наверно придется для этого определять пространственно с какой стороной взаимодействуют объекты и условно понимать
+		 * что мы стоим на объекте если он находится снизу
+		 */
+		
+		//public var events:IGameObjectEvents;
+
+		/**
+		 * Создаем гейм обэект
+		 * @param	config  - статичные настройки объекта итпа, создаетс ли он в физическом мире и тд, по ходу работы эти настройки не меняются и нужны только для иницилизации
+		 * @param	physicModel - физическая модель объекта содержет в себе физические параметры(NOTE: пока это работает так но в будущем физик модель будет отрефакторена чтобы быть назвисимой от боди)
+		 * @param	instance - дисплей контейнер в который добавляется скин текущего объекта
+		 * @param	eventFlowTarget - вышестоящий в цепочки ивент флоу объект
 		 */
 		public function GameObject(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 		{
@@ -72,10 +88,27 @@ import flash.events.IEventDispatcher;
 			preInitilize(physicModel, config);
 		}
 		
+		/**
+		 * Преиницилизация гейм обжекта
+		 * Тут мы создаем боди, физикал пропершис, дирекшен, конткекст
+		 * Отделение preInitilize от initilize нужно для того чтобы была возможность 
+		 * закомитить физические параметры объекта в box2dBody до его появления и активации на сцене
+		 * вобщем для синхронизации с вьювом
+		 * 
+		 * @param	physicModel
+		 * @param	config
+		 */
 		private function preInitilize(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
+			var context:GameobjectContext = new GameobjectContext();
+			
 			direction = new Direction();
 			createBody(physicModel, config);
+			
+			//Есть сомнения на счет целесообразности такого использования контекста
+			context.direction = direction;
+			context.physicalProperties = _physicalProperties;
+			context.body = _body;
 		}
 		
 		public function registredInApplication():void
@@ -108,6 +141,10 @@ import flash.events.IEventDispatcher;
 			body.preRender();
 		}
 		
+		/**
+		 * Помечает объект для удаления, помеченый объект будет
+		 * удален на следующем гейм степе на этапе пре рендера
+		 */
 		public function destroy():void
 		{
 			markToDestroy = true;
@@ -125,24 +162,33 @@ import flash.events.IEventDispatcher;
 			
 			this._body = null;
 			
+			/**
+			 * Theory:
+			 * @see DefaultGameobjectEvents
+			 * events.destroy(context);
+			 */
+			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.DESTROY, true, false, this));
 		}
 		
 		public function collideWith(collideTarget:GameObject):void
 		{
 			
+			/**
+			 * Theory:
+			 * @see DefaultGameobjectEvents
+			 * events.colllide(context);
+			 */
+			
 			dispatchEvent(new GameObjectPhysicEvent(GameObjectPhysicEvent.COLLIDE, true, false, collideTarget));
 		}
 		
 		protected function initilize():void 
 		{
-			
 			addToDisplayList();
 			
 			//_dimensionalProperties = new DimensionalProperties(body);
 		}
-		
-		
 		
 		/**
 		 * Создаем представление боди
@@ -153,12 +199,18 @@ import flash.events.IEventDispatcher;
 		 */
 		protected function createBody(physicModel:PhysicModel, config:GameobjectConfig):void 
 		{
+			/**
+			 * TODO:
+				 * нужно вынести это создание в отдельный объект, помойму использования вот этих 2х конструкторов не совсем целесообразно
+				 * и body и properties создание монжо было просто вынести в отделньый объект
+				 * Ну естественно создание боди и пропов должно быть сделано стратегией но инкапсулировано от этого класса
+			 */
 			var bodyConstructor:IBodyConstructor;
             var phsyPropConstructor:IPhysicalPropertiesConstructor;
 			
-			if (true) //todo надо убрать флаг пусть будет лучше просто ссылка которая потом в свою очредь будет указывать на нулл фабрику
+			if (true) 
 			{
-				bodyConstructor = new PhysicBodyConstructor(config.type);
+				bodyConstructor = new PhysicBodyConstructor(config.type, config.shapeType);
                 phsyPropConstructor = new SimplePhysicalPropertiesConstructor();
 			}
 			else
@@ -167,6 +219,7 @@ import flash.events.IEventDispatcher;
                 phsyPropConstructor = new EmptyPhysicalPropertiesConstructor();
 			}
 			
+			//Кажется что скин лучше кууда то еще вынести но хз
 			skin = new config.skinClass;
 			skin.direction = direction;
 			_body = bodyConstructor.make(skin);

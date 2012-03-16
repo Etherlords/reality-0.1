@@ -12,6 +12,7 @@ import core.view.skin.Skin;
 		private var _isUsePhisicWorld:Boolean;
 		
 		public var type:uint
+		public var shapeType:uint = 0;
 
         public var skinClass:Class = Skin;
 

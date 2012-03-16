@@ -5,8 +5,9 @@ package core.Box2D.collision
 	import Box2D.Dynamics.b2ContactImpulse;
 	import Box2D.Dynamics.b2ContactListener;
 	import Box2D.Dynamics.Contacts.b2Contact;
+	import core.Box2D.utils.GameobjectsRegistry;
 	import core.events.NativeCollideEvent;
-	import core.locators.PhysicWorldLocator;
+	import core.view.gameobject.GameObject;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -18,9 +19,11 @@ package core.Box2D.collision
 	{
 		private var dispatcher:EventDispatcher;
 		private var eventFlowTarget:IEventDispatcher;
+		private var _gameObjectsRegistry:GameobjectsRegistry;
 		
-		public function SimpleConcatListener(eventFlowTarget:IEventDispatcher = null) 
+		public function SimpleConcatListener(gameObjectsRegistry:GameobjectsRegistry,eventFlowTarget:IEventDispatcher = null) 
 		{
+			_gameObjectsRegistry = gameObjectsRegistry;
 			//Можно баблить эвенты если это понадобится задав выше стоящий во флоу диспатчер
 			this.eventFlowTarget = eventFlowTarget;
 			initilize();
@@ -68,6 +71,8 @@ package core.Box2D.collision
 			var bodyA:b2Body = contact.GetFixtureA().GetBody();
 			var bodyB:b2Body = contact.GetFixtureB().GetBody();
 			
+			notifObjectsCollide(bodyA, bodyB);
+			
 			dispatchEvent(new NativeCollideEvent(NativeCollideEvent.PHYSIC_BODY_COLLIDE, true, false, bodyA, bodyB));
 		}
 		
@@ -109,9 +114,43 @@ package core.Box2D.collision
 			super.PostSolve(contact, impulse);
 		}
 		
-		
-		
-		
+		/**
+		 * Нативное столкновение 2х объектов
+		 * тут благодаря pBody-to-gameObject маппингу я могу получить по боди гейм обжекты
+		 * Я могу оповестить гейм обжекты о том что они столкнулись с таким то объектом,
+		 * но полагаю что нам лучше резолвить столкновения при вызове preRender, render или 
+		 * ввести еще postRender
+		 * 
+		 * Т.е не обрабатывать каждое столкновение в частности а обрабатывать лист столкновений
+		 * 
+		 * resolveCollision->objectA.collideList-process->doSomeActions
+		 * Так же резолвить столкновения очевидно нужно на уровне контейнера т.к логика взаимодействия объектов описана в нем
+		 * 
+		 * есть враинт такого флоу
+		 * box2dWorld->nativeCollideEvent-to-GameObject->GameObject.notifiCollide(gameObject)->sendCollideEventToStage-resolve-collides;
+		 * 
+		 * но тут помойму куча лишних действий хотя и легко будет работать с такой моделью потому что все рбаотает не зависимо
+		 * но обработка колайдов в одном месте скопом была бы явно производительней
+		 */
+		private function notifObjectsCollide(bodyA:b2Body, bodyB:b2Body):void 
+		{
+			var gameObjectA:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(bodyA);
+			var gameObjectB:GameObject = _gameObjectsRegistry.getGameObjectBy_b2body(bodyB);
+			
+			/**
+			 * Будем считать что если один из объектов отсутствует в мапе то
+			 * столкновение былоо с левыми объектами не игровыми
+			 * и его не нужно отслеживать.
+			 */
+			if (!gameObjectA || !gameObjectB)
+				return
+			
+			gameObjectA.collideWith(gameObjectB)
+			gameObjectB.collideWith(gameObjectA)
+			
+			//gameObjectA notify collide
+			//gameObjectB notifi collide
+		}
 		
 	}
 

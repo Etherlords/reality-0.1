@@ -11,6 +11,10 @@ import flash.utils.getQualifiedClassName;
 	 */
 	public class ServicesLocator 
 	{
+		
+		/**
+		 * TODO: Вынести локатор из CORE в CORE оставить только базовый класс
+		 */
 		private static var _instance:ServicesLocator;
 		private var classMap:SimpleMap;
 		private var nameMap:SimpleMap;
