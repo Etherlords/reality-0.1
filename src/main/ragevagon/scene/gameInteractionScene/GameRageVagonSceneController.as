@@ -2,7 +2,7 @@
  * author: chaos-encoder
  * Date: 21.02.12 Time: 20:09
  */
-package emosuicide.scene.gameInteractionScene {
+package ragevagon.scene.gameInteractionScene {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
 
 import core.Box2D.utils.Box2DWorldController;
@@ -12,7 +12,7 @@ import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
 
-import emosuicide.emo.emoReactions.ExposeOnFloorReaction;
+import ragevagon.emo.emoReactions.ExposeOnFloorReaction;
 
 import flash.display.DisplayObjectContainer;
 import flash.events.TimerEvent;
@@ -27,7 +27,7 @@ import ui.services.CameraService;
 
 import utils.BoundariesConstructor;
 
-public class GameSuicideSceneController extends AbstractSceneController {
+public class GameRageVagonSceneController extends AbstractSceneController {
 
     private var worldController:Box2DWorldController;
     private var sceneView:GameSceneView;
@@ -35,7 +35,7 @@ public class GameSuicideSceneController extends AbstractSceneController {
     private var controller:b2BuoyancyController;
     private var _rabbitController:RabbitController;
 
-    public function GameSuicideSceneController()
+    public function GameRageVagonSceneController()
     {
         super();
     }
