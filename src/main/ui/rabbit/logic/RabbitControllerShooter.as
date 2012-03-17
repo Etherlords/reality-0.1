@@ -66,8 +66,6 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			manageMouseEvents();
 			manageRabbitEvents();
 			
-			keyController.registerKeyDownReaction(Keyboard.SPACE, tryFlap);
-			
 			keyController.registerKeyDownReaction(Keyboard.UP, jumpAction);
 			
 			keyController.registerKeyUpReaction(Keyboard.LEFT, stop);
@@ -128,11 +126,6 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		}
 
 		private function jumpAction(e:* = null):void
-		{
-			rabbitActionsHelper.jumpAction();
-		}
-		
-		private function tryFlap():void 
 		{
 			rabbitActionsHelper.jumpAction();
 		}
