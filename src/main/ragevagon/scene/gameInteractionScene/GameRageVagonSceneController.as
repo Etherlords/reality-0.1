@@ -17,7 +17,8 @@ import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
 
-import ui.rabbit.constructor.RabbitConstructor;
+import ragevagon.constructor.RagePlayerConstructor;
+
 import ui.rabbit.logic.PlayerControllerShooter;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
@@ -85,7 +86,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         _boundaries = new BoundariesConstructor();
         _boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
 
-        _rabbitController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor());
+        _rabbitController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RagePlayerConstructor());
     }
 
     private function initilizeBuoyancyController():void
