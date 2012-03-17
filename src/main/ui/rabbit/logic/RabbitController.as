@@ -3,19 +3,18 @@ package ui.rabbit.logic
 import core.Box2D.utils.Box2DWorldController;
 import core.events.GameObjectPhysicEvent;
 import core.ui.KeyBoardController;
+
 import flash.display.DisplayObjectContainer;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
+
 import ui.gameobjects.BaseInteractiveGameObject;
-import ui.rabbit.constructor.PlayerConstructor;
 import ui.rabbit.FlapTriggerGameObject;
 import ui.rabbit.Rabbit;
-import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
-
-
-
+import ui.rabbit.constructor.PlayerConstructor;
+import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 
 /**
 	 * ...
@@ -25,7 +24,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 	{
 		private var viewInstance:DisplayObjectContainer;
 		
-		public var rabbitActionsHelper:RabbitReactionsHelper;
+		public var rabbitActionsHelper:PlayerReactionsHelper;
 		private var _rabbit:Rabbit;
 		private var worldController:Box2DWorldController;
 		private var flapTrigger:FlapTriggerGameObject;
@@ -107,7 +106,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			rabbitActionsHelper.calculateObjectMoving();
 			
 			if (moving)
-				rabbitActionsHelper.rabbitMove(direction);
+				rabbitActionsHelper.move(direction);
 		}
 		
 		private function jumpAction(e:MouseEvent):void 
@@ -130,7 +129,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 				return;
 			}
 			
-			rabbitActionsHelper.rabbitAccelerateReaction();
+			rabbitActionsHelper.accelerateReaction();
 			
 			
 			//worldConstructor.destroyGameObject(e.interactionWith);
@@ -151,7 +150,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			
 			//flapTrigger = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), new PhysicModel(), viewInstance) as FlapTriggerGameObject;
 			
-			rabbitActionsHelper = new RabbitReactionsHelper(_rabbit, viewInstance.stage, flapTrigger);
+			rabbitActionsHelper = new PlayerReactionsHelper(_rabbit, viewInstance.stage, flapTrigger);
 		}
 		
 		public function get rabbit():Rabbit 

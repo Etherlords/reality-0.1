@@ -20,25 +20,24 @@ import flash.utils.Timer;
 
 import ui.BulletSkin;
 import ui.gameobjects.BaseInteractiveGameObject;
-import ui.rabbit.Rabbit;
 import ui.rabbit.constructor.PlayerConstructor;
-import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
+import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 
 /**
 	 * ...
 	 * @author 
 	 */
-	public class RabbitControllerShooter 
+	public class PlayerControllerShooter
 	{
 		private var viewInstance:DisplayObjectContainer;
 		
-		public var rabbitActionsHelper:RabbitReactionsHelper;
-		private var _rabbit:Rabbit;
+		public var playerActionsHelper:PlayerReactionsHelper;
+		private var _player:GameObject;
 		private var worldController:Box2DWorldController;
 		private var keyController:KeyBoardController;
 		private var constructor:PlayerConstructor;
 		
-		public function RabbitControllerShooter(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, constructor:PlayerConstructor) 
+		public function PlayerControllerShooter(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, constructor:PlayerConstructor)
 		{
 			this.constructor = constructor;
 			this.worldController = worldController;
@@ -61,7 +60,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		private function initilize():void 
 		{
-			createRabbitView();
+			createPlayerView();
 			manageOvertimeEvents();
 			manageMouseEvents();
 			manageRabbitEvents();
@@ -75,9 +74,9 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		private function stop():void 
 		{
 			
-			var velocity:Point = rabbit.physicalProperties.physicModel.linearVelocity;
+			var velocity:Point = player.physicalProperties.physicModel.linearVelocity;
 			velocity.x /= 3;
-			rabbit.physicalProperties.physicModel.linearVelocity = velocity;
+			player.physicalProperties.physicModel.linearVelocity = velocity;
 		}
 		
 		
@@ -85,7 +84,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		private function manageRabbitEvents():void 
 		{
 			
-			rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithReaction);
+			player.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithReaction);
 		}
 		
 		private function manageMouseEvents():void 
@@ -106,28 +105,28 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			filter.maskBits = 6;
 			fix.SetFilterData(filter);
 			
-			bullet.body.x = rabbit.body.x + rabbit.body.height / 2;
-			bullet.body.y = rabbit.body.y + rabbit.body.height / 2;
+			bullet.body.x = player.body.x + player.body.height / 2;
+			bullet.body.y = player.body.y + player.body.height / 2;
 			
-			bullet.physicalProperties.applyImpulse((e.stageX - rabbit.body.x ) / 10, (e.stageY - rabbit.body.y)/ 10);
+			bullet.physicalProperties.applyImpulse((e.stageX - player.body.x ) / 10, (e.stageY - player.body.y)/ 10);
 		}
 		
 		private function manageOvertimeEvents():void
 		{
 			var updateRabbitMoveTimer:Timer = new Timer(100);
-			updateRabbitMoveTimer.addEventListener(TimerEvent.TIMER, rabbitMovieTime);
+			updateRabbitMoveTimer.addEventListener(TimerEvent.TIMER, updateMovieTime);
 			updateRabbitMoveTimer.start();
 		}
 
-		private function rabbitMovieTime(e:TimerEvent):void
+		private function updateMovieTime(e:TimerEvent):void
 		{
 			if (moving)
-				rabbitActionsHelper.rabbitMove(direction);
+				playerActionsHelper.move(direction);
 		}
 
 		private function jumpAction(e:* = null):void
 		{
-			rabbitActionsHelper.jumpAction();
+			playerActionsHelper.jumpAction();
 		}
 		
 		private function collideWithReaction(e:GameObjectPhysicEvent):void 
@@ -137,7 +136,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 				return;
 			}
 			
-			rabbitActionsHelper.rabbitAccelerateReaction();
+			playerActionsHelper.accelerateReaction();
 			
 
 			/**
@@ -149,20 +148,20 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			worldController.destroyGameObject(e.interactionWith);
 		}
 		
-		private function createRabbitView():void 
+		private function createPlayerView():void
 		{
 			
-			_rabbit = constructor.make(viewInstance, worldController) as Rabbit;
+			_player = constructor.make(viewInstance, worldController);
 
-			rabbitActionsHelper = new RabbitReactionsHelper(_rabbit, viewInstance.stage);
+			playerActionsHelper = new PlayerReactionsHelper(player, viewInstance.stage);
 		}
 		
-		public function get rabbit():Rabbit 
+		public function get player():GameObject
 		{
-			return _rabbit;
+			return _player;
 		}
 		
-		public function get moving():Boolean 
+		public function get moving():Boolean
 		{
 			return keyController.isKeyDown(Keyboard.LEFT) || keyController.isKeyDown(Keyboard.RIGHT);
 		}

@@ -18,7 +18,7 @@ import flash.geom.Point;
 import flash.utils.Timer;
 
 import ui.rabbit.constructor.RabbitConstructor;
-import ui.rabbit.logic.RabbitControllerShooter;
+import ui.rabbit.logic.PlayerControllerShooter;
 import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 
@@ -30,7 +30,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     private var sceneView:GameSceneView;
     private var _boundaries:BoundariesConstructor;
     private var controller:b2BuoyancyController;
-    private var _rabbitController:RabbitControllerShooter;
+    private var _rabbitController:PlayerControllerShooter;
 
     public function GameRageVagonSceneController()
     {
@@ -56,7 +56,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
         initGameInitrations();
 
-        ServicesLocator.cameraService.cameraTarget = _rabbitController.rabbit.body;
+        ServicesLocator.cameraService.cameraTarget = _rabbitController.player.body;
     }
 
     private function initGameInitrations():void {
@@ -85,7 +85,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         _boundaries = new BoundariesConstructor();
         _boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
 
-        _rabbitController = new RabbitControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor());
+        _rabbitController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor());
     }
 
     private function initilizeBuoyancyController():void

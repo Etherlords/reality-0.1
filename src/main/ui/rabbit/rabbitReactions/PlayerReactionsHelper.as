@@ -1,60 +1,54 @@
 package ui.rabbit.rabbitReactions 
 {
 import core.GlobalConstants;
+import core.view.gameobject.GameObject;
 
 import flash.display.Stage;
 
 import patterns.strategy.Strategy;
 import patterns.strategy.StrategyController;
 
-import ui.rabbit.Rabbit;
-
 /**
 	 * ...
 	 * @author 
 	 */
-	public class RabbitReactionsHelper 
+	public class PlayerReactionsHelper
 	{
 		public var behaviorStrategyController:StrategyController;
 		
-		private var rabbit:Rabbit;
+		private var player:GameObject;
 		private var stage:Stage;
 		
-		public function RabbitReactionsHelper(rabbit:Rabbit, stage:Stage)
+		public function PlayerReactionsHelper(player:GameObject, stage:Stage)
 		{
 			this.stage = stage;
-			this.rabbit = rabbit;
+			this.player = player;
 			initilizeRabbitBehaviors();
 		}
 		
-		public function rabbitAccelerateReaction():void 
+		public function accelerateReaction():void
 		{
-			rabbitAction(GlobalConstants.ACTION_STRATEGY_ACCELERATE);
+			doAction(GlobalConstants.ACTION_STRATEGY_ACCELERATE);
 		}
 
-		public function flapWingsReaction():void 
+		public function move(direction:Number):void
 		{
-			rabbitAction(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS);
-		}
-		
-		public function rabbitMove(direction:Number):void
-		{
-			rabbitAction(GlobalConstants.ACTION_MOVE, direction);
+			doAction(GlobalConstants.ACTION_MOVE, direction);
 		}
 		
 		public function calculateObjectMoving():void 
 		{
-			rabbitAction(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE);
+			doAction(GlobalConstants.ACTION_STRATEGY_FOLLOW_MOUSE);
 		}
 
 		public function jumpAction():void 
 		{
-			rabbitAction(GlobalConstants.ACTION_STRATEGY_JUMP, 10);
+			doAction(GlobalConstants.ACTION_STRATEGY_JUMP, 10);
 		}
 
-		public function rabbitAction(key:String, ...rest):void 
+		public function doAction(key:String, ...rest):void
 		{
-			rest.unshift(rabbit);
+			rest.unshift(player);
 
 			behaviorStrategyController.execute(key, rest);
 		}

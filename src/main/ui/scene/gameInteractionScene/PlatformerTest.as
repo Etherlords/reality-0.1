@@ -1,41 +1,47 @@
 package ui.scene.gameInteractionScene
 {
-	import Box2D.Dynamics.Controllers.b2BuoyancyController;
-	import core.Box2D.utils.Box2DWorldController;
-	import core.camera.Camera;
-	import core.events.GameObjectPhysicEvent;
-	import core.GlobalConstants;
-	import core.locators.PhysicWorldLocator;
-	import core.locators.ServicesLocator;
-	import core.scene.AbstractSceneController;
-	import core.view.gameobject.GameObject;
-	import extendsReality.GameObjectTailTracker;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.geom.Point;
-	import flash.utils.Timer;
-	import shaders.effects.tail.taileffects.PerlinEffect;
-	import shaders.effects.tail.TailRenderer;
-	import shaders.effects.tail.TailSource;
-	import ui.Alert;
-	import ui.gameobjects.BaseInteractiveGameObject;
-	import ui.gameobjects.GameobjectsCrationController;
-	import ui.Lables;
-	import ui.rabbit.constructor.RabbitConstructor;
-	import ui.rabbit.logic.RabbitControllerShooter;
-	import ui.scene.gameInteractionScene.view.GameSceneViewTest;
-	import ui.services.CameraService;
-	import ui.services.scores.ScoresService;
-	import utils.BoundariesConstructor;
-	
-	public class PlatformerTest extends AbstractSceneController
+import Box2D.Dynamics.Controllers.b2BuoyancyController;
+
+import core.Box2D.utils.Box2DWorldController;
+import core.GlobalConstants;
+import core.camera.Camera;
+import core.events.GameObjectPhysicEvent;
+import core.locators.PhysicWorldLocator;
+import core.locators.ServicesLocator;
+import core.scene.AbstractSceneController;
+import core.view.gameobject.GameObject;
+
+import extendsReality.GameObjectTailTracker;
+
+import flash.display.DisplayObjectContainer;
+import flash.events.Event;
+import flash.events.TimerEvent;
+import flash.geom.Point;
+import flash.utils.Timer;
+
+import shaders.effects.tail.TailRenderer;
+import shaders.effects.tail.TailSource;
+import shaders.effects.tail.taileffects.PerlinEffect;
+
+import ui.Alert;
+import ui.Lables;
+import ui.gameobjects.BaseInteractiveGameObject;
+import ui.gameobjects.GameobjectsCrationController;
+import ui.rabbit.constructor.RabbitConstructor;
+import ui.rabbit.logic.PlayerControllerShooter;
+import ui.scene.gameInteractionScene.view.GameSceneViewTest;
+import ui.services.CameraService;
+import ui.services.scores.ScoresService;
+
+import utils.BoundariesConstructor;
+
+public class PlatformerTest extends AbstractSceneController
 	{
 		
 		private var sceneView:GameSceneViewTest;
 		private var worldController:Box2DWorldController;
 		private var _boundaries:BoundariesConstructor;
-		private var rabbitController:RabbitControllerShooter;
+		private var rabbitController:PlayerControllerShooter;
 		
 		private var lastCrationObject:BaseInteractiveGameObject;
 		
@@ -82,7 +88,7 @@ package ui.scene.gameInteractionScene
 			initGameCycles();
 			
 			//TODO: вынести создание объектов, если будет какая то общая большая логика вынести ее в отделньые объекты
-			ServicesLocator.cameraService.cameraTarget = rabbitController.rabbit.body;
+			ServicesLocator.cameraService.cameraTarget = rabbitController.player.body;
 			
 			gamaobjectCreationController = new GameobjectsCrationController(sceneView.gameObjectsInstance, _boundaries.width, worldController);
 			
@@ -94,7 +100,7 @@ package ui.scene.gameInteractionScene
 			var tailReactor:PerlinEffect = new PerlinEffect();
 			var tailSource:TailSource = new TailSource(tailReactor, view.stage.stageWidth, view.stage.stageHeight);
 			
-			var tailRenderer:TailRenderer = new TailRenderer(tailSource.source, sceneView.effects, new GameObjectTailTracker(rabbitController.rabbit));
+			var tailRenderer:TailRenderer = new TailRenderer(tailSource.source, sceneView.effects, new GameObjectTailTracker(rabbitController.player));
 		}
 		
 		private function initilizeBuoyancyController():void
@@ -185,9 +191,9 @@ package ui.scene.gameInteractionScene
 			
 			_boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
 			
-			rabbitController = new RabbitControllerShooter(sceneView.gameObjectsInstance, worldController, new RabbitConstructor);
+			rabbitController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController, new RabbitConstructor);
 			
-			rabbitController.rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, onRabbitColide);
+			rabbitController.player.addEventListener(GameObjectPhysicEvent.COLLIDE, onRabbitColide);
 		
 			//var flapTrigger:FlapTriggerGameObject = worldController.constructGameObject(FlapTriggerGameObject, new GameobjectConfig(false), new PhysicModel(), view) as FlapTriggerGameObject;
 		}
