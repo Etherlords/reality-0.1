@@ -20,7 +20,6 @@ import flash.utils.Timer;
 import ragevagon.constructor.RagePlayerConstructor;
 
 import ui.rabbit.logic.PlayerControllerShooter;
-import ui.scene.gameInteractionScene.view.GameSceneView;
 import ui.services.CameraService;
 
 import utils.BoundariesConstructor;
@@ -28,7 +27,7 @@ import utils.BoundariesConstructor;
 public class GameRageVagonSceneController extends AbstractSceneController {
 
     private var worldController:Box2DWorldController;
-    private var sceneView:GameSceneView;
+    private var sceneView:RageVagonGameSceneView;
     private var _boundaries:BoundariesConstructor;
     private var controller:b2BuoyancyController;
     private var _playerController:PlayerControllerShooter;
@@ -108,7 +107,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
     public override function activate(instance:DisplayObjectContainer):void
     {
-        sceneView = new GameSceneView();
+        sceneView = new RageVagonGameSceneView();
         setViewComponent(sceneView);
         super.activate(instance);
 

@@ -65,10 +65,12 @@ class RagePlayerSkin extends Skin {
     private var label:TextField
     public function RagePlayerSkin(){
         label = new TextField();
-        label.width = 25;
+        label.width = 40;
         label.height = 40;
         label.text = "rage skin";
         label.border = true;
+        label.textColor = 0xffffff;
+        label.borderColor = 0xffffff;
         addChild(label);
     }
 
