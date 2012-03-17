@@ -4,15 +4,13 @@
  */
 package ui.rabbit.rabbitReactions
 {
-	import flash.display.Stage;
-	import flash.geom.Point;
+import core.view.gameobject.GameObject;
 
-	import patterns.strategy.IAlgorithm;
-	import patterns.strategy.SimpleAlgorithm;
+import flash.geom.Point;
 
-	import ui.rabbit.Rabbit;
+import patterns.strategy.SimpleAlgorithm;
 
-	public class RabbitMove extends SimpleAlgorithm                                                    
+public class RabbitMove extends SimpleAlgorithm
 	{
 		private var speed:Number = 5;
 		
@@ -20,16 +18,16 @@ package ui.rabbit.rabbitReactions
 		{
 		}
 
-		public function execute(rabbit:Rabbit, direction:Number):void
+		public function execute(player:GameObject, direction:Number):void
 		{	
 			
 			
-			var linearVelocity:Point = rabbit.physicalProperties.physicModel.linearVelocity;
+			var linearVelocity:Point = player.physicalProperties.physicModel.linearVelocity;
 			linearVelocity.x = speed * direction;
-			
-			
-			
-			rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
+
+
+
+            player.physicalProperties.physicModel.linearVelocity = linearVelocity;
 			
 	
 		}

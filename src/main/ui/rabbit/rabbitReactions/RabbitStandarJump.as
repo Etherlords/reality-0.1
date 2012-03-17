@@ -1,13 +1,11 @@
 package ui.rabbit.rabbitReactions 
 {
-	import Box2D.Common.Math.b2Vec2;
-
 import core.GlobalConstants;
+import core.view.gameobject.GameObject;
 
 import patterns.strategy.SimpleAlgorithm;
-	import ui.rabbit.Rabbit;
-	
-	/**
+
+/**
 	 * ...
 	 * @author 
 	 */
@@ -20,15 +18,15 @@ import patterns.strategy.SimpleAlgorithm;
 			
 		}
 		
-		public function execute(rabbit:Rabbit, jumpForce:Number):void
+		public function execute(player:GameObject, jumpForce:Number):void
 		{
 			
 			
-			if (Math.abs(rabbit.physicalProperties.physicModel.linearVelocity.y) > 0.2)
+			if (Math.abs(player.physicalProperties.physicModel.linearVelocity.y) > 0.2)
 				return;
-			
-			rabbit.physicalProperties.applyImpulse(0, -jumpForce);
-			rabbit.applyActionView(GlobalConstants.ACTION_VIEW_JUMP_LEFT);
+
+            player.physicalProperties.applyImpulse(0, -jumpForce);
+            player.applyActionView(GlobalConstants.ACTION_VIEW_JUMP_LEFT);
 			//var linearVelocity:b2Vec2 = rabbit.physicalProperties.linearVelocity
 			//linearVelocity.Set(linearVelocity.x, 0);
 			

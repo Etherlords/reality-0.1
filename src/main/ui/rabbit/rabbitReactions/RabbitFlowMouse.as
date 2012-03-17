@@ -4,12 +4,12 @@
  */
 package ui.rabbit.rabbitReactions
 {
+import core.view.gameobject.GameObject;
+
 import flash.display.Stage;
 import flash.geom.Point;
 
 import patterns.strategy.SimpleAlgorithm;
-
-import ui.rabbit.Rabbit;
 
 public class RabbitFlowMouse extends SimpleAlgorithm
 	
@@ -24,10 +24,10 @@ public class RabbitFlowMouse extends SimpleAlgorithm
 			stage = aStage;
 		}
 
-		public function execute(rabbit:Rabbit):void
+		public function execute(player:GameObject):void
 		{
 			var mouseX:Number = stage.mouseX;
-			var rabbitX:Number = rabbit.body.x + rabbit.body.width / 2;
+			var rabbitX:Number = player.body.x + player.body.width / 2;
 			var delta:Number = mouseX - rabbitX;
 			
 			var moveDirection:int;
@@ -40,9 +40,9 @@ public class RabbitFlowMouse extends SimpleAlgorithm
 				
 			var force:Number;
 			
-			if (!(Math.abs(delta) < rabbit.body.width / 2))
+			if (!(Math.abs(delta) < player.body.width / 2))
 			{
-				if (!rabbit.direction.isWalking)
+				if (!player.direction.isWalking)
 					force = delta / 20;
 				else
 				{	
@@ -56,11 +56,11 @@ public class RabbitFlowMouse extends SimpleAlgorithm
 
 
 
-            var linearVelocity:Point = rabbit.physicalProperties.physicModel.linearVelocity;
+            var linearVelocity:Point = player.physicalProperties.physicModel.linearVelocity;
             linearVelocity.x /= 6.5;
             linearVelocity.x += force;
-            rabbit.physicalProperties.physicBodyKey.SetAwake(true);
-            rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
+            player.physicalProperties.physicBodyKey.SetAwake(true);
+            player.physicalProperties.physicModel.linearVelocity = linearVelocity;
 		}
 	}
 }

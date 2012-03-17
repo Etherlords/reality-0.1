@@ -4,14 +4,15 @@
  */
 package ui.rabbit.rabbitReactions {
 import core.GlobalConstants;
+import core.view.gameobject.GameObject;
+
 import flash.geom.Point;
 
 import patterns.strategy.SimpleAlgorithm;
 
 import ui.rabbit.FlapTriggerGameObject;
-import ui.rabbit.Rabbit;
 
-public class RabbitFlapWings extends SimpleAlgorithm 
+public class RabbitFlapWings extends SimpleAlgorithm
 {
 
     private var  _flapTrigger:FlapTriggerGameObject;
@@ -22,21 +23,21 @@ public class RabbitFlapWings extends SimpleAlgorithm
         _flapTrigger = flapTrigger;
     }
 
-    public function execute(rabbit:Rabbit):void
+    public function execute(player:GameObject):void
     {
         if (!_flapTrigger.isAbleToFlap()) 
 		{
             return;
         }
 		
-		var linearVelocity:Point = rabbit.physicalProperties.physicModel.linearVelocity
+		var linearVelocity:Point = player.physicalProperties.physicModel.linearVelocity
 		linearVelocity.y = linearVelocity.y / 2;
-		
-		rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
+
+        player.physicalProperties.physicModel.linearVelocity = linearVelocity;
 		
         _flapTrigger.flap();
-        rabbit.physicalProperties.applyImpulse(0, -5);
-        rabbit.applyActionView(GlobalConstants.ACTION_VIEW_FLAP_WINGS);
+        player.physicalProperties.applyImpulse(0, -5);
+        player.applyActionView(GlobalConstants.ACTION_VIEW_FLAP_WINGS);
     }
 }
 }
