@@ -31,7 +31,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     private var sceneView:GameSceneView;
     private var _boundaries:BoundariesConstructor;
     private var controller:b2BuoyancyController;
-    private var _rabbitController:PlayerControllerShooter;
+    private var _playerController:PlayerControllerShooter;
 
     public function GameRageVagonSceneController()
     {
@@ -57,7 +57,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
         initGameInitrations();
 
-        ServicesLocator.cameraService.cameraTarget = _rabbitController.player.body;
+        ServicesLocator.cameraService.cameraTarget = _playerController.player.body;
     }
 
     private function initGameInitrations():void {
@@ -86,7 +86,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         _boundaries = new BoundariesConstructor();
         _boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
 
-        _rabbitController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RagePlayerConstructor());
+        _playerController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RagePlayerConstructor());
     }
 
     private function initilizeBuoyancyController():void
