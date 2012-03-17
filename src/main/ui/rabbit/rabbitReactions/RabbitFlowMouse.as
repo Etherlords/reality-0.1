@@ -4,14 +4,14 @@
  */
 package ui.rabbit.rabbitReactions
 {
-	import flash.display.Stage;
+import flash.display.Stage;
+import flash.geom.Point;
 
-	import patterns.strategy.IAlgorithm;
-	import patterns.strategy.SimpleAlgorithm;
+import patterns.strategy.SimpleAlgorithm;
 
-	import ui.rabbit.Rabbit;
+import ui.rabbit.Rabbit;
 
-	public class RabbitFlowMouse extends SimpleAlgorithm                                                    
+public class RabbitFlowMouse extends SimpleAlgorithm
 	
 	{
 		
@@ -51,15 +51,16 @@ package ui.rabbit.rabbitReactions
 			}
 			else
 				force = 0;
-				
-			
-			
-			
-			
-				
-			
-				
-			rabbit.applyMove(force);
+
+
+
+
+
+            var linearVelocity:Point = rabbit.physicalProperties.physicModel.linearVelocity;
+            linearVelocity.x /= 6.5;
+            linearVelocity.x += force;
+            rabbit.physicalProperties.physicBodyKey.SetAwake(true);
+            rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
 		}
 	}
 }

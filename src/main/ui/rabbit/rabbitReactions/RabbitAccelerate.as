@@ -5,10 +5,10 @@
 package ui.rabbit.rabbitReactions
 {
 import flash.geom.Point;
+
 import patterns.strategy.SimpleAlgorithm;
+
 import ui.rabbit.Rabbit;
-
-
 
 public class RabbitAccelerate extends SimpleAlgorithm
 	{
@@ -25,8 +25,6 @@ public class RabbitAccelerate extends SimpleAlgorithm
 			linearVelocity.y = 0;
 			
 			rabbit.physicalProperties.physicModel.linearVelocity = linearVelocity;
-			
-			rabbit.resetFlyAnim();
 				
 			rabbit.physicalProperties.applyImpulse(0, -10);
 
