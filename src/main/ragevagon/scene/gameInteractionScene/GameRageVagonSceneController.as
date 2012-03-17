@@ -8,7 +8,6 @@ import Box2D.Dynamics.Controllers.b2BuoyancyController;
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
 import core.camera.Camera;
-import core.events.GameObjectPhysicEvent;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
@@ -17,10 +16,6 @@ import flash.display.DisplayObjectContainer;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
-
-import patterns.strategy.Strategy;
-
-import ragevagon.emo.emoReactions.ExposeOnFloorReaction;
 
 import ui.rabbit.constructor.RabbitConstructor;
 import ui.rabbit.logic.RabbitControllerShooter;
@@ -90,10 +85,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         _boundaries = new BoundariesConstructor();
         _boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
 
-        _boundaries.floor.addEventListener(GameObjectPhysicEvent.COLLIDE, onFallOnFloor);
-
-        _rabbitController = new RabbitControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor);
-        _rabbitController.rabbitActionsHelper.behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR, new ExposeOnFloorReaction));
+        _rabbitController = new RabbitControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor());
     }
 
     private function initilizeBuoyancyController():void
@@ -111,19 +103,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
 
         worldController.addController(controller, 'nullGravityField');
-
-        //controller.AddBody(rabbitController.rabbit.physicalProperties.physicBodyKey);
     }
-
-    private function onFallOnFloor(event:GameObjectPhysicEvent):void {
-        //todo add suicide here
-        //trace("collide with floor " + event.interactionWith.physicalProperties.linearVelocity.y);
-        if (_rabbitController.rabbit == event.interactionWith) {
-            _rabbitController.rabbitActionsHelper.rabbitAction(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR);
-        }
-    }
-
-
 
     public override function activate(instance:DisplayObjectContainer):void
     {
