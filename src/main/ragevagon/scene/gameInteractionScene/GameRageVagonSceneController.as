@@ -65,11 +65,6 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     }
 
     private function initGameInitrations():void {
-            /*
-            var overtimeObjectGeneration:Timer = new Timer(300);
-            overtimeObjectGeneration.addEventListener(TimerEvent.TIMER, triggerOvertimeObjectGeneration);
-            overtimeObjectGeneration.start(); */
-
             var stepTimer:Timer = new Timer(0.025 * 1000);
             stepTimer.addEventListener(TimerEvent.TIMER, gameStep);
             stepTimer.start();
