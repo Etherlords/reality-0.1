@@ -94,10 +94,6 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
         _rabbitController = new RabbitControllerShooter(sceneView.gameObjectsInstance, worldController,  new RabbitConstructor);
         _rabbitController.rabbitActionsHelper.behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_EXPOSE_ON_FLOOR, new ExposeOnFloorReaction));
-
-        //rabbitController = new RabbitController(sceneView.gameObjectsInstance, worldController);
-
-        //rabbitController.rabbit.addEventListener(GameObjectPhysicEvent.COLLIDE, onRabbitColide);
     }
 
     private function initilizeBuoyancyController():void
