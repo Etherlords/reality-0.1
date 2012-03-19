@@ -43,7 +43,7 @@ import patterns.strategy.StrategyController;
 
 		public function jumpAction():void 
 		{
-			doAction(GlobalConstants.ACTION_STRATEGY_JUMP, 20);
+			doAction(GlobalConstants.ACTION_STRATEGY_JUMP, 160);
 		}
 
 		public function doAction(key:String, ...rest):void

@@ -51,6 +51,7 @@ import core.view.gameobject.physicalpropeties.PhysicModel;
 import core.view.skin.Skin;
 
 import flash.display.DisplayObjectContainer;
+import flash.display.MovieClip;
 import flash.events.IEventDispatcher;
 import flash.text.TextField;
 
@@ -62,7 +63,10 @@ class RagePlayer extends GameObject {
 }
 
 class RagePlayerSkin extends Skin {
-    private var label:TextField
+    private var label:TextField;
+    private var waitingSkin:MovieClip;
+    private var walkingSkin:MovieClip;
+
     public function RagePlayerSkin(){
         label = new TextField();
         label.width = 60;
@@ -72,15 +76,29 @@ class RagePlayerSkin extends Skin {
         label.textColor = 0xffffff;
         label.borderColor = 0xffffff;
         addChild(label);
+        waitingSkin = new WaitingPlayerSymbol();
+        waitingSkin.visible = true;
+        addChild(waitingSkin);
+
+        walkingSkin = new WalkPlayerSymbol();
+        walkingSkin.visible = false;
+        addChild(walkingSkin);
     }
 
     override public function get phsyHeight():Number
     {
-        return label.width;
+        return waitingSkin.height;
     }
 
     override public function get phsyWidth():Number
     {
-        return label.height;
+        return waitingSkin.width;
+    }
+
+
+    override public function doAction(actionKey:uint):void {
+        super.doAction(actionKey);
+        waitingSkin.visible = !direction.isWalking;
+        walkingSkin.visible = direction.isWalking;
     }
 }
