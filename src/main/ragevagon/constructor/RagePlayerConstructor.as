@@ -60,6 +60,12 @@ class RagePlayer extends GameObject {
     function RagePlayer(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) {
         super(config, physicModel, instance, eventFlowTarget);
     }
+
+    override public function preRender(lastPreRenderCallDelay:uint):void
+    {
+        super.preRender(lastPreRenderCallDelay);
+        applyActionView(0); //todo quickfix
+    }
 }
 
 class RagePlayerSkin extends Skin {

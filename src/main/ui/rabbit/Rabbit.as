@@ -25,7 +25,7 @@ import flash.events.IEventDispatcher;
         override public function preRender(lastPreRenderCallDelay:uint):void
 		{
             super.preRender(lastPreRenderCallDelay);
-			applyActionView(0);
+			applyActionView(0); //todo quickfix
         }
     }
 
