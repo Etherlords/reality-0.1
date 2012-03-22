@@ -4,6 +4,7 @@ import Box2D.Dynamics.b2FilterData;
 import Box2D.Dynamics.b2Fixture;
 
 import core.Box2D.utils.Box2DWorldController;
+import core.GlobalConstants;
 import core.events.GameObjectPhysicEvent;
 import core.ui.KeyBoardController;
 import core.view.gameobject.GameObject;
@@ -36,7 +37,8 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 		private var worldController:Box2DWorldController;
 		private var keyController:KeyBoardController;
 		private var constructor:PlayerConstructor;
-		
+		private var _lastMouseDownEvent:MouseEvent;
+
 		public function PlayerControllerShooter(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, constructor:PlayerConstructor)
 		{
 			this.constructor = constructor;
@@ -89,10 +91,20 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 		
 		private function manageMouseEvents():void 
 		{
-			viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, addBullet);
+			viewInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandle);
 		}
-		
-		private function addBullet(e:MouseEvent):void 
+
+        protected function mouseDownHandle(event:MouseEvent):void {
+            _lastMouseDownEvent = event;
+            doPlayerShot();
+        }
+
+        protected function doPlayerShot():void {
+            player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
+            addBullet();
+        }
+
+		protected function addBullet():void
 		{
 			var bulletConfig:GameobjectConfig = new GameobjectConfig();
 			bulletConfig.shapeType = 1;
@@ -108,7 +120,7 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 			bullet.body.x = player.body.x + player.body.height / 2;
 			bullet.body.y = player.body.y + player.body.height / 2;
 			
-			bullet.physicalProperties.applyImpulse((e.stageX - player.body.x ) / 10, (e.stageY - player.body.y)/ 10);
+			bullet.physicalProperties.applyImpulse((_lastMouseDownEvent.stageX - player.body.x ) / 10, (_lastMouseDownEvent.stageY - player.body.y)/ 10);
 		}
 		
 		private function manageOvertimeEvents():void
