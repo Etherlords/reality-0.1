@@ -14,6 +14,9 @@ import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 
 import flash.display.DisplayObjectContainer;
 
+import ragevagon.player.RagePlayer;
+import ragevagon.player.RagePlayerSkin;
+
 import ui.rabbit.constructor.PlayerConstructor;
 
 public class RagePlayerConstructor extends PlayerConstructor {
@@ -45,66 +48,3 @@ public class RagePlayerConstructor extends PlayerConstructor {
 }
 }
 
-import core.view.gameobject.GameObject;
-import core.view.gameobject.config.GameobjectConfig;
-import core.view.gameobject.physicalpropeties.PhysicModel;
-import core.view.skin.Skin;
-
-import flash.display.DisplayObjectContainer;
-import flash.display.MovieClip;
-import flash.events.IEventDispatcher;
-import flash.text.TextField;
-
-class RagePlayer extends GameObject {
-
-    function RagePlayer(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) {
-        super(config, physicModel, instance, eventFlowTarget);
-    }
-
-    override public function preRender(lastPreRenderCallDelay:uint):void
-    {
-        super.preRender(lastPreRenderCallDelay);
-        applyActionView(0); //todo quickfix
-    }
-}
-
-class RagePlayerSkin extends Skin {
-    private var label:TextField;
-    private var waitingSkin:MovieClip;
-    private var walkingSkin:MovieClip;
-
-    public function RagePlayerSkin(){
-        label = new TextField();
-        label.width = 60;
-        label.height = 40;
-        label.text = "rage skin";
-        label.border = true;
-        label.textColor = 0xffffff;
-        label.borderColor = 0xffffff;
-        addChild(label);
-        waitingSkin = new WaitingPlayerSymbol();
-        waitingSkin.visible = true;
-        addChild(waitingSkin);
-
-        walkingSkin = new WalkPlayerSymbol();
-        walkingSkin.visible = false;
-        addChild(walkingSkin);
-    }
-
-    override public function get phsyHeight():Number
-    {
-        return waitingSkin.height;
-    }
-
-    override public function get phsyWidth():Number
-    {
-        return waitingSkin.width;
-    }
-
-
-    override public function doAction(actionKey:uint):void {
-        super.doAction(actionKey);
-        waitingSkin.visible = !direction.isWalking;
-        walkingSkin.visible = direction.isWalking;
-    }
-}
