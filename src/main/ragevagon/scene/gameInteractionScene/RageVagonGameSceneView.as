@@ -5,21 +5,25 @@
 package ragevagon.scene.gameInteractionScene {
 import flash.display.MovieClip;
 import flash.display.Sprite;
-import flash.text.TextField;
+import flash.events.Event;
 
 public class RageVagonGameSceneView extends Sprite {
 
-    private var _label:TextField;
     private var _vagon:MovieClip;
+    private var _weaponSwitcher:WeaponSwitcherSymbol;
 
     public function RageVagonGameSceneView() {
-        _label = new TextField();
-        _label.text = "rage vagon background";
-        _label.textColor = 0xffffff;
         _vagon = new Vagon();
         _vagon.y = 600 - _vagon.height;
-        addChild(_label);
         addChild(_vagon);
+
+        _weaponSwitcher = new WeaponSwitcherSymbol();
+        _weaponSwitcher.addEventListener("switchWeaponRequest", switchWeaponRequestHandler);
+        addChild(_weaponSwitcher);
+    }
+
+    public function switchWeaponRequestHandler(e:Event):void {
+        _weaponSwitcher.switchWeapon(); //todo delegate to controller
     }
 
     public function render():void {
