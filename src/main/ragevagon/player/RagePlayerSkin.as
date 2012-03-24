@@ -4,29 +4,57 @@
  */
 package ragevagon.player {
 
+import core.view.direction.Direction;
+import core.view.skin.Skin;
+
+public class RagePlayerSkin extends Skin {
+
+    private var playerWithHandWeapon:PlayerWithWeaponSkin;
+    private var currentPlayerSkin:Skin;
+
+    public function RagePlayerSkin() {
+        playerWithHandWeapon = new PlayerWithWeaponSkin(new WaitingPlayerSymbol(), new BookAttackPlayerSymbol() );
+        currentPlayerSkin = playerWithHandWeapon;
+        addChild(currentPlayerSkin);
+    }
+
+    override public function set direction(value:Direction):void {
+        super.direction = value;
+        currentPlayerSkin.direction = value;
+    }    
+    
+    override public function get phsyHeight():Number
+    {
+        return currentPlayerSkin.height;
+    }
+
+    override public function get phsyWidth():Number
+    {
+        return currentPlayerSkin.width;
+    }
+
+
+    override public function doAction(actionKey:uint):void {
+        currentPlayerSkin.doAction(actionKey);
+    }
+
+}
+}
+
 import core.GlobalConstants;
 import core.view.skin.Skin;
 
 import flash.display.MovieClip;
 import flash.events.Event;
-import flash.text.TextField;
 
-public class RagePlayerSkin extends Skin {
-    private var label:TextField;
+class PlayerWithWeaponSkin extends Skin {
+
     private var waitingSkin:MovieClip;
     private var walkingSkin:MovieClip;
     private var attackSkin:MovieClip;
 
-    public function RagePlayerSkin(){
-        label = new TextField();
-        label.width = 60;
-        label.height = 40;
-        label.text = "rage skin";
-        label.border = true;
-        label.textColor = 0xffffff;
-        label.borderColor = 0xffffff;
-        addChild(label);
-        waitingSkin = new WaitingPlayerSymbol();
+    public function PlayerWithWeaponSkin(waitingSkin:MovieClip, attackSkin:MovieClip){
+        this.waitingSkin = waitingSkin;
         waitingSkin.visible = true;
         addChild(waitingSkin);
 
@@ -34,7 +62,7 @@ public class RagePlayerSkin extends Skin {
         walkingSkin.visible = false;
         addChild(walkingSkin);
 
-        attackSkin = new BookAttackPlayerSymbol();
+        this.attackSkin = attackSkin;
         attackSkin.visible = false;
         addChild(attackSkin);
     }
@@ -48,6 +76,8 @@ public class RagePlayerSkin extends Skin {
     {
         return waitingSkin.width;
     }
+
+
 
 
     override public function doAction(actionKey:uint):void {
@@ -71,5 +101,5 @@ public class RagePlayerSkin extends Skin {
             walkingSkin.visible = direction.isWalking;
         }
     }
-}
+
 }

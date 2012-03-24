@@ -118,7 +118,14 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     }
 
     public function switchWeaponRequestHandler(e:Event):void {
+        if (sceneView._weaponSwitcher.isValeraSelected()) {
+            _playerController.player.applyActionView(GlobalConstants.ACTION_VIEW_SWITCH_WEAPON_VALERA);
+        } else {
+            _playerController.player.applyActionView(GlobalConstants.ACTION_VIEW_SWITCH_WEAPON_HAND);
+        }
+
         sceneView._weaponSwitcher.switchWeapon(); //todo delegate to controller
+
     }
 
 }

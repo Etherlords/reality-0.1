@@ -1,9 +1,10 @@
 package core.view.skin 
 {
-	import core.view.direction.Direction;
-	import flash.display.Sprite;
-	
-	/**
+import core.view.direction.Direction;
+
+import flash.display.Sprite;
+
+/**
 	 * Реализация графики объекта может состоять из многих частей или из одного сплошноо спрайта по сути
 	 * 
 	 * Т.е мы можем в наследнике этого объекта(конечно можно изъебатся и сделать все универсально тут) сделать управление составным спрайтом сосотоящим из головы и тела например
@@ -19,7 +20,7 @@ package core.view.skin
 			super();
 		}
 		
-		public var direction:Direction;
+		private var _direction:Direction;
 		
 		public function doAction(actionKey:uint):void
 		{
@@ -33,7 +34,14 @@ package core.view.skin
         public function get phsyHeight():Number {
             return this.height;
         }
-		
-	}
+
+        public function get direction():Direction {
+            return _direction;
+        }
+
+        public function set direction(value:Direction):void {
+            _direction = value;
+        }
+    }
 
 }
