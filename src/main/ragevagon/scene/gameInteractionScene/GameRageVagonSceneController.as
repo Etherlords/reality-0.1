@@ -13,6 +13,7 @@ import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
 
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
@@ -108,11 +109,16 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     public override function activate(instance:DisplayObjectContainer):void
     {
         sceneView = new RageVagonGameSceneView();
+        sceneView.addEventListener("switchWeaponRequest", switchWeaponRequestHandler);
         setViewComponent(sceneView);
         super.activate(instance);
 
         postInitilize();
 
+    }
+
+    public function switchWeaponRequestHandler(e:Event):void {
+        sceneView._weaponSwitcher.switchWeapon(); //todo delegate to controller
     }
 
 }

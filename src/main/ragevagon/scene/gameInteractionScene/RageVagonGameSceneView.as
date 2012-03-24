@@ -5,12 +5,11 @@
 package ragevagon.scene.gameInteractionScene {
 import flash.display.MovieClip;
 import flash.display.Sprite;
-import flash.events.Event;
 
 public class RageVagonGameSceneView extends Sprite {
 
     private var _vagon:MovieClip;
-    private var _weaponSwitcher:WeaponSwitcherSymbol;
+    public var _weaponSwitcher:WeaponSwitcherSymbol; //todo to private
 
     public function RageVagonGameSceneView() {
         _vagon = new Vagon();
@@ -18,13 +17,11 @@ public class RageVagonGameSceneView extends Sprite {
         addChild(_vagon);
 
         _weaponSwitcher = new WeaponSwitcherSymbol();
-        _weaponSwitcher.addEventListener("switchWeaponRequest", switchWeaponRequestHandler);
+        //_weaponSwitcher.addEventListener("switchWeaponRequest", switchWeaponRequestHandler);
         addChild(_weaponSwitcher);
     }
 
-    public function switchWeaponRequestHandler(e:Event):void {
-        _weaponSwitcher.switchWeapon(); //todo delegate to controller
-    }
+
 
     public function render():void {
 
