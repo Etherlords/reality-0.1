@@ -46,7 +46,7 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 			this.viewInstance = viewInstance;
 			
 			keyController = new KeyBoardController(viewInstance.stage);
-			
+            keyController.registerKeyDownReaction(Keyboard.SPACE, doPlayerShot);
 			initilize();
 		}
 		
@@ -95,13 +95,13 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 		}
 
         protected function mouseDownHandle(event:MouseEvent):void {
-            _lastMouseDownEvent = event;
+            //_lastMouseDownEvent = event;
             //doPlayerShot();
         }
 
         protected function doPlayerShot():void {
             player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
-            addBullet();
+            //addBullet();
         }
 
 		protected function addBullet():void
