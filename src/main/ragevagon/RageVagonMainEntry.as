@@ -11,7 +11,6 @@ import core.states.config.StateConfig;
 import flash.display.Sprite;
 
 import ragevagon.scene.gameInteractionScene.GameRageVagonSceneController;
-import ragevagon.scene.gameInteractionScene.IntroGameRageVagonController;
 
 import ui.services.scores.ScoresService;
 import ui.services.scores.store.AbstractScoresStorageService;
@@ -33,13 +32,13 @@ public class RageVagonMainEntry extends Sprite {
         ServicesLocator.instance.addService(new AbstractScoresStorageService());
         ServicesLocator.instance.addService(new ScoresService());
 
-        var introStateConfig:StateConfig = new StateConfig('Intro', IntroGameRageVagonController);
-        var introState:State = new State(introStateConfig);
+        //var introStateConfig:StateConfig = new StateConfig('Intro', IntroGameRageVagonController);
+        //var introState:State = new State(introStateConfig);
 
         var gameStateConfig:StateConfig = new StateConfig('Game', GameRageVagonSceneController);
         var gameState:State = new State(gameStateConfig);
 
-        stateManager.nextState(introState);
+        //stateManager.nextState(introState);
         stateManager.nextState(gameState);
 
         stateManager.start();
