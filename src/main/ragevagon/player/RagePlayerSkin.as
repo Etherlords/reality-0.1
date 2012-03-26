@@ -100,9 +100,6 @@ class PlayerWithWeaponSkin extends Skin {
         return waitingSkin.width;
     }
 
-
-
-
     override public function doAction(actionKey:uint):void {
         super.doAction(actionKey);
 
