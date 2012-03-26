@@ -96,7 +96,7 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 
         protected function mouseDownHandle(event:MouseEvent):void {
             _lastMouseDownEvent = event;
-            doPlayerShot();
+            //doPlayerShot();
         }
 
         protected function doPlayerShot():void {
