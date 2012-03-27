@@ -4,6 +4,8 @@
  */
 package ragevagon.scene.gameInteractionScene {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
+import Box2D.Dynamics.b2FilterData;
+import Box2D.Dynamics.b2Fixture;
 
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
@@ -11,6 +13,10 @@ import core.camera.Camera;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
+import core.view.gameobject.GameObject;
+import core.view.gameobject.config.GameobjectConfig;
+import core.view.gameobject.physicalpropeties.PhysicModel;
+import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
@@ -19,6 +25,8 @@ import flash.geom.Point;
 import flash.utils.Timer;
 
 import ragevagon.constructor.RagePlayerConstructor;
+import ragevagon.enemy.RageEnemy;
+import ragevagon.enemy.RageEnemySkin;
 
 import ui.rabbit.logic.PlayerControllerShooter;
 import ui.services.CameraService;
@@ -87,6 +95,30 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         _boundaries.createBoundaries(sceneView.gameObjectsInstance, worldController);
 
         _playerController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RagePlayerConstructor());
+        var enemy:GameObject = make(sceneView.gameObjectsInstance, worldController);
+    }
+
+    public function make(stage:DisplayObjectContainer, worldController:Box2DWorldController):GameObject
+    {
+        var enemyConfig:GameobjectConfig = new GameobjectConfig(true);
+        //enemyConfig.physicConfiguration.friction = 1;
+        enemyConfig.type = 2; //todo replace
+        enemyConfig.skinClass = RageEnemySkin;
+        var gameObject:GameObject = worldController.constructGameObject(RageEnemy, enemyConfig, new PhysicModel(4,1,1),  stage);
+        gameObject.physicalProperties.physicModel.fixedRotation = false;
+        gameObject.body.x = 200;
+        gameObject.body.y = 500 - gameObject.body.height;
+
+        (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
+        var fix:b2Fixture = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
+        var filter:b2FilterData = new b2FilterData();
+        filter.maskBits = 6;
+        //filter.categoryBits = 0x0002;
+        fix.SetFilterData(filter);
+
+        gameObject.physicalProperties.physicBodyKey.SetSleepingAllowed(false);
+
+        return gameObject;
     }
 
     private function initilizeBuoyancyController():void

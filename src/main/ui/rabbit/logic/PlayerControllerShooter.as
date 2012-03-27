@@ -101,7 +101,7 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 
         protected function doPlayerShot():void {
             player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
-            //addBullet();
+            addBullet();
         }
 
 		protected function addBullet():void
@@ -110,17 +110,17 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 			bulletConfig.shapeType = 1;
 			bulletConfig.type = 2;
 			bulletConfig.skinClass = BulletSkin;
-			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel, viewInstance); 
+			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(4), viewInstance);
 			
 			var fix:b2Fixture = (bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
 			var filter:b2FilterData = new b2FilterData();
 			filter.maskBits = 6;
 			fix.SetFilterData(filter);
 			
-			bullet.body.x = player.body.x + player.body.height / 2;
-			bullet.body.y = player.body.y + player.body.height / 2;
+			bullet.body.x = player.body.x + player.body.height / 2 - 30;
+			bullet.body.y = player.body.y + player.body.height / 2 - 50;
 			
-			bullet.physicalProperties.applyImpulse((_lastMouseDownEvent.stageX - player.body.x ) / 10, (_lastMouseDownEvent.stageY - player.body.y)/ 10);
+			bullet.physicalProperties.applyImpulse(35, 0);
 		}
 		
 		private function manageOvertimeEvents():void
