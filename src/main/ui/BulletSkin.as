@@ -1,10 +1,8 @@
 package ui 
 {
-	import core.view.skin.Skin;
-	
-	import flash.display.Sprite;
-	
-	/**
+import core.view.skin.Skin;
+
+/**
 	 * ...
 	 * @author 
 	 */
@@ -15,8 +13,7 @@ package ui
 		{
 			super();
 			
-			this.graphics.beginFill(0xFFFFFF, 0.9);
-			this.graphics.drawCircle(0, 0, 6);
+			addChild(new BulletSymbol());
 			
 		
 		}
