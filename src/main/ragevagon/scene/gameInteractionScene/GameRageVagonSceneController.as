@@ -4,8 +4,6 @@
  */
 package ragevagon.scene.gameInteractionScene {
 import Box2D.Dynamics.Controllers.b2BuoyancyController;
-import Box2D.Dynamics.b2FilterData;
-import Box2D.Dynamics.b2Fixture;
 
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
@@ -110,12 +108,12 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         gameObject.body.y = 500 - gameObject.body.height;
 
         (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
-        var fix:b2Fixture = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
+        /*var fix:b2Fixture = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
         var filter:b2FilterData = new b2FilterData();
         filter.maskBits = 6;
         //filter.categoryBits = 0x0002;
         fix.SetFilterData(filter);
-
+        */
         gameObject.physicalProperties.physicBodyKey.SetSleepingAllowed(false);
 
         return gameObject;

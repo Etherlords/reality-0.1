@@ -1,8 +1,5 @@
 package ui.rabbit.logic 
 {
-import Box2D.Dynamics.b2FilterData;
-import Box2D.Dynamics.b2Fixture;
-
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
 import core.events.GameObjectPhysicEvent;
@@ -10,7 +7,6 @@ import core.ui.KeyBoardController;
 import core.view.gameobject.GameObject;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.physicalpropeties.PhysicModel;
-import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 
 import flash.display.DisplayObjectContainer;
 import flash.events.MouseEvent;
@@ -110,18 +106,26 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 			bulletConfig.shapeType = 1;
 			bulletConfig.type = 2;
 			bulletConfig.skinClass = BulletSkin;
-			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(4), viewInstance);
-			
+			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(5,0,0.5), viewInstance);
+			/*
 			var fix:b2Fixture = (bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
 			var filter:b2FilterData = new b2FilterData();
 			filter.maskBits = 6;
 			fix.SetFilterData(filter);
-			
+			*/
 			bullet.body.x = player.body.x + player.body.height / 2 - 30;
 			bullet.body.y = player.body.y + player.body.height / 2 - 50;
 			
-			bullet.physicalProperties.applyImpulse(35, 0);
+			bullet.physicalProperties.applyImpulse(150, -1);
+            bullet.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithBulletReaction);
+
 		}
+
+        private function collideWithBulletReaction(e:GameObjectPhysicEvent):void {
+            if (e.interactionWith != player) {
+
+            }
+        }
 		
 		private function manageOvertimeEvents():void
 		{
