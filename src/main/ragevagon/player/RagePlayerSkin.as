@@ -15,8 +15,8 @@ public class RagePlayerSkin extends Skin {
     protected var _currentPlayerSkin:Skin;
 
     public function RagePlayerSkin() {
-        playerWithHandWeapon = new PlayerWithWeaponSkin(new WaitingPlayerSymbol(), new WalkPlayerSymbol(), new BookAttackPlayerSymbol());
-        playerWithValeraWeapon = new PlayerWithWeaponSkin(new PlayerWithValeraSymbol(), new LordWalkPlayerSymbol(), new PlayerWithValeraAttackSymbol());
+        playerWithHandWeapon = new PlayerWithWeaponSkin(new WaitingPlayerSymbol(), new WalkPlayerSymbol());
+        playerWithValeraWeapon = new PlayerWithWeaponSkin(new PlayerWithValeraSymbol(), new LordWalkPlayerSymbol());
         currentPlayerSkin = playerWithHandWeapon;
 
     }
@@ -73,9 +73,8 @@ class PlayerWithWeaponSkin extends Skin {
 
     private var waitingSkin:MovieClip;
     private var walkingSkin:MovieClip;
-    private var attackSkin:MovieClip;
 
-    public function PlayerWithWeaponSkin(waitingSkin:MovieClip, walkingSkin:MovieClip, attackSkin:MovieClip){
+    public function PlayerWithWeaponSkin(waitingSkin:MovieClip, walkingSkin:MovieClip){
         this.waitingSkin = waitingSkin;
         waitingSkin.visible = true;
         addChild(waitingSkin);
@@ -84,9 +83,6 @@ class PlayerWithWeaponSkin extends Skin {
         walkingSkin.visible = false;
         addChild(walkingSkin);
 
-        this.attackSkin = attackSkin;
-        attackSkin.visible = false;
-        addChild(attackSkin);
     }
 
     override public function get phsyHeight():Number
@@ -110,7 +106,6 @@ class PlayerWithWeaponSkin extends Skin {
             }
             //waitingSkin.visible = walkingSkin.visible = false;
         } else {
-            attackSkin.visible = false;
             waitingSkin.visible = !direction.isWalking;
             walkingSkin.visible = direction.isWalking;
         }
