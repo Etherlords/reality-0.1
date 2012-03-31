@@ -115,7 +115,13 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         //bulletConfig.shapeType = 1;
         bulletConfig.type = 2;
         bulletConfig.skinClass = BulletSkin;
-        var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(15,0,0), sceneView.gameObjectsInstance);
+        var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(150,0,0), sceneView.gameObjectsInstance);
+        //(bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
+        //var fix:b2Fixture = (bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
+        //var filter:b2FilterData = new b2FilterData();
+        //filter.maskBits = 5;
+        //filter.categoryBits = 0x0002;
+        //fix.SetFilterData(filter)
 
         bullet.body.x = player.body.x + player.body.width / 2;
         bullet.body.y = player.body.y + player.body.height / 2 - 50;
@@ -126,8 +132,11 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     }
 
     private function collideWithBulletReaction(e:GameObjectPhysicEvent):void {
-        if (e.interactionWith != player) {
-            trace("hit "+typeof(e.interactionWith));
+        //if (e.interactionWith is RageEnemy)
+        {
+            trace("hit "+e.interactionWith);
+            (e.target as GameObject).markToDestroy = true;
+            //e.interactionWith.applyActionView(GlobalConstants.ACTION_VIEW_DEAD_AFTER_BULLET_HIT);
         }
     }
 
@@ -144,7 +153,7 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         gameObject.body.x = 500;
         gameObject.body.y = 500 - gameObject.body.height;
 
-        //(gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
+        //(gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(100);
         /*var fix:b2Fixture = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
         var filter:b2FilterData = new b2FilterData();
         filter.maskBits = 6;

@@ -14,5 +14,10 @@ public class RageEnemy extends GameObject {
     public function RageEnemy(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) {
         super(config, physicModel, instance, eventFlowTarget);
     }
+
+
+    override public function toString():String {
+        return "[RageEnemy]";
+    }
 }
 }
