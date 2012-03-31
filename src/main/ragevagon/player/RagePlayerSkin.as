@@ -103,7 +103,11 @@ class PlayerWithWeaponSkin extends Skin {
         super.doAction(actionKey);
 
         if ((actionKey == GlobalConstants.ACTION_VIEW_ATTACK)) {
-            waitingSkin.playAttack();
+            if (waitingSkin.visible) {
+                waitingSkin.playAttack();
+            } else if (walkingSkin.visible) {
+                walkingSkin.playAttack();
+            }
             //waitingSkin.visible = walkingSkin.visible = false;
         } else {
             attackSkin.visible = false;
