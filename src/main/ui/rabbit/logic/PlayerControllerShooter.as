@@ -103,10 +103,10 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 		protected function addBullet():void
 		{
 			var bulletConfig:GameobjectConfig = new GameobjectConfig();
-			bulletConfig.shapeType = 1;
+			//bulletConfig.shapeType = 1;
 			bulletConfig.type = 2;
 			bulletConfig.skinClass = BulletSkin;
-			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(5,0,0.5), viewInstance);
+			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(20,0,1), viewInstance);
 			/*
 			var fix:b2Fixture = (bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
 			var filter:b2FilterData = new b2FilterData();
@@ -116,7 +116,7 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 			bullet.body.x = player.body.x + player.body.height / 2 - 30;
 			bullet.body.y = player.body.y + player.body.height / 2 - 50;
 			
-			bullet.physicalProperties.applyImpulse(150, -1);
+			bullet.physicalProperties.applyImpulse(50, Math.random());
             bullet.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithBulletReaction);
 
 		}

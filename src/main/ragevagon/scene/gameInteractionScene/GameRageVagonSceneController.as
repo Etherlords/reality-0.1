@@ -14,7 +14,6 @@ import core.scene.AbstractSceneController;
 import core.view.gameobject.GameObject;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.physicalpropeties.PhysicModel;
-import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
@@ -102,12 +101,12 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         //enemyConfig.physicConfiguration.friction = 1;
         enemyConfig.type = 2; //todo replace
         enemyConfig.skinClass = RageEnemySkin;
-        var gameObject:GameObject = worldController.constructGameObject(RageEnemy, enemyConfig, new PhysicModel(4,1,1),  stage);
+        var gameObject:GameObject = worldController.constructGameObject(RageEnemy, enemyConfig, new PhysicModel(0.5,0,0),  stage);
         gameObject.physicalProperties.physicModel.fixedRotation = false;
         gameObject.body.x = 200;
         gameObject.body.y = 500 - gameObject.body.height;
 
-        (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
+        //(gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
         /*var fix:b2Fixture = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
         var filter:b2FilterData = new b2FilterData();
         filter.maskBits = 6;
