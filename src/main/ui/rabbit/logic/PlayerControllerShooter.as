@@ -5,17 +5,16 @@ import core.GlobalConstants;
 import core.events.GameObjectPhysicEvent;
 import core.ui.KeyBoardController;
 import core.view.gameobject.GameObject;
-import core.view.gameobject.config.GameobjectConfig;
-import core.view.gameobject.physicalpropeties.PhysicModel;
 
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
-import ui.BulletSkin;
 import ui.gameobjects.BaseInteractiveGameObject;
 import ui.rabbit.constructor.PlayerConstructor;
 import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
@@ -24,7 +23,7 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
 	 * ...
 	 * @author 
 	 */
-	public class PlayerControllerShooter
+	public class PlayerControllerShooter extends EventDispatcher
 	{
 		private var viewInstance:DisplayObjectContainer;
 		
@@ -96,36 +95,12 @@ import ui.rabbit.rabbitReactions.PlayerReactionsHelper;
         }
 
         protected function doPlayerShot():void {
-            player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
-            addBullet();
+            dispatchEvent(new Event(GlobalConstants.EVENT_TYPE_SHOT_REQUEST))
+
         }
 
-		protected function addBullet():void
-		{
-			var bulletConfig:GameobjectConfig = new GameobjectConfig();
-			//bulletConfig.shapeType = 1;
-			bulletConfig.type = 2;
-			bulletConfig.skinClass = BulletSkin;
-			var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(20,0,1), viewInstance);
-			/*
-			var fix:b2Fixture = (bullet.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
-			var filter:b2FilterData = new b2FilterData();
-			filter.maskBits = 6;
-			fix.SetFilterData(filter);
-			*/
-			bullet.body.x = player.body.x + player.body.height / 2 - 30;
-			bullet.body.y = player.body.y + player.body.height / 2 - 50;
-			
-			bullet.physicalProperties.applyImpulse(50, Math.random());
-            bullet.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithBulletReaction);
 
-		}
 
-        private function collideWithBulletReaction(e:GameObjectPhysicEvent):void {
-            if (e.interactionWith != player) {
-
-            }
-        }
 		
 		private function manageOvertimeEvents():void
 		{

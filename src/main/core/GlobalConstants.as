@@ -32,6 +32,7 @@ package core
         public static const ACTION_MOVE:String = "move";
         public static const ACTION_STRATEGY_ACCELERATE:String = "ACTION_STRATEGY_ACCELERATE";
         public static const ACTION_STRATEGY_EXPOSE_ON_FLOOR:String = "ACTION_STRATEGY_EXPOSE_ON_FLOOR";
+    public static const EVENT_TYPE_SHOT_REQUEST:String = "EVENT_TYPE_SHOT_REQUEST";
 
 
 

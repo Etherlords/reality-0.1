@@ -8,6 +8,7 @@ import Box2D.Dynamics.Controllers.b2BuoyancyController;
 import core.Box2D.utils.Box2DWorldController;
 import core.GlobalConstants;
 import core.camera.Camera;
+import core.events.GameObjectPhysicEvent;
 import core.locators.PhysicWorldLocator;
 import core.locators.ServicesLocator;
 import core.scene.AbstractSceneController;
@@ -24,7 +25,9 @@ import flash.utils.Timer;
 import ragevagon.constructor.RagePlayerConstructor;
 import ragevagon.enemy.RageEnemy;
 import ragevagon.enemy.RageEnemySkin;
+import ragevagon.player.RagePlayer;
 
+import ui.BulletSkin;
 import ui.rabbit.logic.PlayerControllerShooter;
 import ui.services.CameraService;
 
@@ -93,7 +96,42 @@ public class GameRageVagonSceneController extends AbstractSceneController {
 
         _playerController = new PlayerControllerShooter(sceneView.gameObjectsInstance, worldController,  new RagePlayerConstructor());
         var enemy:GameObject = make(sceneView.gameObjectsInstance, worldController);
+        _playerController.addEventListener(GlobalConstants.EVENT_TYPE_SHOT_REQUEST, shotRequestHandler);
+
     }
+
+    private function shotRequestHandler(e:Event):void {
+        _playerController.player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
+        addBullet();
+    }
+
+    protected function get player():RagePlayer {
+        return _playerController.player as RagePlayer;;
+    }
+
+    protected function addBullet():void
+    {
+        var bulletConfig:GameobjectConfig = new GameobjectConfig();
+        //bulletConfig.shapeType = 1;
+        bulletConfig.type = 2;
+        bulletConfig.skinClass = BulletSkin;
+        var bullet:GameObject = worldController.constructGameObject(GameObject, bulletConfig, new PhysicModel(15,0,0), sceneView.gameObjectsInstance);
+
+        bullet.body.x = player.body.x + player.body.width / 2;
+        bullet.body.y = player.body.y + player.body.height / 2 - 50;
+        var direction:Number = player.direction.isRightDirection ? 1 : -1;
+        bullet.physicalProperties.applyImpulse(150 * direction, -1*Math.random() * 10+Math.random() * 10);
+        bullet.addEventListener(GameObjectPhysicEvent.COLLIDE, collideWithBulletReaction);
+
+    }
+
+    private function collideWithBulletReaction(e:GameObjectPhysicEvent):void {
+        if (e.interactionWith != player) {
+            trace("hit "+typeof(e.interactionWith));
+        }
+    }
+
+
 
     public function make(stage:DisplayObjectContainer, worldController:Box2DWorldController):GameObject
     {
@@ -101,9 +139,9 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         //enemyConfig.physicConfiguration.friction = 1;
         enemyConfig.type = 2; //todo replace
         enemyConfig.skinClass = RageEnemySkin;
-        var gameObject:GameObject = worldController.constructGameObject(RageEnemy, enemyConfig, new PhysicModel(0.5,0,0),  stage);
-        gameObject.physicalProperties.physicModel.fixedRotation = false;
-        gameObject.body.x = 200;
+        var gameObject:GameObject = worldController.constructGameObject(RageEnemy, enemyConfig, new PhysicModel(0,1,0.5),  stage);
+        //gameObject.physicalProperties.physicModel.fixedRotation = false;
+        gameObject.body.x = 500;
         gameObject.body.y = 500 - gameObject.body.height;
 
         //(gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
