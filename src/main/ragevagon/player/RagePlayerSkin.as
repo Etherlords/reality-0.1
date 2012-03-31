@@ -10,9 +10,9 @@ import core.view.skin.Skin;
 
 public class RagePlayerSkin extends Skin {
 
-    private var playerWithHandWeapon:PlayerWithWeaponSkin;
-    private var playerWithValeraWeapon:PlayerWithWeaponSkin;
-    private var _currentPlayerSkin:Skin;
+    protected var playerWithHandWeapon:PlayerWithWeaponSkin;
+    protected var playerWithValeraWeapon:PlayerWithWeaponSkin;
+    protected var _currentPlayerSkin:Skin;
 
     public function RagePlayerSkin() {
         playerWithHandWeapon = new PlayerWithWeaponSkin(new WaitingPlayerSymbol(), new WalkPlayerSymbol(), new BookAttackPlayerSymbol());
@@ -68,7 +68,6 @@ import core.GlobalConstants;
 import core.view.skin.Skin;
 
 import flash.display.MovieClip;
-import flash.events.Event;
 
 class PlayerWithWeaponSkin extends Skin {
 
@@ -103,18 +102,9 @@ class PlayerWithWeaponSkin extends Skin {
     override public function doAction(actionKey:uint):void {
         super.doAction(actionKey);
 
-        if (attackSkin.visible) {
-            return;
-        }
-
         if ((actionKey == GlobalConstants.ACTION_VIEW_ATTACK)) {
-            attackSkin.visible = true;
-            attackSkin.play();
-            attackSkin.addEventListener("finished", function (e:Event):void {
-                attackSkin.visible = false;
-                waitingSkin.visible = true;
-            });
-            waitingSkin.visible = walkingSkin.visible = false;
+            waitingSkin.playAttack();
+            //waitingSkin.visible = walkingSkin.visible = false;
         } else {
             attackSkin.visible = false;
             waitingSkin.visible = !direction.isWalking;

@@ -6,7 +6,5 @@ package ragevagon.enemy {
 import ragevagon.player.RagePlayerSkin;
 
 public class RageEnemySkin extends RagePlayerSkin {
-    public function RageEnemySkin() {
-    }
 }
 }
