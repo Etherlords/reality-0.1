@@ -26,6 +26,9 @@ import ragevagon.constructor.RagePlayerConstructor;
 import ragevagon.enemy.RageEnemy;
 import ragevagon.enemy.RageEnemySkin;
 import ragevagon.player.RagePlayer;
+import ragevagon.weapon.HandWeapon;
+import ragevagon.weapon.ValeraWeapon;
+import ragevagon.weapon.Weapon;
 
 import ui.BulletSkin;
 import ui.rabbit.logic.PlayerControllerShooter;
@@ -88,6 +91,8 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     }
 
 
+    private var _valeraWeapon:ValeraWeapon = new ValeraWeapon(addBullet);
+    private var _handWeapon:HandWeapon = new HandWeapon();
 
     private function createViewComponents():void
     {
@@ -98,11 +103,21 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         var enemy:GameObject = make(sceneView.gameObjectsInstance, worldController);
         _playerController.addEventListener(GlobalConstants.EVENT_TYPE_SHOT_REQUEST, shotRequestHandler);
 
+        setCurrentWeapon(_valeraWeapon);
     }
 
+    private function setCurrentWeapon(weapon:Weapon):void {
+        player.weapon = weapon;
+        sceneView._weaponSwitcher.setWeapon(player.weapon.key);
+        _playerController.player.applyActionView(player.weapon.viewKey);
+     
+    }
+
+
     private function shotRequestHandler(e:Event):void {
-        _playerController.player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
-        addBullet();
+        player.applyActionView(GlobalConstants.ACTION_VIEW_ATTACK);
+        player.weapon.shot();
+        //addBullet();
     }
 
     protected function get player():RagePlayer {
@@ -194,12 +209,15 @@ public class GameRageVagonSceneController extends AbstractSceneController {
     }
 
     public function switchWeaponRequestHandler(e:Event):void {
-        sceneView._weaponSwitcher.switchWeapon(); //todo delegate to controller
-        if (sceneView._weaponSwitcher.isValeraSelected()) {
-            _playerController.player.applyActionView(GlobalConstants.ACTION_VIEW_SWITCH_WEAPON_VALERA);
+        if (player.weapon is ValeraWeapon) {
+            setCurrentWeapon(_handWeapon);
         } else {
-            _playerController.player.applyActionView(GlobalConstants.ACTION_VIEW_SWITCH_WEAPON_HAND);
+            setCurrentWeapon(_valeraWeapon);
         }
+
+
+
+
 
 
 
