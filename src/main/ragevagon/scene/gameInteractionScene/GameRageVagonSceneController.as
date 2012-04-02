@@ -110,7 +110,6 @@ public class GameRageVagonSceneController extends AbstractSceneController {
         player.weapon = weapon;
         sceneView._weaponSwitcher.setWeapon(player.weapon.key);
         _playerController.player.applyActionView(player.weapon.viewKey);
-     
     }
 
 

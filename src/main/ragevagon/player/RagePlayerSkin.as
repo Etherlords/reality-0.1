@@ -98,12 +98,12 @@ class PlayerWithWeaponSkin extends Skin {
     override public function doAction(actionKey:uint):void {
         super.doAction(actionKey);
 
-        if (direction.isLeftDiretion) {
-            waitingSkin.scaleX = -1;
-            walkingSkin.scaleX = -1;
-        } else {
+        if (direction.isRightDirection) {
             waitingSkin.scaleX = 1;
             walkingSkin.scaleX = 1;
+        } else {
+            waitingSkin.scaleX = -1;
+            walkingSkin.scaleX = -1;
         }
 
 
