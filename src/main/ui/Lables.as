@@ -24,11 +24,7 @@ package ui
 			return GAME_OVER.split('%score%').join(score).split('%highScore%').join(highestScore);
 		}
 		
-		public static var START_SCREEN:String = 	'<font size="35">MILK THE COW!</font>\n\n\n'
-												+	'\n'
-												+	'click on the cows as fast as u can'
-												+	'\n'
-												+	"until you've filled up your bucket "
+		public static var START_SCREEN:String = 	'<font size="35">PING PONG</font>\n\n\n'
 												+	'\n\n\n'
 												+	'<button><a href="event:startGame">Start the game</a></button>'
 												+	'\n\n\n\n\n\n'

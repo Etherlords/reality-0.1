@@ -74,6 +74,7 @@ import core.view.skin.Skin;
 			var fixtureModel:b2FixtureDef = new b2FixtureDef();
 			
 			fixtureModel.shape = makeShapeFromSkin(skin);
+			
 			//bodyModel.fixedRotation = true;
 			//Коммит этих физических свойств можно сделать одним методом
 			//Просто переберая поля создать список поелй длоя коммита и просто обходить его

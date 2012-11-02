@@ -9,7 +9,7 @@ package ui.camera
 	 */
 	public class TracingCamera extends Camera 
 	{
-		private var _tracingTarget:Object;
+		protected var _tracingTarget:Object;
 		
 		public function TracingCamera(tracingTarget:Object = null) 
 		{
@@ -24,7 +24,7 @@ package ui.camera
 			return _target;
 		}
 		
-		private function centerOnTarget():void 
+		protected function centerOnTarget():void 
 		{
 			if (!_tracingTarget)
 				return;

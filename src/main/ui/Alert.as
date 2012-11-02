@@ -53,7 +53,7 @@ package ui
 			var style:StyleSheet = new StyleSheet();
 			style.parseCSS
 							(
-								  "button{fontWeight:bold; fontSize:15;}"
+								  "button{fontWeight:bold; fontSize:35; color:#FFFFFF;}"
 								+ "header{fontWeight:bold; fontSize:20;}"
 								+ "scores{fontSize:20}"
 								+ "a:link { text-decoration:none; }"

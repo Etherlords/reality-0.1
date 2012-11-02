@@ -1,5 +1,8 @@
 package  
 {
+	import com.greensock.plugins.ColorTransformPlugin;
+	import com.greensock.plugins.TintPlugin;
+	import com.greensock.plugins.TweenPlugin;
 	import core.states.config.StateConfig;
 	import core.states.State;
 	import core.states.StatesManager;
@@ -11,6 +14,7 @@ package
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursorData;
 	import ui.scene.gameInteractionScene.LoadGameController;
+	import ui.scene.gameInteractionScene.PingPong;
 	import ui.scene.gameInteractionScene.PlatformerTest;
 
 
@@ -52,7 +56,8 @@ package
 		{
 			
 			stage.fullScreenSourceRect = new Rectangle(0, 0, 400, 400)
-			
+			TweenPlugin.activate([ColorTransformPlugin, TintPlugin]);
+
 			var cursor:MouseCursorData = new MouseCursorData();
 			cursor.data = new <flash.display.BitmapData>[new BitmapData(1, 1, true, 0x01000000)];
 			Mouse.registerCursor('noCursor', cursor);
@@ -67,7 +72,7 @@ package
             var loadStateConfig:StateConfig = new StateConfig('Load', LoadGameController);
             var loadState:State = new State(loadStateConfig);
 
-			var gameStateConfig:StateConfig = new StateConfig('Game', PlatformerTest);
+			var gameStateConfig:StateConfig = new StateConfig('Game', PingPong);
 			var gameState:State = new State(gameStateConfig);
 
 			//stateManager.nextState(loadState);

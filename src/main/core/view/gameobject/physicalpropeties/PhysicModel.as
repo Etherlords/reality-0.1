@@ -34,7 +34,11 @@ package core.view.gameobject.physicalpropeties
 			this._friction = friction;
 			this._density = density;
 			
+			//trace('reset mass data', _density, restitution,friction);
+			
 			initilize();
+			
+			
 		}
 		
 		/**
@@ -51,7 +55,7 @@ package core.view.gameobject.physicalpropeties
 			
 			density = _density;
 			fixedRotation = _fixedRotation;
-			
+			body.ResetMassData();
 		}
 		
 		private function initilize():void 
@@ -120,6 +124,8 @@ package core.view.gameobject.physicalpropeties
 			{
 				body.GetFixtureList().SetDensity(_density);
 				body.ResetMassData();
+				
+				
 			}
 		}
 		
@@ -134,6 +140,8 @@ package core.view.gameobject.physicalpropeties
 		public function set friction(value:Number):void 
 		{
 			_friction = value;
+			
+			body.GetFixtureList().SetFriction(_friction);
 		}
 		
 		/**
@@ -147,6 +155,7 @@ package core.view.gameobject.physicalpropeties
 		public function set restitution(value:Number):void 
 		{
 			_restitution = value;
+			body.GetFixtureList().SetRestitution(_restitution)
 		}
 		
 	}
