@@ -1,4 +1,4 @@
-package ui.scene.gameInteractionScene
+package pingPong
 {
 
 	import core.Box2D.utils.Box2DWorldController;
@@ -12,6 +12,8 @@ package ui.scene.gameInteractionScene
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	import flash.utils.Timer;
 	import pingPong.BollCamera;
 	import pingPong.BollConstructor;
@@ -70,6 +72,8 @@ package ui.scene.gameInteractionScene
 			
 			if (Math.random() > 0.5)
 				side = -1;
+				
+			Mouse.cursor = 'noCursor';
 			
 			boll.physicalProperties.applyForce( 2 * side, 2, -2.5 * Math.random() * 5, -2.5 * Math.random() * 5);
 			view.removeChild(gameStartDialog);
@@ -155,6 +159,8 @@ package ui.scene.gameInteractionScene
 		{
 			scoreService.updateScore(scoreService.localScore - 1);
 			gameOver();
+			Mouse.cursor = MouseCursor.AUTO;
+			
 		}
 		
 		private function playerLose(e:GameObjectPhysicEvent):void 

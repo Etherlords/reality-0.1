@@ -13,9 +13,9 @@ package
 	import flash.geom.Rectangle;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursorData;
+	import pingPong.PingPong;
 	import ui.scene.gameInteractionScene.LoadGameController;
-	import ui.scene.gameInteractionScene.PingPong;
-	import ui.scene.gameInteractionScene.PlatformerTest;
+
 
 
 	/**
@@ -62,9 +62,10 @@ package
 			cursor.data = new <flash.display.BitmapData>[new BitmapData(1, 1, true, 0x01000000)];
 			Mouse.registerCursor('noCursor', cursor);
 			
+			
 			stage.align = 'TL';
 			stage.scaleMode = 'noScale';
-			stage.quality = StageQuality.MEDIUM
+			stage.quality = StageQuality.BEST
 			
 		
 			var stateManager:StatesManager = new StatesManager(this);
