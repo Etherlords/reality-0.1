@@ -1,5 +1,6 @@
 package ui.rabbit.constructor 
 {
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2FilterData;
 	import Box2D.Dynamics.b2Fixture;
 	import core.Box2D.utils.Box2DWorldController;
@@ -29,19 +30,22 @@ package ui.rabbit.constructor
 			//rabbitConfig.physicConfiguration.friction = 1;
 			rabbitConfig.type = 2; //todo replace
 			rabbitConfig.skinClass = RabbitSkin;
-			var gameObject:GameObject = worldController.constructGameObject(Rabbit, rabbitConfig, new PhysicModel(4,1,1),  stage);
-			gameObject.physicalProperties.physicModel.fixedRotation = false;
+			
+			var gameObject:GameObject = worldController.constructGameObject(Rabbit, rabbitConfig, new PhysicModel(4, -1, 0.1),  stage);
+			gameObject.physicalProperties.physicModel.fixedRotation = true;
 			gameObject.body.x = 100;
 			gameObject.body.y = 500 - gameObject.body.height;
+			//gameObject.body.z = 100
 			
-			(gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.SetAngularDamping(35);
-			var fix:b2Fixture = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey.GetFixtureList();
+			var body:b2Body = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey
+			body.SetAngularDamping(500);
+			var fix:b2Fixture = body.GetFixtureList();
 			var filter:b2FilterData = new b2FilterData();
 			filter.maskBits = 6;
 			//filter.categoryBits = 0x0002;
 			fix.SetFilterData(filter);
 			
-			gameObject.physicalProperties.physicBodyKey.SetSleepingAllowed(false);
+			body.SetSleepingAllowed(false);
 			
 			return gameObject;
 

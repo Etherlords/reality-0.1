@@ -56,6 +56,16 @@ use namespace b2internal;
 					m_radius = polygon.m_radius;
 				}
 				break;
+				
+				case b2Shape.e_edgeShape:
+				{
+					var edge:b2EdgeShape =  shape as b2EdgeShape;
+					m_vertices = new <b2Vec2>[edge.GetVertex1(), edge.GetVertex1()];
+					
+					m_count = 2;
+					m_radius = edge.m_radius;
+				}
+				break;
 				default:
 				b2Settings.b2Assert(false);
 			}

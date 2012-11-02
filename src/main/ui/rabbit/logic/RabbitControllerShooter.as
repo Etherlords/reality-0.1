@@ -10,9 +10,15 @@ import core.view.gameobject.GameObject;
 import core.view.gameobject.physicalpropeties.PhysicModel;
 import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 import flash.display.DisplayObjectContainer;
+import flash.events.AccelerometerEvent;
+import flash.events.GeolocationEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
+import flash.sensors.Accelerometer;
+import flash.sensors.Geolocation;
+import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 import ui.BulletSkin;
@@ -41,6 +47,8 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		private var _direction:Number;
 		private var _moving:Boolean;
 		private var constructor:PlayerConstructor;
+		
+		private var bullets:Array = [];
 		
 		public function RabbitControllerShooter(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, constructor:PlayerConstructor) 
 		{
@@ -76,11 +84,38 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			
 			keyController.registerKeyUpReaction(Keyboard.LEFT, stop);
 			keyController.registerKeyUpReaction(Keyboard.RIGHT, stop);
+		
+			
+			var a:Accelerometer = new Accelerometer()
+			a.addEventListener(AccelerometerEvent.UPDATE, onSensorUpdate);
+			tf.textColor = 0xFFFFFF;
+			
+			rabbit.instance.stage.addChild(tf);
+			tf.text = 'TEST';
+			tf.borderColor = 0xFFFFFF;
+			tf.border = true;
+			tf.autoSize = TextFieldAutoSize.LEFT;
+		}
+		
+		private var tf:TextField = new TextField();
+		
+		private function onSensorUpdate(e:AccelerometerEvent):void 
+		{
+			_moving = Math.abs(e.accelerationX) > 0.1;
+			
+			if (e.accelerationZ > 0.5)
+				jumpAction();
+				
+			if ( e.accelerationX > 0)
+				_direction = -1;
+			else
+				_direction = 1;
+				
+			tf.text = 'accel '+ e.accelerationY+', \n'+e.accelerationX+', \n'+e.accelerationZ
 		}
 		
 		private function stop():void 
 		{
-			
 			var velocity:Point = rabbit.physicalProperties.physicModel.linearVelocity;
 			velocity.x /= 3;
 			rabbit.physicalProperties.physicModel.linearVelocity = velocity;
@@ -115,7 +150,16 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			bullet.body.x = rabbit.body.x + rabbit.body.height / 2;
 			bullet.body.y = rabbit.body.y + rabbit.body.height / 2;
 			
-			bullet.physicalProperties.applyImpulse((e.stageX - rabbit.body.x ) / 10, (e.stageY - rabbit.body.y)/ 10);
+			var p:Point = new Point(rabbit.skin.x, rabbit.skin.y).subtract(new Point(-rabbit.skin.parent.x, -rabbit.skin.parent.y));
+			
+			bullet.physicalProperties.applyImpulse((e.stageX - p.x ) / 10, (e.stageY - p.y) / 10);
+			
+			bullets.push(bullet)
+			
+			if (bullets.length > 20)
+			{
+				worldController.destroyGameObject(bullets.shift());
+			}
 		}
 		
 		private function manageOvertimeEvents():void 
@@ -165,7 +209,7 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 			
 			_rabbit = constructor.make(viewInstance, worldController) as Rabbit;
 
-			rabbitActionsHelper = new RabbitReactionsHelper(_rabbit, viewInstance.stage, flapTrigger);
+			rabbitActionsHelper = new RabbitReactionsHelper(_rabbit, viewInstance.stage);
 		}
 		
 		public function get rabbit():Rabbit 
@@ -175,12 +219,14 @@ import ui.rabbit.rabbitReactions.RabbitReactionsHelper;
 		
 		public function get moving():Boolean 
 		{
-			return keyController.isKeyDown(Keyboard.LEFT) || keyController.isKeyDown(Keyboard.RIGHT);
+			return _moving || keyController.isKeyDown(Keyboard.LEFT) || keyController.isKeyDown(Keyboard.RIGHT);
 		}
 		
 		public function get direction():Number 
 		{
-			if (keyController.isKeyDown(Keyboard.LEFT))
+			if (_direction)
+				return _direction;
+			else if (keyController.isKeyDown(Keyboard.LEFT))
 				return -1;
 			else if(keyController.isKeyDown(Keyboard.RIGHT))
 				return 1;

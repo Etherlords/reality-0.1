@@ -18,9 +18,14 @@ previews
 **/previews/*.*
 **/Library/*.*
 
+**/silin/*.*
+silin
+
+
 
 # Compiled source #
 ###################
+*.jpg
 *.com
 *.class
 *.dll

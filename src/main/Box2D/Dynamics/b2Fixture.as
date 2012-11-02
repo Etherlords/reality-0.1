@@ -288,7 +288,7 @@ public class b2Fixture
 		
 		m_isSensor = def.isSensor;
 		
-		m_shape = def.shape.Copy();
+		m_shape = def.shape
 		
 		m_density = def.density;
 	}

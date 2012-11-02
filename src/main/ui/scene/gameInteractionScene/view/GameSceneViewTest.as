@@ -3,11 +3,15 @@ package  ui.scene.gameInteractionScene.view
 	//import com.sociodox.theminer.TheMiner;
 	import core.locators.ServicesLocator;
 	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.filters.GlowFilter;
 	import flash.geom.Point;
+	import silin.zod.core.Sprite3D;
+	import silin.zod.primitives.Cube;
+	import ui.FloorShape;
 	import ui.scoreboard.Scoreboard;
 import ui.services.scores.ScoresService;
 import ui.snow.FallingSnowAnimation;
@@ -51,7 +55,7 @@ import ui.snow.FallingSnowAnimation;
 		
 		public function render():void
 		{
-			scoresView.scores = scoresService.scores;
+			var i:int;
 			//this.y = stage.stageHeight / 2 - rabbit.dimensionalProperties.y;
 			
 			//if (this.y < 0)	
@@ -59,19 +63,35 @@ import ui.snow.FallingSnowAnimation;
 			
 			var target:Point = ServicesLocator.cameraService.camera.target;
 			
-			for (var i:int = 0; i < trackCameraInstances.length; i++)
+			for (i = 0; i < trackCameraInstances.length; i++)
 			{
 				if (trackCameraInstances[i].y != stage.stageHeight / 2 - target.y)
-					trackCameraInstances[i].y += ((stage.stageHeight / 2 - target.y) - trackCameraInstances[i].y) / 10;
+					trackCameraInstances[i].y += ((stage.stageHeight / 2 - target.y) - trackCameraInstances[i].y) 
 				
 				//trackCameraInstances[i].y = stage.stageHeight / 2 - target.y;
 				
-				if (trackCameraInstances[i].y < 0)
-					trackCameraInstances[i].y = 0
+				if (trackCameraInstances[i].x != stage.stageWidth / 2 - target.x)
+					trackCameraInstances[i].x += ((stage.stageWidth / 2 - target.x) - trackCameraInstances[i].x)
+			}
+			return;
+			var toSort:Array = [];
+			for (i = 0; i < _gameObjectsInstance.numChildren - 1; i++)
+			{
+				var child:Sprite = _gameObjectsInstance.getChildAt(i) as Sprite;
+				
+				if (child is FloorShape)
+				{
+					toSort.push((child as FloorShape).cube);
+				}
 			}
 			
-			moon.y = -(target.y - moon.y) / 150;
-			_snow.drawingY = (trackCameraInstances[0].y);
+			toSort.sortOn('viewDistance', Array.DESCENDING);
+			//trace('sort', toSort.length, _gameObjectsInstance.numChildren);
+			for (i = 0; i < toSort.length; i++)
+			{
+				_gameObjectsInstance.setChildIndex(toSort[i].parent, i);
+			}
+			
 		}
 		
 		public function get gameObjectsInstance():DisplayObjectContainer 
@@ -101,74 +121,24 @@ import ui.snow.FallingSnowAnimation;
 		private function onInit(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			this.y = (stage.stageHeight - startBack.height);
+			//this.y = (stage.stageHeight - startBack.height);
 		}
 		
 		private function createInstances():void 
 		{
-			_snow = new FallingSnowAnimation(760);
-			_effects = new Sprite();
-			
 			_gameObjectsInstance = new Sprite();
 			
-			_scoreboard = new Scoreboard();
-			_scoreboard.y = 100;
-			
-			startBack = new Sprite();
-			var bg:Bitmap = new Bitmap(new StartBackground());
-			startBack.addChild(bg);
-			startBack.addChild(new StartBackgroundMask());
-			startBack.addChild(new StartBackgroundMask());
-			
 			trackCameraInstances.push(_gameObjectsInstance);
-			trackCameraInstances.push(_snow);
-			trackCameraInstances.push(startBack);
 			
-			moon = new Sprite();
-			moon.y -= 35;
-			moon.x -= 160;
-			
-			createMoon();
-			
-			addChild(startBack);
-			
-			addChild(moon);
-			
-			addChild(_snow);
-			addChild(_effects);
 			addChild(_gameObjectsInstance);
 			
-			addChild(_scoreboard);
-			
-			removeFromMouseWorld(_scoreboard);
-			removeFromMouseWorld(_snow);
 			removeFromMouseWorld(_gameObjectsInstance);
-			removeFromMouseWorld(startBack);
-			removeFromMouseWorld(moon);
 		}
 		
 		private function removeFromMouseWorld(obj:DisplayObjectContainer):void
 		{
 			obj.mouseEnabled = false;
 			obj.mouseChildren = false;
-		}
-		
-		private function createMoon():void 
-		{
-			var moonImage:Bitmap = new Bitmap(new moonClass().bitmapData);
-			
-			
-			var moonMask:Sprite = new Sprite();
-			moonMask.graphics.beginFill(0x0, 0.8);
-			moonMask.graphics.drawCircle(115, 110, 93);
-			
-			moonImage.cacheAsBitmap = moonMask.cacheAsBitmap = true;
-			
-			moonImage.mask = moonMask;
-			moon.addChild(moonImage);
-			moon.addChild(moonMask);
-			moonImage.x = moonMask.x = 730;
-			moon.filters = [new GlowFilter(0xFF0000, .5, 20, 20, 3, 3, false), new GlowFilter(0xFF0000, .5, 40, 40, 3, 3, true)];
 		}
 		
 		

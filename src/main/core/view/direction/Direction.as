@@ -43,12 +43,10 @@ package core.view.direction
 		
 		private function analyzDirection():void 
 		{
-			
-			
 			if (Math.abs(velocity.y) > 0.2)
 			{
 				isJumping = velocity.y < 0.2;
-				isFalling = velocity.y > -0.2;
+				//isFalling = velocity.y > -0.2;
 			}
 			else
 			{

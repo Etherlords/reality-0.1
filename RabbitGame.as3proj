@@ -5,10 +5,10 @@
     <movie outputType="Application" />
     <movie input="" />
     <movie path="D:\\binary_output\RabbitGame\RabbitGame.swf" />
-    <movie fps="30" />
+    <movie fps="60" />
     <movie width="760" />
     <movie height="500" />
-    <movie version="10" />
+    <movie version="11" />
     <movie minorVersion="0" />
     <movie platform="Flash Player" />
     <movie background="#000000" />
@@ -16,6 +16,8 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src\main" />
+    <class path="..\Etherlords-ShaderLabs-43d9aeb\src" />
+    <class path="..\Etherlords-ShaderLabs-43d9aeb\lib" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -57,6 +59,7 @@
     <element path="assets\compiled\bell_v2.swc" />
     <element path="assets\compiled\bird.swc" />
     <element path="assets\compiled\rabbit.swc" />
+    <element path="..\Etherlords-ShaderLabs-43d9aeb\lib\Mask.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

@@ -6,12 +6,17 @@ package utils
 	 */
 	public class BitMask 
 	{
-		private var mask:uint;
+		private var _mask:uint;
 		
 		public function BitMask(mask:uint = 0) 
 		{
-			this.mask = mask;
+			_mask = mask;
 			initilize();
+		}
+		
+		public function setMask(mask:uint):void
+		{
+			_mask = mask;
 		}
 		
 		private function initilize():void 
@@ -21,22 +26,27 @@ package utils
 		
 		public function invertBit(bitIndex:uint):void
 		{
-			mask ^= (1 << bitIndex);
+			_mask ^= (1 << bitIndex);
 		}
 		
 		public function clearBit(bitIndex:uint):void
 		{
-			mask &= ~(1 << bitIndex);
+			_mask &= ~(1 << bitIndex);
 		}
 		
 		public function setBit(bitIndex:uint):void
 		{
-			mask |= (1 << bitIndex);
+			_mask |= (1 << bitIndex);
 		}
 		
-		public function isByteSet(bitIndex:uint):Boolean
+		public function isBitSet(bitIndex:uint):Boolean
 		{
-			return Boolean(mask & ( 1 << bitIndex));
+			return Boolean(_mask & ( 1 << bitIndex));
+		}
+		
+		public function get mask():uint 
+		{
+			return _mask;
 		}
 	}
 

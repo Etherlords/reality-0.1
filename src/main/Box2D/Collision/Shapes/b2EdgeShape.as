@@ -368,7 +368,7 @@ public class b2EdgeShape extends b2Shape
 	/**
 	* @private
 	*/
-	b2internal function SetPrevEdge(edge: b2EdgeShape, core: b2Vec2, cornerDir: b2Vec2, convex: Boolean): void
+	public function SetPrevEdge(edge: b2EdgeShape, core: b2Vec2, cornerDir: b2Vec2, convex: Boolean): void
 	{
 		m_prevEdge = edge;
 		m_coreV1 = core;
@@ -379,7 +379,7 @@ public class b2EdgeShape extends b2Shape
 	/**
 	* @private
 	*/
-	b2internal function SetNextEdge(edge: b2EdgeShape, core: b2Vec2, cornerDir: b2Vec2, convex: Boolean): void
+	public function SetNextEdge(edge: b2EdgeShape, core: b2Vec2, cornerDir: b2Vec2, convex: Boolean): void
 	{
 		m_nextEdge = edge;
 		m_coreV2 = core;

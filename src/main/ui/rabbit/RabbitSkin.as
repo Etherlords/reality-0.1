@@ -35,6 +35,7 @@ public class RabbitSkin extends Skin
 			super();
 			
 			this.scaleX = this.scaleY = 0.5;
+			
 		   
 			left = new WalkLeft();
 			right = new WalkLeft();
@@ -91,6 +92,12 @@ public class RabbitSkin extends Skin
 			
 			_physHeight = 25;
 			_physWidht = 40;
+			
+			//for (var i:int = 0; i < numChildren - 1; i++)
+			//{
+			//	this.getChildAt(i).x -= 40;
+			//	this.getChildAt(i).y -= 10;
+			//}
 		}
 		
 		override public function get phsyHeight():Number 

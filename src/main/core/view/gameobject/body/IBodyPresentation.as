@@ -8,6 +8,9 @@ package core.view.gameobject.body
 	 */
 	public interface IBodyPresentation 
 	{
+		function get z():Number;
+		function set z(value:Number):void
+	
 		function get x():Number;
 		function set x(value:Number):void
 		
@@ -27,6 +30,9 @@ package core.view.gameobject.body
 		function preRender():void;
 		
 		function destroy():void
+		
+		function set rotation(value:Number):void;
+		function get rotation():Number
 		
 	}
 	

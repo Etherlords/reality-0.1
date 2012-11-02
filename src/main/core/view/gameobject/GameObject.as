@@ -45,11 +45,11 @@ import flash.events.IEventDispatcher;
 	public class GameObject extends EventDispatcher
 	{
 		
-		protected var skin:Skin;
+		public var skin:Skin;
 		protected var _body:IBodyPresentation
 		
 		
-		private var instance:DisplayObjectContainer;
+		public var instance:DisplayObjectContainer;
 		private var _physicalProperties:IPhysicalProperties;
 		public var markToDestroy:Boolean = false;
 		
@@ -84,7 +84,6 @@ import flash.events.IEventDispatcher;
 			
 			this.instance = instance;
 		
-			
 			preInitilize(physicModel, config);
 		}
 		

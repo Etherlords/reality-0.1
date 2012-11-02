@@ -38,34 +38,35 @@ package ui.snow
 			
 			dieTimer.addEventListener(TimerEvent.TIMER_COMPLETE, destroy);
 			dieTimer.start();
-			
-			this.addEventListener(Event.ENTER_FRAME, onUpdateFrame);
 		}
 		
 		private function destroy(e:TimerEvent):void 
 		{
-			
 			dieTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, destroy);
 			
-			TweenLite.to(this, 1, { alpha:0, onComplete:fullyRemove});
+			TweenLite.to(this, 1, { alpha:0, onComplete:fullyRemove } );
+			
 		}
 		
 		private function fullyRemove():void 
 		{
-			this.removeEventListener(Event.ENTER_FRAME, onUpdateFrame);
 			dieTimer = null;
 			TweenLite.killTweensOf(this);
 			
 			
 			if (this.parent)
 				parent.removeChild(this);
+				
+			dispatchEvent(new Event("destroy"));
 		}
 		
-		private function onUpdateFrame(e:Event):void 
+		public function updateView():void
 		{
+			
+			return;
 			this.y += speed;
 			
-			this.x += Math.sin(t += sinInterval) / 2;
+			this.x += 1//Math.sin(t += sinInterval) / 2;
 		}
 		
 	}

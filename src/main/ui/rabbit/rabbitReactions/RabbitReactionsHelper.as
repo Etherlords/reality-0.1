@@ -1,14 +1,11 @@
 package ui.rabbit.rabbitReactions 
 {
-import core.GlobalConstants;
-import flash.display.Stage;
-import patterns.strategy.Strategy;
-import patterns.strategy.StrategyController;
-import ui.rabbit.FlapTriggerGameObject;
-import ui.rabbit.Rabbit;
-
-
-
+	import core.GlobalConstants;
+	import flash.display.Stage;
+	import patterns.strategy.Strategy;
+	import patterns.strategy.StrategyController;
+	import ui.rabbit.FlapTriggerGameObject;
+	import ui.rabbit.Rabbit;
 
 	/**
 	 * ...
@@ -20,11 +17,9 @@ import ui.rabbit.Rabbit;
 		
 		private var rabbit:Rabbit;
 		private var stage:Stage;
-		private var flapTrigger:FlapTriggerGameObject;
 		
-		public function RabbitReactionsHelper(rabbit:Rabbit, stage:Stage, flapTrigger:FlapTriggerGameObject) 
+		public function RabbitReactionsHelper(rabbit:Rabbit, stage:Stage) 
 		{
-			this.flapTrigger = flapTrigger;
 			this.stage = stage;
 			this.rabbit = rabbit;
 			initilizeRabbitBehaviors();
@@ -79,7 +74,6 @@ import ui.rabbit.Rabbit;
 			behaviorStrategyController.addStrategy(followMouse);
 			behaviorStrategyController.addStrategy(move);
 			behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_ACCELERATE, new RabbitAccelerate()));
-		  behaviorStrategyController.addStrategy(new Strategy(GlobalConstants.ACTION_STRATEGY_FLAP_WINGS, new RabbitFlapWings(flapTrigger)));
 		}
 		
 	}

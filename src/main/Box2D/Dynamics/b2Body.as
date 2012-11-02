@@ -41,7 +41,7 @@ use namespace b2internal;
 public class b2Body
 {
 
-	private function connectEdges(s1: b2EdgeShape, s2: b2EdgeShape, angle1: Number): Number
+	public function connectEdges(s1: b2EdgeShape, s2: b2EdgeShape, angle1: Number): Number
 	{
 		var angle2: Number = Math.atan2(s2.GetDirectionVector().y, s2.GetDirectionVector().x);
 		var coreOffset: Number = Math.tan((angle2 - angle1) * 0.5);
@@ -72,6 +72,8 @@ public class b2Body
 		{
 			return null;
 		}
+		
+	
 		
 		// TODO: Decide on a better place to initialize edgeShapes. (b2Shape::Create() can't
 		//       return more than one shape to add to parent body... maybe it should add

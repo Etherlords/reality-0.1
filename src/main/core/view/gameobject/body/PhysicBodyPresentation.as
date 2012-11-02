@@ -54,8 +54,19 @@ package core.view.gameobject.body
 			
 			skin.x = x;
 			skin.y = y;
+			skin.z = z;
 			
 			skin.rotation = body.GetTransform().GetAngle() * GlobalConstants.RAD_TO_DEGREE;
+		}
+		
+		public function get rotation():Number
+		{
+			return body.GetTransform().GetAngle() * GlobalConstants.RAD_TO_DEGREE;
+		}
+		
+		public function set rotation(value:Number):void
+		{
+			body.SetAngle((value - 180) * GlobalConstants.DEGREE_TO_RAD);
 		}
 		
 		/**
@@ -84,6 +95,16 @@ package core.view.gameobject.body
 		public function set x(value:Number):void 
 		{
 			_position.Set(value * GlobalConstants.PIXELS_TO_METR, _position.y);
+		}
+		
+		public function get z():Number
+		{
+			return skin.z
+		}
+		
+		public function set z(value:Number):void 
+		{
+			skin.z = value;
 		}
 		
 		public function get y():Number

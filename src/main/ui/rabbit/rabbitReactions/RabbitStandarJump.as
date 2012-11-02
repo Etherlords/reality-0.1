@@ -1,10 +1,7 @@
 package ui.rabbit.rabbitReactions 
 {
-	import Box2D.Common.Math.b2Vec2;
-
-import core.GlobalConstants;
-
-import patterns.strategy.SimpleAlgorithm;
+	import core.GlobalConstants;
+	import patterns.strategy.SimpleAlgorithm;
 	import ui.rabbit.Rabbit;
 	
 	/**
@@ -24,7 +21,7 @@ import patterns.strategy.SimpleAlgorithm;
 		{
 			
 			
-			if (Math.abs(rabbit.physicalProperties.physicModel.linearVelocity.y) > 0.2)
+			if (Math.abs(rabbit.physicalProperties.physicModel.linearVelocity.y) > 1)
 				return;
 			
 			rabbit.physicalProperties.applyImpulse(0, -jumpForce);
