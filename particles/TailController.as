@@ -40,18 +40,18 @@ package
 			//emitterY = stage.stageHeight >> 1;
 			start();
 			emitterType = 1;
-			maxNumParticles = 250;
+			maxNumParticles = 150;
 			rotatePerSecond = 360;
 			maxRadius = 15;
 			minRadius = 5;
 			
 			startSize = 20;
 			endSize = 25;
-			endSizeVariance = 0;
+			endSizeVariance = 20;
 			startSizeVariance = 25;
 			
-			lifespan = 10
-			lifespanVariance = 1.9;
+			lifespan = 15
+			lifespanVariance = 5.9;
 			emitterXVariance = 10;
 			emitterYVariance = 10;
 			//speed = 100;

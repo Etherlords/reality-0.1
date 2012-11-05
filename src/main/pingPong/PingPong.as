@@ -172,8 +172,7 @@ package pingPong
 				sceneView.renderScene();
 				worldController.gameStep();
 			}
-			else
-				prepareGameStart()
+			
 			
 			
 			if (!isGameInProgress && Math.random() > 0.96)

@@ -19,10 +19,10 @@ package
 		{
 			emitterType = 1;
 			emitAngle = 0;	emitAngleVariance = Math.PI;
-			maxRadius = 2;	maxRadiusVariance = 0;
+			maxRadius = 10;	maxRadiusVariance = 0;
 			minRadius = 10;
 			
-			maxNumParticles = 250;
+			maxNumParticles = 150;
 			
 			startSize = 10;
 			endSize = 7;
