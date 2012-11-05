@@ -26,7 +26,10 @@ package ui
 		
 		public static var START_SCREEN:String = 	'<font size="35">PING PONG</font>\n\n\n'
 												+	'\n\n\n'
-												+	'<button><a href="event:startGame">Start the game</a></button>'
+												+   'TO START THE GAME\n'
+												+   'PRESS\n'
+												+	'<button><a href="event:startGame">SPACE</a></button>\n'
+												+   'OR FOR RESTART RAUND'
 												+	'\n\n\n\n\n\n'
 
 												+	'Copytights blablabla c()'

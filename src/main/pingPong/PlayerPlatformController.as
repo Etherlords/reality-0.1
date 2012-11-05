@@ -16,13 +16,15 @@ package pingPong
 		protected var worldController:Box2DWorldController;
 		protected var platform:GameObject;
 		
+		private var _basex:Number = 0;
+		
 		public function PlayerPlatformController(viewInstance:DisplayObjectContainer, worldController:Box2DWorldController, platform:GameObject) 
 		{
 			this.platform = platform;
 			this.worldController = worldController;
 			this.viewInstance = viewInstance;
 			
-			
+			basex = platform.body.x;
 			initilize();
 		}
 		
@@ -54,8 +56,19 @@ package pingPong
 			if (__y > 400)
 				__y = 400;
 			
-			
+			platform.body.x = basex;
 			platform.body.y = __y;
+		}
+		
+		public function get basex():Number 
+		{
+			return _basex;
+		}
+		
+		public function set basex(value:Number):void 
+		{
+			_basex = value;
+			platform.body.x = basex;
 		}
 		
 	}

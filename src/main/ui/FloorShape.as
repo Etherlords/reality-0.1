@@ -2,11 +2,6 @@ package ui
 {
 	import com.greensock.TweenMax;
 	import core.view.skin.Skin;
-	import flash.display.BitmapData;
-	import flash.display.Shape;
-	import flash.geom.Matrix;
-	import silin.zod.materials.TextureMaterial;
-	import silin.zod.primitives.Cube;
 	
 	/**
 	 * ...

@@ -9,6 +9,7 @@ package
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.display.StageQuality;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.ui.Mouse;
@@ -63,8 +64,8 @@ package
 			Mouse.registerCursor('noCursor', cursor);
 			
 			
-			stage.align = 'TL';
-			stage.scaleMode = 'noScale';
+			//stage.align = 'TL';
+			//stage.scaleMode = StageScaleMode.NO_BORDER;
 			stage.quality = StageQuality.BEST
 			
 		

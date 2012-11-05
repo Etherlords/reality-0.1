@@ -1,5 +1,8 @@
 package pingPong 
 {
+	import Box2D.Dynamics.b2Body;
+	import core.GlobalConstants;
+	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 	import flash.geom.Point;
 	import ui.camera.TracingCamera;
 	
@@ -22,11 +25,13 @@ package pingPong
 		{
 			if (!_tracingTarget)
 				return;
+				
+			var body:b2Body = (tracingTarget.physicalProperties as SimplePhysicalProperties).physicBodyKey
 			
-			_target.x = tracingTarget.body.x + tracingTarget.body.width;
-			_target.y = tracingTarget.body.y + tracingTarget.body.height / 2;
+			_target.x = body.GetWorldCenter().x * GlobalConstants.METRS_TO_PIXEL+ 50;
+			_target.y = body.GetWorldCenter().y * GlobalConstants.METRS_TO_PIXEL+ 50 / 2;
 			
-			_target.x /= 20;
+			_target.x /= 40;
 			_target.y /= 100;
 			
 			//trace(tracingTarget.body.x + tracingTarget.body.width );

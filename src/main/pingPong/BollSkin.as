@@ -1,6 +1,7 @@
 package pingPong 
 {
 	import core.view.skin.Skin;
+	import flash.filters.BlurFilter;
 	
 	/**
 	 * ...
@@ -14,8 +15,10 @@ package pingPong
 			super();
 			
 			graphics.lineStyle(2, 0xCCCCCC);
-			graphics.beginFill(0xFFFFFF);
-			graphics.drawRect(0, 0, 23, 23);
+			graphics.beginFill(0xFFFFFF, 0.8);
+			graphics.drawRect( -12, -12, 23, 23);
+			
+			this.filters = [new BlurFilter(4, 4, 1)]
 		}
 		
 	}

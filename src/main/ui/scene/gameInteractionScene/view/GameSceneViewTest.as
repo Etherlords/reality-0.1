@@ -2,19 +2,14 @@ package  ui.scene.gameInteractionScene.view
 {
 	//import com.sociodox.theminer.TheMiner;
 	import core.locators.ServicesLocator;
-	import flash.display.Bitmap;
-	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.filters.GlowFilter;
 	import flash.geom.Point;
-	import silin.zod.core.Sprite3D;
-	import silin.zod.primitives.Cube;
 	import ui.FloorShape;
 	import ui.scoreboard.Scoreboard;
-import ui.services.scores.ScoresService;
-import ui.snow.FallingSnowAnimation;
+	import ui.services.scores.ScoresService;
+	import ui.snow.FallingSnowAnimation;
 	
 	/**
 	 * ...

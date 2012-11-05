@@ -4,12 +4,12 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="D:\\binary_output\RabbitGame\RabbitGame.swf" />
+    <movie path="D:\binary_output\pingPong.swf" />
     <movie fps="120" />
     <movie width="800" />
     <movie height="600" />
     <movie version="11" />
-    <movie minorVersion="4" />
+    <movie minorVersion="3" />
     <movie platform="Flash Player" />
     <movie background="#000000" />
   </output>

@@ -57,9 +57,9 @@ package utils
 			var body:b2Body = (floor.physicalProperties as SimplePhysicalProperties).physicBodyKey
 			
 			var fix:b2Fixture = body.GetFixtureList();
-			fix.SetRestitution(0);
+			fix.SetRestitution(1);
 			fix.SetDensity(100);
-			fix.SetFriction(1);
+			fix.SetFriction(0);
 			
 			var roof:GameObject = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);
 			roof.body.y = 0;
@@ -69,9 +69,9 @@ package utils
 			
 			
 			fix = body.GetFixtureList();
-			fix.SetRestitution(0);
+			fix.SetRestitution(1);
 			fix.SetDensity(100);
-			fix.SetFriction(11);
+			fix.SetFriction(0);
 			
 			wallConfig.skinClass = DetectorShape
 			right = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);

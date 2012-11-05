@@ -28,6 +28,7 @@ package pingPong
 			var config:GameobjectConfig = new GameobjectConfig(true);
 			//rabbitConfig.physicConfiguration.friction = 1;
 			config.type = 2; //todo replace
+			//config.shapeType = 1; //todo replace
 			config.skinClass = PlatformSkin;
 			
 			var gameObject:GameObject = worldController.constructGameObject(GameObject, config, new PhysicModel(40, 1, 0.1),  stage);

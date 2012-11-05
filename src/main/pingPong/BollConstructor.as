@@ -28,20 +28,21 @@ package pingPong
 			var config:GameobjectConfig = new GameobjectConfig(true);
 			//rabbitConfig.physicConfiguration.friction = 1;
 			config.type = 2; //todo replace
+			config.shapeType = 1; //todo replace
 			config.skinClass = BollSkin;
 			
-			var gameObject:GameObject = worldController.constructGameObject(GameObject, config, new PhysicModel(0.1, 0, 0),  stage);
-			gameObject.physicalProperties.physicModel.fixedRotation = true;
+			var gameObject:GameObject = worldController.constructGameObject(GameObject, config, new PhysicModel(0.07, 0, 0),  stage);
+			gameObject.physicalProperties.physicModel.fixedRotation = false;
 			
 			var body:b2Body = (gameObject.physicalProperties as SimplePhysicalProperties).physicBodyKey
 			
 			body.SetBullet(true);
-			//body.SetLinearDamping(-100);
+			body.SetAngularDamping(0.01);
 			var fix:b2Fixture = body.GetFixtureList();
-			fix.SetRestitution(0.9);
+			
+			fix.SetRestitution(1);
 			fix.SetDensity(0.1);
 			fix.SetFriction(0);
-			
 			
 			body.SetSleepingAllowed(false);
 			
