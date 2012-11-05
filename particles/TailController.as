@@ -45,10 +45,10 @@ package
 			maxRadius = 15;
 			minRadius = 5;
 			
-			startSize = 20;
-			endSize = 25;
+			startSize = 25;
+			endSize = 30;
 			endSizeVariance = 20;
-			startSizeVariance = 25;
+			startSizeVariance = 30;
 			
 			lifespan = 15
 			lifespanVariance = 5.9;
