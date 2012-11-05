@@ -8,40 +8,40 @@ package core.Box2D.collision
 	import core.Box2D.utils.GameobjectsRegistry;
 	import core.events.NativeCollideEvent;
 	import core.view.gameobject.GameObject;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.IEventDispatcher;
+	import starling.events.Event;
+	import starling.events.EventDispatcher;
+
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class SimpleConcatListener extends b2ContactListener implements IEventDispatcher
+	public class SimpleConcatListener extends b2ContactListener// implements IEventDispatcher
 	{
 		private var dispatcher:EventDispatcher;
-		private var eventFlowTarget:IEventDispatcher;
+		
 		private var _gameObjectsRegistry:GameobjectsRegistry;
 		
-		public function SimpleConcatListener(gameObjectsRegistry:GameobjectsRegistry,eventFlowTarget:IEventDispatcher = null) 
+		public function SimpleConcatListener(gameObjectsRegistry:GameobjectsRegistry) 
 		{
 			_gameObjectsRegistry = gameObjectsRegistry;
 			//Можно баблить эвенты если это понадобится задав выше стоящий во флоу диспатчер
-			this.eventFlowTarget = eventFlowTarget;
+			
 			initilize();
 		}
 		
 		private function initilize():void 
 		{
-			dispatcher = new EventDispatcher(eventFlowTarget);
+			dispatcher = new EventDispatcher();
 		}
 		
-		public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void 
+		public function addEventListener(type:String, listener:Function):void 
 		{
-			dispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			dispatcher.addEventListener(type, listener);
 		}
 		
-		public function dispatchEvent(event:Event):Boolean 
+		public function dispatchEvent(event:Event):void 
 		{
-			return dispatcher.dispatchEvent(event);
+			dispatcher.dispatchEvent(event);
 		}
 		
 		public function hasEventListener(type:String):Boolean 
@@ -49,15 +49,12 @@ package core.Box2D.collision
 			return dispatcher.hasEventListener(type);
 		}
 		
-		public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void 
+		public function removeEventListener(type:String, listener:Function):void 
 		{
-			dispatcher.removeEventListener(type, listener, useCapture);
+			dispatcher.removeEventListener(type, listener);
 		}
 		
-		public function willTrigger(type:String):Boolean 
-		{
-			return dispatcher.willTrigger(type);
-		}
+		
 		
 		//This is called when two fixtures begin to overlap. This is called for sensors and non-sensors. This event can only occur inside the time step.
 		override public function BeginContact(contact:b2Contact):void 

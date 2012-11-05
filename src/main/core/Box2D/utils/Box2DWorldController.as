@@ -9,7 +9,7 @@ import core.collections.SimpleMap;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.GameObject;
 import core.view.gameobject.physicalpropeties.PhysicModel;
-import flash.display.DisplayObjectContainer;
+import starling.display.DisplayObjectContainer;
 import flash.geom.Point;
 
 
@@ -72,7 +72,7 @@ import flash.geom.Point;
 			_appliedControllersMap = new SimpleMap(); 
 			
 			if (isDebug)
-				debugDraw = new Box2DDebug(debugInstance, world);
+				debugDraw = new Box2DDebug(StarlingInit.debugInstance, world);
 		}
 		
 		private function initWorld():void
@@ -103,7 +103,7 @@ import flash.geom.Point;
                 interestObject.preRender(0.025 * 1000); //todo calc correctly
             }
 			
-			world.Step(0.04, 10, 10);
+			world.Step(0.036, 1, 1);
 			world.ClearForces();
 			
 			if(isDebug)

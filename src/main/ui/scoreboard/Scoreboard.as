@@ -1,9 +1,9 @@
 package ui.scoreboard 
 {
-	import flash.display.Sprite;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
+	import starling.display.Sprite;
+	import starling.text.TextField;
+	//import flash.text.TextFieldAutoSize;
+	//import flash.text.TextFormat;
 	
 	/**
 	 * ...
@@ -22,13 +22,13 @@ package ui.scoreboard
 		
 		private function initilize():void 
 		{
-			_scoresView = new TextField();
-			
-			_scoresView.y = 10;
+			_scoresView = new TextField(100, 20, '0', "Verdana", 20, 0xFFFFFF);
+			_scoresView.autoScale = true;
+			/*_scoresView.y = 10;
 			_scoresView.x = 10;
 			_scoresView.autoSize = TextFieldAutoSize.LEFT;
 			_scoresView.defaultTextFormat = new TextFormat("Verdana", 20, 0xFFFFFF);
-			_scoresView.text = '0';
+			_scoresView.text = '0';*/
 			
 			addChild(_scoresView);
 		}

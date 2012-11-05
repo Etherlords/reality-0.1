@@ -1,10 +1,10 @@
 package ui 
 {
-	import flash.display.Sprite;
-	import flash.events.Event;
+	import starling.display.Sprite;
+	import starling.events.Event;
 	import flash.events.TextEvent;
 	import flash.text.StyleSheet;
-	import flash.text.TextField;
+	import starling.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	/**
@@ -63,15 +63,15 @@ package ui
 			
 			for (var i:int = 0; i < lablesParts.length; i++)
 			{
-				lable = new TextField();
+				lable = new TextField(200, 20, lablesParts[i],'Verdana', 10, 0xCCCCCC, true);
 				
-				lable.defaultTextFormat = textFormat;
-				lable.autoSize = TextFieldAutoSize.LEFT;
+				//lable.defaultTextFormat = textFormat;
+				lable.autoScale = true;// TextFieldAutoSize.LEFT;
 				
-				lable.selectable = false;
-				lable.styleSheet = style;
+				//lable.selectable = false;
+				//lable.styleSheet = style;
 				
-				lable.htmlText = lablesParts[i];
+				//lable.htmlText = lablesParts[i];
 				//lable.border = true;
 				
 				lable.x = -lable.width / 2;// (width - lable.width) / 2;
@@ -89,15 +89,16 @@ package ui
 		{
 			var link:String = e.text;
 			
-			dispatchEvent(new Event(link));
+			//dispatchEvent(new Event(link));
 		}
 		
 		private function drawBG():void 
 		{
 			//this.graphics.lineStyle(0);
-			this.graphics.beginFill(0x0, 0.6);
-			this.graphics.drawRect(0, 0, this.width, this.height);
-			this.graphics.endFill();
+			//this
+			//this.graphics.beginFill(0x0, 0.6);
+			//this.graphics.drawRect(0, 0, this.width, this.height);
+			//this.graphics.endFill();
 		}
 		
 	}

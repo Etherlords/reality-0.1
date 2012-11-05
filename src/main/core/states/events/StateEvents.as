@@ -1,6 +1,6 @@
 package core.states.events 
 {
-	import flash.events.Event;
+	import starling.events.Event;
 	
 	/**
 	 * ...

@@ -7,7 +7,7 @@ package pingPong
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
-	import flash.display.DisplayObjectContainer;
+	import starling.display.DisplayObjectContainer;
 	import core.view.gameobject.GameObject;
 	import ui.rabbit.constructor.PlayerConstructor;
 	

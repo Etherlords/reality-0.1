@@ -10,7 +10,7 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageQuality;
 	import flash.display.StageScaleMode;
-	import flash.events.Event;
+	import starling.events.Event;
 	import flash.geom.Rectangle;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursorData;

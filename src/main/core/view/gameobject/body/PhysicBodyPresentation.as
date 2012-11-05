@@ -54,9 +54,9 @@ package core.view.gameobject.body
 			
 			skin.x = x;
 			skin.y = y;
-			skin.z = z;
+			//skin.z = z;
 			
-			skin.rotation = body.GetTransform().GetAngle() * GlobalConstants.RAD_TO_DEGREE;
+			skin.rotation = body.GetTransform().GetAngle() //* GlobalConstants.RAD_TO_DEGREE;
 		}
 		
 		public function get rotation():Number
@@ -99,12 +99,13 @@ package core.view.gameobject.body
 		
 		public function get z():Number
 		{
-			return skin.z
+			//return skin.z
+			return 0
 		}
 		
 		public function set z(value:Number):void 
 		{
-			skin.z = value;
+			//skin.z = value;
 		}
 		
 		public function get y():Number

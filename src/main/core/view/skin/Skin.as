@@ -1,7 +1,12 @@
 package core.view.skin 
 {
 	import core.view.direction.Direction;
-	import flash.display.Sprite;
+	import flash.display.BitmapData;
+	import flash.display.Graphics;
+	import flash.display.Shape;
+	import starling.display.Image;
+	import starling.display.Sprite;
+	import starling.textures.Texture;
 	
 	/**
 	 * Реализация графики объекта может состоять из многих частей или из одного сплошноо спрайта по сути
@@ -13,26 +18,46 @@ package core.view.skin
 	 */
 	public class Skin extends Sprite 
 	{
+		protected var shape:Shape;
+		protected var _graphics:Graphics;
+		protected var texture:Texture;
+		protected var image:Image;
+		public var direction:Direction;
+		
 		
 		public function Skin() 
 		{
 			super();
+			shape = new Shape();
 		}
 		
-		public var direction:Direction;
+		public function prepareSkin():void
+		{
+			var bm:BitmapData = new BitmapData(shape.width, shape.height, true);
+			bm.draw(shape);
+			
+			texture = Texture.fromBitmapData(bm, true, true);
+			image = new Image(texture);
+			addChild(image);
+		}
 		
-		public function doAction(actionKey:uint):void
+		public function doAction(actionKey:uint, additionalParam:Number = 0):void
 		{
 			
 		}
 
         public function get phsyWidth():Number {
-            return this.width;
+            return shape.width;
         }
 
         public function get phsyHeight():Number {
-            return this.height;
+            return shape.height;
         }
+		
+		public function get graphics():Graphics 
+		{
+			return shape.graphics;
+		}
 		
 	}
 

@@ -8,7 +8,7 @@ import core.scene.AbstractSceneController;
 
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
-import flash.events.Event;
+import starling.events.Event;
 import flash.text.TextField;
 
 

@@ -16,8 +16,8 @@ import core.view.gameobject.physicalpropeties.constructor.SimplePhysicalProperti
 import core.view.gameobject.physicalpropeties.IPhysicalProperties;
 import core.view.gameobject.physicalpropeties.PhysicModel;
 import core.view.skin.Skin;
-import flash.display.DisplayObjectContainer;
-import flash.events.EventDispatcher;
+import starling.display.DisplayObjectContainer;
+import starling.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 
 
@@ -80,7 +80,7 @@ import flash.events.IEventDispatcher;
 		 */
 		public function GameObject(config:GameobjectConfig, physicModel:PhysicModel, instance:DisplayObjectContainer, eventFlowTarget:IEventDispatcher = null) 
 		{
-			super(eventFlowTarget);
+			super();
 			
 			this.instance = instance;
 		
@@ -221,7 +221,9 @@ import flash.events.IEventDispatcher;
 			//Кажется что скин лучше кууда то еще вынести но хз
 			skin = new config.skinClass;
 			skin.direction = direction;
+			skin.prepareSkin();
 			_body = bodyConstructor.make(skin);
+			
 			_physicalProperties = phsyPropConstructor.make(body, physicModel);
 			
 			direction.trackingObject = this;
@@ -250,9 +252,9 @@ import flash.events.IEventDispatcher;
          *  азадиние апиранса по ключу, типа rabbit.walk
          * @param key
          */
-        public function applyActionView(key:uint):void 
+        public function applyActionView(key:uint, additionalParam:Number = 0 ):void 
 		{
-            skin.doAction(key);
+            skin.doAction(key, additionalParam);
         }
 	}
 

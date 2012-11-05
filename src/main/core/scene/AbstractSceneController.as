@@ -1,9 +1,9 @@
 package core.scene 
 {
 	import core.states.events.StateEvents;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
+	import starling.display.DisplayObjectContainer;
+	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	/**
 	 * ...
 	 * @author 
@@ -60,6 +60,7 @@ package core.scene
 			currentViewContainer = instance;
 			isActivated = true;
 			currentViewContainer.addChild(view);
+			view.visible = true;
 		}
 		
 		/**

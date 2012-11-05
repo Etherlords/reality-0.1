@@ -1,7 +1,7 @@
 package ui.snow 
 {
 	import flash.display.Sprite;
-	import flash.events.Event;
+	import starling.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	

@@ -6,7 +6,7 @@ package  ui.scene.gameInteractionScene.view
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Shape;
 	import flash.display.Sprite;
-	import flash.events.Event;
+	import starling.events.Event;
 	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 	import ui.scoreboard.Scoreboard;

@@ -3,7 +3,7 @@ package ui.snow
 	import com.greensock.TweenLite;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
-	import flash.events.Event;
+	import starling.events.Event;
 	import flash.events.TimerEvent;
 	import flash.filters.BlurFilter;
 	import flash.utils.Timer;
@@ -57,7 +57,7 @@ package ui.snow
 			if (this.parent)
 				parent.removeChild(this);
 				
-			dispatchEvent(new Event("destroy"));
+			//dispatchEvent(new Event("destroy"));
 		}
 		
 		public function updateView():void

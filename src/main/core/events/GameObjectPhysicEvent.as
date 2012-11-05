@@ -1,7 +1,7 @@
 package core.events 
 {
 	import core.view.gameobject.GameObject;
-	import flash.events.Event;
+	import starling.events.Event;
 	
 	/**
 	 * ...
@@ -20,11 +20,7 @@ package core.events
 			_interactionWith = interactionWith;
 		}
 		
-		override public function clone():Event 
-		{
-			return new GameObjectPhysicEvent(type, bubbles, cancelable, interactionWith);
-		}
-		
+	
 		public function get interactionWith():GameObject 
 		{
 			return _interactionWith;

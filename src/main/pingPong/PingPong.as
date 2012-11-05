@@ -9,8 +9,15 @@ package pingPong
 	import core.scene.AbstractSceneController;
 	import core.ui.KeyBoardController;
 	import core.view.gameobject.GameObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import starling.animation.IAnimatable;
+	import starling.animation.Transitions;
+	import starling.animation.Tween;
+	import starling.core.Starling;
+	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
+	import starling.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -39,19 +46,22 @@ package pingPong
 		private var boll:GameObject;
 		
 		private var intensity:Number = 1.05;
-		private var speedUpt:Number = 1.05;
+		private var speedUpt:Number = 1.07;
 		
 		private var platform:GameObject;
 		private var platform2:GameObject;
 		private var gameStartDialog:Alert;
 		private var score:Scoreboard;
 		private var ricoshetScore:Scoreboard;
+		private var bollSpeed:Scoreboard;
 		private var scoreService:SharedObjectService;
 		private var mouseDown:Boolean = false;
 		private var playerPlatformer:PlayerPlatformController;
 		private var iiController:IIPlatformController;
 		
 		private var isGameInProgress:Boolean = true;
+		private var stepTimer:Timer;
+		private var tail:TailController;
 		
 		
 		public function PingPong()
@@ -69,7 +79,11 @@ package pingPong
 			
 			score = new Scoreboard();
 			ricoshetScore = new Scoreboard();
+			bollSpeed = new Scoreboard();
 			scoreService = new SharedObjectService(score);
+			
+			stepTimer = new Timer(1/30);
+			stepTimer.addEventListener(TimerEvent.TIMER, gameStep);
 			
 			super.initilize();
 		}
@@ -77,7 +91,7 @@ package pingPong
 		private function startRaund():void 
 		{
 			initGameCycles();
-			
+			boll.applyActionView(1);
 			prepareGameStart();
 			
 			var side:Number = 1;
@@ -87,7 +101,7 @@ package pingPong
 				
 			Mouse.cursor = 'noCursor';
 			
-			boll.physicalProperties.applyForce( 2 * side, -0.5 + Math.random() * 1 * side);
+			boll.physicalProperties.applyForce( 2 * side, 0)//-0.1 + Math.random() * 0.2 * side);
 			//boll.physicalProperties.applyForce( -1, 0);
 			
 			if (view.contains(gameStartDialog))
@@ -109,6 +123,8 @@ package pingPong
 			boll.body.y = (500 - boll.body.width / 2) / 2;
 			
 			ricoshetScore.scores = 0
+			bollSpeed.scores = 0
+			
 		}
 		
 		private function postInitilize():void
@@ -130,8 +146,7 @@ package pingPong
 		
 		private function initGameCycles():void
 		{
-			//var stepTimer:Timer = new Timer(0.025 * 1000);
-			//stepTimer.addEventListener(TimerEvent.TIMER, gameStep);
+			
 			//stepTimer.start();
 			
 			if (!view.stage.hasEventListener(Event.ENTER_FRAME))
@@ -141,38 +156,48 @@ package pingPong
 		private function stopGameCycles():void
 		{
 			view.stage.removeEventListener(Event.ENTER_FRAME, gameStep);
+			stepTimer.stop()
 		}
 		
-		private function gameStep(e:Event = null):void
+		private function gameStep(e:Object = null):void
 		{
 			ricoshetScore.y = view.stage.stageHeight - ricoshetScore.height - 10;
+			//bollSpeed.y = 0 + ricoshetScore.height - 20;
 			ricoshetScore.x = (view.stage.stageWidth - ricoshetScore.width) / 2;
+			bollSpeed.x = (view.stage.stageWidth - bollSpeed.width) / 2;
 			
 			if (isGameInProgress)
 			{
 				
+				sceneView.renderScene();
 				worldController.gameStep();
-				sceneView.render();
 			}
+			else
+				prepareGameStart()
 			
 			
 			if (!isGameInProgress && Math.random() > 0.96)
 			{
-				var stars:StarAnimation = new StarAnimation();
+				var stars:BlowEffect = createBlow();
 				var viewInstance:DisplayObjectContainer = view;
 			
-				stars.scaleX = stars.scaleY = 0.5
-				stars.alpha = 0.9;
-				stars.x = boll.body.x + 15 + (-50 + Math.random() * 100)
+				
+				stars.x = boll.body.x + (-50 + Math.random() * 100)
 				stars.y = boll.body.y + 40+ (-150 + Math.random() * 300);
 			
-				stars.gotoAndPlay(int(Math.random() * 5));
-				viewInstance.addChild(stars)
+				
+				viewInstance.addChild(stars);
 			}
 			
-		
+			bollSpeed.scores = int((Math.abs(boll.physicalProperties.physicModel.linearVelocity.x) + Math.abs(boll.physicalProperties.physicModel.linearVelocity.y)));
 			
+			StarlingInit.debugInstance.x = view.x;
+			StarlingInit.debugInstance.y = sceneView.gameObjectsInstance.y;
 			
+			//tail.emitterX = boll.body.x + boll.body.width / 2;
+			//tail.emitterY = boll.body.y + boll.body.height * 2;
+			
+			//tail.emitAngle = boll.body.rotation * GlobalConstants.DEGREE_TO_RAD;
 		}
 		
 		private function createWorld():void
@@ -187,6 +212,8 @@ package pingPong
 			 
 			view.addChild(score);
 			view.addChild(ricoshetScore);
+			view.addChild(bollSpeed);
+			
 			
 			
 			
@@ -205,8 +232,7 @@ package pingPong
 			//playerPlatformer = new IIPlatformController(sceneView.gameObjectsInstance, worldController, platform, boll);
 			iiController = new IIPlatformController(sceneView.gameObjectsInstance, worldController, platform2, boll);
 			
-			
-			var keyController:KeyBoardController = new KeyBoardController(view.stage);
+			var keyController:KeyBoardController = new KeyBoardController(Starling.current.nativeStage);
 			keyController.registerKeyDownReaction(Keyboard.LEFT, movePlatformsLeft);
 			keyController.registerKeyDownReaction(Keyboard.RIGHT, movePlatformsRight);
 			keyController.registerKeyDownReaction(Keyboard.SPACE, startRaund);
@@ -257,7 +283,11 @@ package pingPong
 			
 			view.addChild(gameStartDialog);
 			isGameInProgress = false;
-		
+			//boll.applyActionView(0);
+			
+			var bigBlow:BigBlowEffect = createBigBlow();
+			bigBlow.x = boll.body.x 
+			bigBlow.y = boll.body.y + 40
 			
 		}
 		
@@ -269,67 +299,131 @@ package pingPong
 		private function click(e:MouseEvent):void 
 		{
 			mouseDown = true;
+			
+			playerPlatformer.impulse();
+		}
+		
+		private function createBigBlow():BigBlowEffect
+		{
+			var blow:BigBlowEffect = new BigBlowEffect();
+			
+			blow.start(1);
+			var t:Tween = new Tween(blow, 0.7, Transitions.EASE_IN);
+			t.animate("maxRadius", 150);
+			t.animate("minRadius", 150);
+			t.animate("rotatePerSecond", 360);
+			boll.skin.visible = false;
+			
+			t.onComplete = Delegate.create(moveBlow, blow);
+			Starling.juggler.add(t);
+			view.addChild(blow);
+			
+			return blow;
+		}
+		
+		private function createBlow():BlowEffect
+		{
+			var blow:BlowEffect = new BlowEffect();
+			
+			blow.start(1);
+			var t:Tween = new Tween(blow, 0.3, Transitions.EASE_IN);
+			t.animate("maxRadius", 25);
+			t.animate("minRadius", 25);
+			
+			t.onComplete = Delegate.create(reset, blow);
+			Starling.juggler.add(t);
+			view.addChild(blow);
+			
+			return blow;
 		}
 		
 		private function onBollCollide(e:GameObjectPhysicEvent):void 
 		{
 			var ang:Number = 0;
+			var currVel:Point = boll.physicalProperties.physicModel.linearVelocity;
 			
-			
-			e.interactionWith.applyActionView(0);
+			if(e.interactionWith == platform)
+				e.interactionWith.applyActionView(1, currVel.x);
+			else
+				e.interactionWith.applyActionView(0, currVel.x);
+				
+				
 			var dir:Point = new Point();
 			
-			var currVel:Point = boll.physicalProperties.physicModel.linearVelocity;
 			
 			
 			//dir.x = currVel.x * 1.15 + Math.random() * 1.5;
 			//dir.y = currVel.y * (1.08) + (-10 + Math.random() * 20);
 			
-			speedUpt -= 0.001
+			speedUpt -= 0.00175
 			
-			if (speedUpt < 1.001)
-				speedUpt = 1.001;
+			if (speedUpt < 1.008)
+			if (speedUpt < 1.008)
+				speedUpt = 1.008;
 				
 			
 			dir.x = currVel.x * speedUpt;
-			dir.y = currVel.y * speedUpt - 0.03;
+			dir.y = currVel.y * speedUpt - 0.02;
 			
 			if (e.interactionWith == platform || e.interactionWith == platform2)
 			{
 				var y_delta:Number = (boll.body.y - e.interactionWith.body.y);
 				ang = (180 / 100 * y_delta) - 90;
-				trace(ang);
-				ang /= 3;
-				ang *= GlobalConstants.DEGREE_TO_RAD
+				
+				ang /= 2;
+				ang *= GlobalConstants.DEGREE_TO_RAD * -1;
 				
 				intensity = 5;
+				trace('1', dir)
 				
+				var yPolar:int = 1;
+				var xPolar:Number = 1;
 				
+				if (dir.x < 0)
+					xPolar = -1;
 				
+				if (dir.y < 0)
+					yPolar = -1;
 				
-				dir.x += intensity * Math.cos(ang);
-				dir.y += intensity * Math.sin(ang);
-				
-
+				//dir.x += xPolar * intensity * Math.cos(ang);
+				dir.y += yPolar * intensity * Math.sin(ang);
 					
 				ricoshetScore.scores++;
 				
-				
-				
-			boll.physicalProperties.physicModel.linearVelocity = dir;
 			}
 			
+			boll.physicalProperties.physicModel.linearVelocity = dir;
 			
-			var stars:StarAnimation = new StarAnimation();
-			var viewInstance:DisplayObjectContainer = view;
+			var blow:BlowEffect = createBlow();
 			
-			stars.scaleX = stars.scaleY = 0.5
-			stars.alpha = 0.9;
-			stars.x = boll.body.x + 15
-			stars.y = boll.body.y + 40;
+			blow.x = boll.body.x ;
+			blow.y = boll.body.y + 40;
 			
-			viewInstance.addChild(stars)
+			//viewInstance.addChild(stars)
 		}
+		
+		private function freeze():void 
+		{
+			//stage.removeEventListener(TouchEvent.TOUCH, track);
+		}
+		
+		private function moveBlow(blow:Object):void
+		{
+			boll.skin.visible = true;
+			reset(blow);
+			boll.applyActionView(0);
+		}
+		 
+		private function reset(blow:Object):void 
+		{
+			//stage.addEventListener(TouchEvent.TOUCH, track);
+			blow.stop();
+			blow.maxRadius = 10;   
+			blow.minRadius = 0;
+			view.removeChild(blow as DisplayObject);
+			Starling.juggler.remove(blow as IAnimatable);
+		}
+
 		
 		
 		public override function activate(instance:DisplayObjectContainer):void

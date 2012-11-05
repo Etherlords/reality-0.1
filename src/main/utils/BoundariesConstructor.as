@@ -1,25 +1,16 @@
 package utils 
 {
-	import Box2D.Collision.Shapes.b2EdgeShape;
-	import Box2D.Collision.Shapes.b2PolygonShape;
-	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
-	import Box2D.Dynamics.b2BodyDef;
-	import Box2D.Dynamics.b2FilterData;
 	import Box2D.Dynamics.b2Fixture;
-	import Box2D.Dynamics.b2FixtureDef;
 	import core.Box2D.utils.Box2DWorldController;
 	import core.GlobalConstants;
-	import core.locators.PhysicWorldLocator;
 	import core.view.gameobject.config.GameobjectConfig;
 	import core.view.gameobject.GameObject;
 	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
-	import flash.display.DisplayObjectContainer;
-	import flash.geom.Point;
+	import starling.display.DisplayObjectContainer;
 	import ui.DetectorShape;
 	import ui.FloorShape;
-	import ui.rabbit.Rabbit;
 	/**
 	 * ...
 	 * @author 

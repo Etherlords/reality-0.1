@@ -14,6 +14,7 @@ package core.Box2D.utils
 		private var viewInstance:DisplayObjectContainer;
 		private var debugDraw:b2DebugDraw;
 		private var world:b2World;
+		private var debugSprite:Sprite;
 		
 		public function Box2DDebug(viewInstance:DisplayObjectContainer, world:b2World) 
 		{
@@ -25,22 +26,27 @@ package core.Box2D.utils
 		public function render():void
 		{
 			world.DrawDebugData();
+			
+			//debugSprite.graphics.beginFill(0xFFFFFF);
+			//debugSprite.graphics.drawRect(0, 0, 400, 400);
 		}
 		
 		private function initDebugDraw():void
 		{
 			debugDraw = new b2DebugDraw();
-			var debugSprite:Sprite = new Sprite();
+			debugSprite = new Sprite();
 
 			debugDraw.SetSprite(debugSprite);
 			debugDraw.SetDrawScale(GlobalConstants.METRS_TO_PIXEL);
-			debugDraw.SetFlags(b2DebugDraw.e_shapeBit )//| b2DebugDraw.e_aabbBit | b2DebugDraw.e_centerOfMassBit | b2DebugDraw.e_controllerBit | b2DebugDraw.e_pairBit | b2DebugDraw.e_jointBit);
-			//debugDraw.SetFlags( b2DebugDraw.e_jointBit);
+			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_aabbBit | b2DebugDraw.e_centerOfMassBit | b2DebugDraw.e_controllerBit | b2DebugDraw.e_pairBit | b2DebugDraw.e_jointBit);
+			
 			debugDraw.SetLineThickness(1);
 			debugDraw.SetFillAlpha(0.3);
 			world.SetDebugDraw(debugDraw);
 			
 			viewInstance.addChild(debugSprite);
+			
+			
 			
 		
 		}

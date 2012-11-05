@@ -1,7 +1,7 @@
 package core.events 
 {
 	import Box2D.Dynamics.b2Body;
-	import flash.events.Event;
+	import starling.events.Event;
 	
 	/**
 	 * ...
@@ -22,10 +22,7 @@ package core.events
 			
 		}
 		
-		override public function clone():Event 
-		{
-			return new NativeCollideEvent(type, bubbles, cancelable, bodyA, bodyB);
-		}
+	
 		
 		public function get bodyA():b2Body 
 		{

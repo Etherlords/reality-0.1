@@ -11,9 +11,9 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Loader;
 import flash.display.LoaderInfo;
 
-import flash.events.Event;
+import starling.events.Event;
 
-import flash.events.EventDispatcher;
+import starling.events.EventDispatcher;
 
 import flash.events.IEventDispatcher;
 import flash.net.URLRequest;

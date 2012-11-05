@@ -3,8 +3,8 @@ package core.states
 	import core.scene.AbstractSceneController;
 	import core.states.config.StateConfig;
 	import core.states.events.StateEvents;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.EventDispatcher;
+	import starling.display.DisplayObjectContainer;
+	import starling.events.EventDispatcher;
 	
 	/**
 	 * ...

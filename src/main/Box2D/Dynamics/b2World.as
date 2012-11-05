@@ -649,6 +649,7 @@ public class b2World
 			
 		if (flags & b2DebugDraw.e_shapeBit)
 		{
+			
 			for (b = m_bodyList; b; b = b.m_next)
 			{
 				xf = b.m_xf;
@@ -750,6 +751,7 @@ public class b2World
 				m_debugDraw.DrawTransform(xf);
 			}
 		}
+		
 	}
 
 	/**

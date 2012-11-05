@@ -2,10 +2,10 @@ package  ui.scene.gameInteractionScene.view
 {
 	//import com.sociodox.theminer.TheMiner;
 	import core.locators.ServicesLocator;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
-	import flash.events.Event;
+	import starling.events.Event;
 	import flash.geom.Point;
+	import starling.display.DisplayObjectContainer;
+	import starling.display.Sprite;
 	import ui.FloorShape;
 	import ui.scoreboard.Scoreboard;
 	import ui.services.scores.ScoresService;
@@ -48,8 +48,9 @@ package  ui.scene.gameInteractionScene.view
 		 * А внутри класса бекграунд уже можно будет описывать всякую логику рендера, эффектов и тд
 		 */
 		
-		public function render():void
+		public function renderScene():void
 		{
+			
 			var i:int;
 			//this.y = stage.stageHeight / 2 - rabbit.dimensionalProperties.y;
 			
@@ -132,8 +133,7 @@ package  ui.scene.gameInteractionScene.view
 		
 		private function removeFromMouseWorld(obj:DisplayObjectContainer):void
 		{
-			obj.mouseEnabled = false;
-			obj.mouseChildren = false;
+			
 		}
 		
 		

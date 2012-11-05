@@ -8,7 +8,7 @@ package pingPong
 	import core.view.gameobject.GameObject;
 	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
-	import flash.display.DisplayObjectContainer;
+	import starling.display.DisplayObjectContainer;
 	import ui.rabbit.constructor.PlayerConstructor;
 	
 	/**
@@ -40,11 +40,14 @@ package pingPong
 			body.SetAngularDamping(0.01);
 			var fix:b2Fixture = body.GetFixtureList();
 			
+			body.SetAngularVelocity(1)
 			fix.SetRestitution(1);
 			fix.SetDensity(0.1);
 			fix.SetFriction(0);
 			
 			body.SetSleepingAllowed(false);
+			
+			
 			
 			return gameObject;
 		}

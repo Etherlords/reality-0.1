@@ -21,10 +21,10 @@ package ui
 			
 		}
 		
-		override public function doAction(actionKey:uint):void 
+		override public function doAction(actionKey:uint, param:Number = 0):void 
 		{
 			trace('do action');
-			TweenMax.to(this, 0.5, { colorTransform: { tint:0xFFFFFF, tintAmount:0.9 }, onComplete:titntBack } );
+			//TweenMax.to(this, 0.5, { colorTransform: { tint:0xFFFFFF, tintAmount:0.9 }, onComplete:titntBack } );
 		}
 		
 		private function titntBack():void 

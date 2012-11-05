@@ -3,8 +3,8 @@ package pingPong
 	import com.greensock.TweenLite;
 	import core.Box2D.utils.Box2DWorldController;
 	import core.view.gameobject.GameObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
+	import starling.display.DisplayObjectContainer;
+	import starling.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -26,16 +26,29 @@ package pingPong
 		
 		override protected function initilize():void 
 		{
-			var t:Timer = new Timer(10, 0);
-			t.addEventListener(TimerEvent.TIMER, onFrameUpdate);
+			var t:Timer = new Timer(20, 0);
+			t.addEventListener(TimerEvent.TIMER, onTimerEvent);
 			t.start();
 		}
 		
-		override protected function onFrameUpdate(e:Event):void 
+		private function onTimerEvent(e:TimerEvent):void 
+		{
+			onFrameUpdate();
+		}
+		
+		override protected function onFrameUpdate(e:Event = null):void 
 		{
 			super.onFrameUpdate(e);
 			
-			var __y:Number = boll.body.y + (platform.body.height - boll.body.height) / 2
+			var __y:Number = boll.body.y + (platform.body.height - boll.body.height) / 2;
+			/*
+			if (Math.random() > 0.5)
+			{
+				if (Math.random() > 0.5)
+					__y += boll.body.width *2;
+				else
+					__y -= boll.body.width *2;
+			}*/
 			
 			__y = __y - platform.body.height;
 			
@@ -46,7 +59,7 @@ package pingPong
 				__y = 400;
 			
 			platform.body.x = basex;
-			TweenLite.to(platform.body, 0.0, { y:__y } );
+			TweenLite.to(platform.body, 0.03, { y:__y } );
 			
 			//setPlatformPosition();
 			

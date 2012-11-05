@@ -2,7 +2,7 @@ package ui.rabbit.constructor
 {
 	import core.Box2D.utils.Box2DWorldController;
 	import core.view.gameobject.GameObject;
-	import flash.display.DisplayObjectContainer;
+	import starling.display.DisplayObjectContainer;
 	/**
 	 * ...
 	 * @author 

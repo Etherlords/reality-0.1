@@ -2,7 +2,7 @@ package core.states
 {
 	import core.collections.SimpleMap;
 	import core.states.events.StateEvents;
-	import flash.display.DisplayObjectContainer;
+	import starling.display.DisplayObjectContainer;
 	/**
 	 * ...
 	 * @author 

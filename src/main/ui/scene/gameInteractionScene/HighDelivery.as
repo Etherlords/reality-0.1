@@ -14,7 +14,7 @@ import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
 import features.MagnetField;
 import flash.display.BitmapData;
 import flash.display.DisplayObjectContainer;
-import flash.events.Event;
+import starling.events.Event;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;

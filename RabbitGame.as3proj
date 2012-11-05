@@ -9,13 +9,15 @@
     <movie width="800" />
     <movie height="600" />
     <movie version="11" />
-    <movie minorVersion="3" />
+    <movie minorVersion="4" />
     <movie platform="Flash Player" />
     <movie background="#000000" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src\main" />
+    <class path="..\..\projects\PrimaryFeather-Starling-Framework-2a42a8e\starling\src" />
+    <class path="particles" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -76,7 +78,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\main\Main.as" />
+    <compile path="src\main\StarlingInit.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

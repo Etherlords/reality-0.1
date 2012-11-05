@@ -10,7 +10,7 @@ import core.scene.AbstractSceneController;
 import core.view.gameobject.GameObject;
 import extendsReality.GameObjectTailTracker;
 import flash.display.DisplayObjectContainer;
-import flash.events.Event;
+import starling.events.Event;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
