@@ -1,4 +1,4 @@
-package pingPong 
+package pingPong.logic 
 {
 	import core.Box2D.utils.Box2DWorldController;
 	import core.view.gameobject.GameObject;

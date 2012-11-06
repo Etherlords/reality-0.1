@@ -9,8 +9,9 @@ import core.collections.SimpleMap;
 import core.view.gameobject.config.GameobjectConfig;
 import core.view.gameobject.GameObject;
 import core.view.gameobject.physicalpropeties.PhysicModel;
-import starling.display.DisplayObjectContainer;
 import flash.geom.Point;
+import starling.display.DisplayObjectContainer;
+import utils.GlobalUIContext;
 
 
 
@@ -72,7 +73,7 @@ import flash.geom.Point;
 			_appliedControllersMap = new SimpleMap(); 
 			
 			if (isDebug)
-				debugDraw = new Box2DDebug(StarlingInit.debugInstance, world);
+				debugDraw = new Box2DDebug(GlobalUIContext.debugContainer, world);
 		}
 		
 		private function initWorld():void

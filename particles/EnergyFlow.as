@@ -11,7 +11,7 @@ package
 	 * ...
 	 * @author Nikro
 	 */
-	public class TailController extends ParticleDesignerPS
+	public class EnergyFlow extends ParticleDesignerPS
 	{
 		
 		[Embed(source="particle.pex", mimeType="application/octet-stream")]
@@ -20,14 +20,10 @@ package
 		[Embed(source = "texture.png")]
 		private var Sample:Class
 		
-		private var flow1:ParticleDesignerPS;
-		private var t:Tween;
-		private var q:Quad;
-		
-		public function TailController() 
+		public function EnergyFlow() 
 		{
 			
-			super(	XML(new InitValues()), Texture.fromBitmap(new Sample(), false, true), Context3DBlendFactor.ONE_MINUS_DESTINATION_COLOR		);
+			super(	XML(new InitValues()), Texture.fromBitmap(new Sample(), false, true), Context3DBlendFactor.ONE		);
 				
 			addEventListener(Event.ADDED_TO_STAGE, onInit);
 			
@@ -37,24 +33,29 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			
-			//emitterX = stage.stageWidth >> 1; 		//centering onto stage
-			//emitterY = stage.stageHeight >> 1;
 			start();
-			emitterType = 1;
-			maxNumParticles = 35;
-			rotatePerSecond = 360;
+			emitterType = 0;
+			maxNumParticles = 30;
+			
+			rotatePerSecond = 0;
+			
 			maxRadius = 15;
 			minRadius = 3;
 			
-			startSize = 15;
-			endSize = 30;
-			endSizeVariance = 0;
-			startSizeVariance = 0;
+			speed = 0;
+			speedVariance = 0
 			
-			lifespan = 5
-			lifespanVariance = 0;
-			emitterXVariance = 10;
+			startSize = 5;
+			endSize = 2;
+			endSizeVariance = 4;
+			startSizeVariance = 15;
+			
+			this.gravityY = 25;
+			
+			lifespan = 1
+			lifespanVariance = 2;
+			
+			emitterXVariance = 12;
 			emitterYVariance = 10;
 			
 			startColor.red = 0.6;
@@ -62,7 +63,7 @@ package
 			startColor.green = 1;
 			
 			endColor.red = 1;
-			endColor.blue = 0.6;
+			endColor.blue = 1;
 			endColor.green = 1;
 			
 			

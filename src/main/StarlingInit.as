@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.BitmapData;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.StageQuality;
 	import flash.display3D.Context3DRenderMode;
@@ -9,55 +10,69 @@ package
 	import flash.text.TextFieldAutoSize;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursorData;
+	import pingPong.settings.PingPongSettingsModel;
+	import pingPong.SharedObjectService;
 	import starling.core.Starling;
+	import utils.GlobalUIContext;
 	
 	
 	
 	public class StarlingInit extends Sprite
 	{
 		private var mStarling:Starling;
-		public static var debugInstance:Sprite
+		private var sharedservice:SharedObjectService;
+		
+		public static var settings:PingPongSettingsModel;
 		
 		public function StarlingInit()
 		{
-			//stage.scaleMode = StageScaleMode.NO_SCALE;
-			//stage.align = StageAlign.TOP_LEFT;
+			sharedservice = new SharedObjectService();
+			settings = sharedservice.settings;
+			
+			initilizeContext();
 			
 			Starling.multitouchEnabled = true; // useful on mobile devices
 			Starling.handleLostContext = true; // deactivate on mobile devices (to save memory)
-			debugInstance = new Sprite();
 			
-			//stateManager.nextState(loadState);
-			
-			//TweenPlugin.activate([ColorTransformPlugin, TintPlugin]);
 
 			var cursor:MouseCursorData = new MouseCursorData();
 			cursor.data = new <BitmapData>[new BitmapData(1, 1, true, 0x01000000)];
 			Mouse.registerCursor('noCursor', cursor);
 
 			
-			mStarling = new Starling(MainStarlingScene, stage, null, null,  Context3DRenderMode.AUTO);
+			mStarling = new Starling(MainStarlingScene, stage, null, null, sharedservice.settings.isUseSoftwareBliting? Context3DRenderMode.SOFTWARE:Context3DRenderMode.AUTO);
 			
 			mStarling.simulateMultitouch = false;
-			
+			mStarling.antiAliasing = 0;
 			mStarling.enableErrorChecking = false;
+			
 			mStarling.start();
 			mStarling.showStats = true;
 			
-			//mStarling.showStats = true;
-			// this event is dispatched when stage3D is set up
 			mStarling.stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContextCreated);
-			//stage.addChild(debugInstance);
+			
 			stage.quality = StageQuality.LOW
 			
-			//addChild(new TheMiner());
+		}
+		
+		private function initilizeContext():void 
+		{
+			var topcontainer:DisplayObjectContainer = new Sprite();
+			var debugContainer:DisplayObjectContainer = new Sprite();
+			topcontainer.addChild(debugContainer);
 			
+			stage.addChild(topcontainer);
+			
+			GlobalUIContext.debugContainer = debugContainer;
+			GlobalUIContext.vectorUIContainer = topcontainer;
+			GlobalUIContext.vectorStage = stage;
 		}
 		
 		private function onContextCreated(event:Event):void
 		{
 			var driver:TextField = new TextField();
-			addChild(driver);
+			GlobalUIContext.vectorUIContainer.addChild(driver);
+			
 			driver.text = Starling.context.driverInfo.toLowerCase();
 			driver.textColor = 0xFFFFFF;
 			driver.autoSize = TextFieldAutoSize.LEFT;

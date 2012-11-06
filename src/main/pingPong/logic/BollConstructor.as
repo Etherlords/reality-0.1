@@ -1,4 +1,4 @@
-package pingPong 
+package pingPong.logic 
 {
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2FilterData;
@@ -8,6 +8,7 @@ package pingPong
 	import core.view.gameobject.GameObject;
 	import core.view.gameobject.physicalpropeties.PhysicModel;
 	import core.view.gameobject.physicalpropeties.SimplePhysicalProperties;
+	import pingPong.view.gameObjectsSkins.BollSkin;
 	import starling.display.DisplayObjectContainer;
 	import ui.rabbit.constructor.PlayerConstructor;
 	

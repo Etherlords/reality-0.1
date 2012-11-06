@@ -7,6 +7,7 @@ package core.view.skin
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
+	import starling.textures.TextureSmoothing;
 	
 	/**
 	 * Реализация графики объекта может состоять из многих частей или из одного сплошноо спрайта по сути
@@ -38,6 +39,7 @@ package core.view.skin
 			
 			texture = Texture.fromBitmapData(bm, true, true);
 			image = new Image(texture);
+			image.smoothing = TextureSmoothing.NONE;
 			addChild(image);
 		}
 		

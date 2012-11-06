@@ -1,4 +1,4 @@
-package pingPong 
+package pingPong.logic 
 {
 	import com.greensock.TweenLite;
 	import core.Box2D.utils.Box2DWorldController;

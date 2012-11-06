@@ -1,4 +1,4 @@
-package pingPong 
+package pingPong.view.gameObjectsSkins 
 {
 	import com.greensock.TweenLite;
 	import com.greensock.TweenMax;

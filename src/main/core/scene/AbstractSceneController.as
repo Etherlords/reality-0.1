@@ -71,7 +71,7 @@ package core.scene
 		{
 			isActivated = false;
 			currentViewContainer.removeChild(view);
-			currentViewContainer = null;
+			//currentViewContainer = null;
 		}
 		
 	}
