@@ -78,7 +78,7 @@ package pingPong.view
 		private function align():void
 		{
 			gameStartDialog.x = (stage.stageWidth - gameStartDialog.width) / 2;
-			gameStartDialog.y = (stage.stageHeight - gameStartDialog.height) / 2 - 150;
+			gameStartDialog.y = (stage.stageHeight - gameStartDialog.height) / 2 - 20;
 			dynamicAlign();
 		}
 		

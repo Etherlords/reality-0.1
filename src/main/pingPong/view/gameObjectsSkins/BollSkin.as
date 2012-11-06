@@ -56,8 +56,9 @@ package pingPong.view.gameObjectsSkins
 			}
 			
 			
-			x = (760 - phsyWidth / 2) / 2;
-			y = (500 - phsyHeight / 2) / 2;
+			x = (760 - phsyWidth/2 ) / 2;
+			y = (500 - phsyHeight/2 ) / 2;
+			
 			lock = true
 		}
 		
@@ -66,6 +67,7 @@ package pingPong.view.gameObjectsSkins
 		{
 			if (lock)
 				return;
+				
 			super.y = value;
 		}
 		

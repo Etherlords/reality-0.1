@@ -24,15 +24,21 @@ package ui
 			return GAME_OVER.split('%score%').join(score).split('%highScore%').join(highestScore);
 		}
 		
-		public static var START_SCREEN:String = 	'<font size="35">PING PONG</font>\n\n\n'
-												+	'\n\n\n'
+		public static var START_SCREEN:String = 
+												
+													'ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ'
+												+	'\n\n\n\n\n\n'
+												+'<font size="35">PING PONG</font>\n'
+												+	'\n'
 												+   'TO START THE GAME\n'
 												+   'PRESS\n'
+												+	'\n\n\n\n\n\n'
+												+	'\n\n\n\n\n\n'
 												+	'<button><a href="event:startGame">SPACE</a></button>\n'
 												+   'OR FOR RESTART RAUND'
 												+	'\n\n\n\n\n\n'
 
-												+	'Copytights blablabla c()'
+												+	'ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ ʕ·ᴥ·ʔ'
 		
 		
 	}

@@ -45,7 +45,7 @@ package ui
 		{
 			lablesContainer = new Sprite();
 			addChild(lablesContainer);
-			var textFormat:TextFormat = new TextFormat('Verdana', 10, 0xCCCCCC, true);
+			var textFormat:TextFormat = new TextFormat('Courier New', 12, 0xCCCCCC, true);
 			
 			
 			var lablesParts:Array = alertText.split(String.fromCharCode('10'));
@@ -75,7 +75,7 @@ package ui
 				lable.styleSheet = style;
 				
 				lable.htmlText = lablesParts[i];
-				lable.border = true;
+				//lable.border = true;
 				
 				lable.x = -lable.width / 2;// (width - lable.width) / 2;
 				lable.y = __y;

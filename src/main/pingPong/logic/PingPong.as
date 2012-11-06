@@ -117,7 +117,7 @@ package pingPong.logic
 			boll.physicalProperties.stopXVelocity();
 			boll.physicalProperties.stopYVelocity();
 			
-			boll.body.x = (GAMEFIELD_WIDTH - boll.body.width / 2) / 2;
+			boll.body.x = (GAMEFIELD_WIDTH + boll.body.width / 2) / 2;
 			boll.body.y = (GAMEFIELD_HEIGH - boll.body.width / 2) / 2;
 			
 			sceneView.showDialog();
@@ -239,6 +239,8 @@ package pingPong.logic
 				bigBlow.x = boll.body.x 
 				bigBlow.y = boll.body.y + 40
 			}
+			
+			
 			
 			boll.applyActionView(0);
 			
