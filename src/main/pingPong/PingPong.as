@@ -9,8 +9,19 @@ package pingPong
 	import core.scene.AbstractSceneController;
 	import core.ui.KeyBoardController;
 	import core.view.gameobject.GameObject;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
+	import flash.ui.Keyboard;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	import flash.utils.Timer;
+	import pingPong.BollCamera;
+	import pingPong.BollConstructor;
+	import pingPong.IIPlatformController;
+	import pingPong.PlatformConstructor;
+	import pingPong.PlayerPlatformController;
+	import pingPong.SharedObjectService;
 	import starling.animation.IAnimatable;
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
@@ -18,17 +29,6 @@ package pingPong
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
-	import flash.events.MouseEvent;
-	import flash.geom.Point;
-	import flash.ui.Keyboard;
-	import flash.ui.Mouse;
-	import flash.ui.MouseCursor;
-	import pingPong.BollCamera;
-	import pingPong.BollConstructor;
-	import pingPong.IIPlatformController;
-	import pingPong.PlatformConstructor;
-	import pingPong.PlayerPlatformController;
-	import pingPong.SharedObjectService;
 	import ui.Alert;
 	import ui.Lables;
 	import ui.scene.gameInteractionScene.view.GameSceneViewTest;
@@ -62,6 +62,7 @@ package pingPong
 		private var isGameInProgress:Boolean = true;
 		private var stepTimer:Timer;
 		private var tail:TailController;
+		private var blows:Array;
 		
 		
 		public function PingPong()
@@ -76,6 +77,22 @@ package pingPong
 			gameStartDialog = new Alert(Lables.START_SCREEN);
 			
 			
+			blows = [];
+			for (var i:int = 0; i < 0; i++)
+			{
+				var blow:BlowEffect = new BlowEffect()
+				var t:Tween = new Tween(blow, 0.3);
+				t.animate("maxRadius", 30);
+				t.animate("minRadius", 25);
+				
+				var data:BlowData = new BlowData();
+				t.onComplete = Delegate.create(cleanBlow, data);
+				
+				data.b = blow;
+				data.t = t;
+				
+				blows.push(data);
+			}
 			
 			score = new Scoreboard();
 			ricoshetScore = new Scoreboard();
@@ -86,6 +103,16 @@ package pingPong
 			stepTimer.addEventListener(TimerEvent.TIMER, gameStep);
 			
 			super.initilize();
+		}
+		
+		private function cleanBlow(blowData:BlowData):void 
+		{
+			trace('clean blow');
+			Starling.juggler.remove(blowData.b);
+			Starling.juggler.remove(blowData.t);
+			view.removeChild(blowData.b);
+			
+			blows.push(blowData);
 		}
 		
 		private function startRaund():void 
@@ -104,8 +131,8 @@ package pingPong
 			boll.physicalProperties.applyForce( 2 * side, 0)//-0.1 + Math.random() * 0.2 * side);
 			//boll.physicalProperties.applyForce( -1, 0);
 			
-			if (view.contains(gameStartDialog))
-				view.removeChild(gameStartDialog);
+			if (Starling.current.nativeStage.contains(gameStartDialog))
+				Starling.current.nativeStage.removeChild(gameStartDialog);
 				
 			isGameInProgress = true;
 		}
@@ -175,7 +202,7 @@ package pingPong
 			
 			
 			
-			if (!isGameInProgress && Math.random() > 0.96)
+			/*if (!isGameInProgress && Math.random() > 0.96)
 			{
 				var stars:BlowEffect = createBlow();
 				var viewInstance:DisplayObjectContainer = view;
@@ -186,7 +213,7 @@ package pingPong
 			
 				
 				viewInstance.addChild(stars);
-			}
+			}*/
 			
 			bollSpeed.scores = int((Math.abs(boll.physicalProperties.physicModel.linearVelocity.x) + Math.abs(boll.physicalProperties.physicModel.linearVelocity.y)));
 			
@@ -245,7 +272,7 @@ package pingPong
 			
 			gameStartDialog.x = (view.stage.stageWidth - gameStartDialog.width) / 2;
 			gameStartDialog.y = (view.stage.stageHeight - gameStartDialog.height) / 2 - 150;
-			view.addChild(gameStartDialog);
+			Starling.current.nativeStage.addChild(gameStartDialog);
 		}
 		
 		private function movePlatformsRight():void 
@@ -280,7 +307,7 @@ package pingPong
 		{
 			Mouse.cursor = MouseCursor.AUTO;
 			
-			view.addChild(gameStartDialog);
+			Starling.current.nativeStage.addChild(gameStartDialog);
 			isGameInProgress = false;
 			//boll.applyActionView(0);
 			
@@ -322,18 +349,22 @@ package pingPong
 		
 		private function createBlow():BlowEffect
 		{
-			var blow:BlowEffect = new BlowEffect();
+			var blow:BlowData = blows.pop();
 			
-			blow.start(1);
-			var t:Tween = new Tween(blow, 0.3, Transitions.EASE_IN);
-			t.animate("maxRadius", 25);
-			t.animate("minRadius", 25);
 			
-			t.onComplete = Delegate.create(reset, blow);
-			Starling.juggler.add(t);
-			view.addChild(blow);
 			
-			return blow;
+			
+			blow.b.reset();
+			blow.t.reset(blow.b, 0.3);
+			blow.t.onComplete = Delegate.create(cleanBlow, blow);
+			Starling.juggler.add(blow.b);
+			Starling.juggler.add(blow.t);
+			
+			blow.b.start(1);
+			
+			view.addChild(blow.b);
+			
+			return blow.b;
 		}
 		
 		private function onBollCollide(e:GameObjectPhysicEvent):void 
@@ -393,10 +424,10 @@ package pingPong
 			
 			boll.physicalProperties.physicModel.linearVelocity = dir;
 			
-			var blow:BlowEffect = createBlow();
+			//var blow:BlowEffect = createBlow();
 			
-			blow.x = boll.body.x ;
-			blow.y = boll.body.y + 40;
+			//blow.x = boll.body.x ;
+			//blow.y = boll.body.y + 40;
 			
 			//viewInstance.addChild(stars)
 		}

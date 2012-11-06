@@ -28,8 +28,19 @@ package pingPong
 			//this.filters = [new BlurFilter(4, 4, 1)]
 		}
 		
+		override public function get rotation():Number 
+		{
+			return super.rotation;
+		}
+		
+		override public function set rotation(value:Number):void 
+		{
+			
+		}
+		
 		override public function doAction(actionKey:uint, additionalParam:Number = 0):void 
 		{	
+			
 			if (actionKey == 1)
 			{
 				lock = false;

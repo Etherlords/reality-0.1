@@ -40,31 +40,33 @@ package
 			//emitterY = stage.stageHeight >> 1;
 			start();
 			emitterType = 1;
-			maxNumParticles = 150;
+			maxNumParticles = 35;
 			rotatePerSecond = 360;
 			maxRadius = 15;
-			minRadius = 5;
+			minRadius = 3;
 			
-			startSize = 25;
+			startSize = 15;
 			endSize = 30;
-			endSizeVariance = 20;
-			startSizeVariance = 30;
+			endSizeVariance = 0;
+			startSizeVariance = 0;
 			
-			lifespan = 15
-			lifespanVariance = 5.9;
+			lifespan = 5
+			lifespanVariance = 0;
 			emitterXVariance = 10;
 			emitterYVariance = 10;
-			//speed = 100;
-			startColor.red = 1;
-			startColor.blue = 1;
-			startColor.green = 1;
 			
 			startColor.red = 0.6;
 			startColor.blue = 1;
 			startColor.green = 1;
 			
-			startColor.alpha = 0.8;
-			endColor.alpha = 0;
+			endColor.red = 1;
+			endColor.blue = 0.6;
+			endColor.green = 1;
+			
+			
+			
+			startColor.alpha = 1;
+			endColor.alpha = 0.9;
 			
 			
 			

@@ -1,10 +1,11 @@
 package ui 
 {
-	import starling.display.Sprite;
-	import starling.events.Event;
+	
+	import flash.display.Sprite;
 	import flash.events.TextEvent;
 	import flash.text.StyleSheet;
-	import starling.text.TextField;
+	import flash.text.TextField;
+	
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	/**
@@ -63,21 +64,23 @@ package ui
 			
 			for (var i:int = 0; i < lablesParts.length; i++)
 			{
-				lable = new TextField(200, 20, lablesParts[i],'Verdana', 10, 0xCCCCCC, true);
+			
 				
-				//lable.defaultTextFormat = textFormat;
-				lable.autoScale = true;// TextFieldAutoSize.LEFT;
+				lable = new TextField();
 				
-				//lable.selectable = false;
-				//lable.styleSheet = style;
+				lable.defaultTextFormat = textFormat;
+				lable.autoSize = TextFieldAutoSize.LEFT;
 				
-				//lable.htmlText = lablesParts[i];
-				//lable.border = true;
+				lable.selectable = false;
+				lable.styleSheet = style;
+				
+				lable.htmlText = lablesParts[i];
+				lable.border = true;
 				
 				lable.x = -lable.width / 2;// (width - lable.width) / 2;
 				lable.y = __y;
 				
-				__y = lable.y + lable.height;
+				__y = lable.y + lable.height ;
 				
 				lablesContainer.addChild(lable);
 			}
