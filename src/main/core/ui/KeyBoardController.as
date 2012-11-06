@@ -36,6 +36,12 @@ package core.ui
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 		
+		public function destroy():void
+		{
+			stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+		}
+		
 		private function onKeyUp(e:KeyboardEvent):void 
 		{
 			var code:String = e.keyCode.toString();

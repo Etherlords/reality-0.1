@@ -6,6 +6,7 @@ package pingPong.view.gameObjectsSkins
 	import flash.geom.Matrix;
 	import starling.display.Image;
 	import starling.textures.Texture;
+	import starling.textures.TextureSmoothing;
 	
 	/**
 	 * ...
@@ -20,7 +21,7 @@ package pingPong.view.gameObjectsSkins
 		{
 			super();
 			
-			graphics.lineStyle(2, 0xCCCCCC);
+			graphics.lineStyle(2, 0xAAAAAA);
 			graphics.beginFill(0xFFFFFF, 0.8);
 			graphics.drawRect( 0, 0, 23, 23);
 			
@@ -35,7 +36,8 @@ package pingPong.view.gameObjectsSkins
 		
 		override public function set rotation(value:Number):void 
 		{
-			
+			if(!StarlingInit.settings.isUseBollParticles)
+				super.rotation = value;
 		}
 		
 		override public function doAction(actionKey:uint, additionalParam:Number = 0):void 
@@ -83,8 +85,9 @@ package pingPong.view.gameObjectsSkins
 			
 			bm.draw(shape, m);
 			
-			texture = Texture.fromBitmapData(bm, true, true);
+			texture = Texture.fromBitmapData(bm, true);
 			image = new Image(texture);
+			image.smoothing = TextureSmoothing.TRILINEAR
 			addChild(image);
 			
 			image.x -= 12;

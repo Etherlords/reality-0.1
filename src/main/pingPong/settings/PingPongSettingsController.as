@@ -2,7 +2,9 @@ package pingPong.settings
 {
 	import core.locators.ServicesLocator;
 	import core.scene.AbstractSceneController;
+	import core.ui.KeyBoardController;
 	import flash.events.Event;
+	import flash.ui.Keyboard;
 	import pingPong.SharedObjectService;
 	import starling.display.DisplayObjectContainer;
 	import utils.GlobalUIContext;
@@ -16,6 +18,7 @@ package pingPong.settings
 		private var sceneView:SettingsView;
 		private var shared:SharedObjectService;
 		private var settingsModel:PingPongSettingsModel;
+		private var keyContoller:KeyBoardController;
 		
 		public function PingPongSettingsController() 
 		{
@@ -41,6 +44,7 @@ package pingPong.settings
 		override public function deactivate():void 
 		{
 			shared.uploadSettings();
+			keyContoller.destroy();
 			GlobalUIContext.vectorUIContainer.removeChild(sceneView);
 			
 			isActivated = false;
@@ -52,6 +56,9 @@ package pingPong.settings
 				return;
 				
 			sceneView = new SettingsView(settingsModel);
+			
+			keyContoller = new KeyBoardController(GlobalUIContext.vectorStage);
+			keyContoller.registerKeyDownReaction(Keyboard.SPACE, onExit);
 			
 			currentViewContainer = instance;
 			isActivated = true;
@@ -66,7 +73,7 @@ package pingPong.settings
 			sceneView.addEventListener('exit', onExit);
 		}
 		
-		private function onExit(e:Event):void 
+		private function onExit(e:* = null):void 
 		{
 			exit();
 		}

@@ -7,6 +7,7 @@ package pingPong.logic
 	import core.locators.ServicesLocator;
 	import core.ui.KeyBoardController;
 	import core.view.gameobject.GameObject;
+	import flash.display.BitmapData;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -21,8 +22,11 @@ package pingPong.logic
 	import pingPong.settings.PingPongSettingsModel;
 	import pingPong.SharedObjectService;
 	import pingPong.view.PingPongSceneView;
+	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
+	import starling.display.Image;
+	import starling.textures.Texture;
 	import ui.services.CameraService;
 	import utils.BoundariesConstructor;
 	import utils.GlobalUIContext;
@@ -228,9 +232,17 @@ package pingPong.logic
 
 			isGameInProgress = false;
 			
-			var bigBlow:BigBlowEffect = createBigBlow();
-			bigBlow.x = boll.body.x 
-			bigBlow.y = boll.body.y + 40
+			if (settings.isUseBollParticles)
+			{
+				var bigBlow:BigBlowEffect = createBigBlow();
+				
+				bigBlow.x = boll.body.x 
+				bigBlow.y = boll.body.y + 40
+			}
+			
+			boll.applyActionView(0);
+			
+			
 			prepareGameStart();
 			
 			
@@ -309,7 +321,38 @@ package pingPong.logic
 				dir.y += yPolar * intensity * Math.sin(ang);
 				
 				gameStatModel.ricoshet++;
+				
+				
+				
+				
+				
 			}
+			
+			if (e.interactionWith == platform)
+			{
+				var contact:Point = new Point(boll.body.x, boll.body.y - e.interactionWith.body.y);
+				
+				contact.x = e.interactionWith.body.x + e.interactionWith.body.width;
+				
+				var convas:BitmapData = new BitmapData(5, 5, false, 0xFFFFFF);
+				var contactEffect:Texture = Texture.fromBitmapData(convas);
+				var image:Image = new Image(contactEffect);
+				
+				image.x = contact.x - image.width/ 2;
+				image.y = contact.y;
+				
+				platform.skin.addChild(image);
+				
+				var tw:Tween = new Tween(image, 0.6);
+				tw.animate('alpha', 0);
+				tw.onComplete = Delegate.create(function(image:Image):void
+				{
+					platform.skin.removeChild(image);
+				}, image)
+				Starling.juggler.add(tw);
+			}
+			
+			
 			
 			boll.physicalProperties.physicModel.linearVelocity = dir;
 			

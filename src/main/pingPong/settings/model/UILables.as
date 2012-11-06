@@ -15,7 +15,7 @@ package pingPong.settings.model
 									
 		public static const GENERAL_HINT:String = 'Софтварная отрисовка может улучшить производительность в хроме'
 													+ '\n'
-													//+ '
+													+ 'Некоторые настройки требуют перезапуска, например "Софтварная отрисовка"'
 		
 		
 		private static const componentNameFlag:String = '%componentName%'
