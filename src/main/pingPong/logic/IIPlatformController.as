@@ -26,7 +26,7 @@ package pingPong.logic
 		
 		override protected function initilize():void 
 		{
-			var t:Timer = new Timer(20, 0);
+			var t:Timer = new Timer(25, 0);
 			t.addEventListener(TimerEvent.TIMER, onTimerEvent);
 			t.start();
 		}

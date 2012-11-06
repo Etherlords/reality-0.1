@@ -332,7 +332,8 @@ package pingPong.logic
 			{
 				var contact:Point = new Point(boll.body.x, boll.body.y - e.interactionWith.body.y);
 				
-				contact.x = e.interactionWith.body.x + e.interactionWith.body.width;
+				if(boll.body.x > e.interactionWith.body.x + e.interactionWith.body.width)
+					contact.x = e.interactionWith.body.x + e.interactionWith.body.width;
 				
 				var convas:BitmapData = new BitmapData(5, 5, false, 0xFFFFFF);
 				var contactEffect:Texture = Texture.fromBitmapData(convas);
