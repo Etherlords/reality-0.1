@@ -17,7 +17,10 @@
   <classpaths>
     <class path="src\main" />
     <class path="..\..\projects\PrimaryFeather-Starling-Framework-2a42a8e\starling\src" />
-    <class path="particles" />
+    <class path="..\PingPong\src" />
+    <class path="..\PingPong\particles" />
+    <class path="..\Box2dExtend\src" />
+    <class path="..\Box2dPort\src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -52,13 +55,12 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="lib\greensock.swc" />
     <element path="assets\compiled\dragon.swc" />
-    <element path="lib\TheMiner_ru_v1_3_10.swc" />
-    <element path="lib\as3commons-collections-1.3.2.swc" />
     <element path="assets\compiled\bell_v2.swc" />
     <element path="assets\compiled\bird.swc" />
     <element path="assets\compiled\rabbit.swc" />
+    <element path="lib\greensock.swc" />
+    <element path="lib\as3commons-collections-1.3.2.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

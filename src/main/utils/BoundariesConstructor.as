@@ -53,8 +53,7 @@ package utils
 			fix.SetFriction(0);
 			
 			var roof:GameObject = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);
-			roof.body.y = 0;
-			roof.body.y = 0;
+			roof.body.y = -4;
 			
 			body = (roof.physicalProperties as SimplePhysicalProperties).physicBodyKey
 			
@@ -68,7 +67,7 @@ package utils
 			right = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);
 			left = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);
 			
-			right.body.x = -20;
+			right.body.x = -24;
 			
 			left.body.x = 780;
 			

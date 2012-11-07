@@ -4,9 +4,12 @@ package core.view.skin
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Shape;
+	import flash.geom.Matrix;
+	import flash.geom.Rectangle;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	import starling.textures.TextureSmoothing;
 	
 	/**
@@ -23,6 +26,7 @@ package core.view.skin
 		protected var _graphics:Graphics;
 		protected var texture:Texture;
 		protected var image:Image;
+		
 		public var direction:Direction;
 		
 		
@@ -30,17 +34,65 @@ package core.view.skin
 		{
 			super();
 			shape = new Shape();
+		
+			
+		}
+		
+		public function redrawGraphics():void
+		{
+			var bounds:Rectangle = getShapeBounds();
+			
+			var bitmapSource:BitmapData = new BitmapData(bounds.width, bounds.height, true, 0x0);
+			var m:Matrix = new Matrix();
+			m.tx = bounds.x;
+			m.ty = bounds.y;
+			
+			bitmapSource.draw(shape, m);
+			
+			texture = Texture.fromBitmapData(bitmapSource, true, true);
+		}
+		
+		protected function getShapeBounds():Rectangle
+		{
+			var bounds:Rectangle = shape.getBounds(shape)
+			bounds.x = Math.abs(bounds.x);
+			bounds.y = Math.abs(bounds.y);
+			
+			bounds.width = bounds.width + bounds.x;
+			if (bounds.width < 1)
+				bounds.width = 1;
+			
+			if (bounds.height < 1)
+				bounds.height = 1;
+				
+			bounds.height = bounds.height + bounds.y;
+			
+			return bounds;
 		}
 		
 		public function prepareSkin():void
 		{
-			var bm:BitmapData = new BitmapData(shape.width, shape.height, true);
-			bm.draw(shape);
+			redrawGraphics();
 			
-			texture = Texture.fromBitmapData(bm, true, true);
-			image = new Image(texture);
-			image.smoothing = TextureSmoothing.NONE;
+			prepareImage();
+			
+			
 			addChild(image);
+		}
+		
+		protected function prepareImage():void 
+		{
+			if (image)
+			{
+				image.texture = texture;
+			}
+			else
+			{
+				image = new Image(texture);
+			}
+				
+			
+			image.smoothing = TextureSmoothing.NONE;
 		}
 		
 		public function doAction(actionKey:uint, additionalParam:Number = 0):void

@@ -34,6 +34,8 @@ package
 			Starling.multitouchEnabled = true; // useful on mobile devices
 			Starling.handleLostContext = true; // deactivate on mobile devices (to save memory)
 			
+			//TweenPlugin.activate([ColorTransformPlugin, TintPlugin]);
+
 
 			var cursor:MouseCursorData = new MouseCursorData();
 			cursor.data = new <BitmapData>[new BitmapData(1, 1, true, 0x01000000)];
@@ -43,7 +45,7 @@ package
 			mStarling = new Starling(MainStarlingScene, stage, null, null, sharedservice.settings.isUseSoftwareBliting? Context3DRenderMode.SOFTWARE:Context3DRenderMode.AUTO);
 			
 			mStarling.simulateMultitouch = false;
-			mStarling.antiAliasing = 0;
+			mStarling.antiAliasing = 1;
 			mStarling.enableErrorChecking = false;
 			
 			mStarling.start();
