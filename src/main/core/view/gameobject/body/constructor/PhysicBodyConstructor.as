@@ -51,12 +51,18 @@ import core.view.skin.Skin;
 				shape = new b2PolygonShape();
 				//var shape:b2CircleShape = new b2CircleShape(30*GlobalConstants.PIXELS_TO_METR);
 				
+				
 				(shape as b2PolygonShape).SetAsArray([new b2Vec2(0, 0), new b2Vec2(width, 0), new b2Vec2(width, height), new b2Vec2(0, height)]);
 			}
-			else
+			else if(shapeType == 1)
 			{
 				shape = new b2CircleShape((width) / 2);
 				//(shape as b2CircleShape).SetLocalPosition(new b2Vec2(width / 2, height / 2));
+			}
+			else if (shapeType == 2)
+			{
+				shape = new b2PolygonShape();
+				(shape as b2PolygonShape).SetAsBox(width, height);
 			}
 			return shape;
 		}
