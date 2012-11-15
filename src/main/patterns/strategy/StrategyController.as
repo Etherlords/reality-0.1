@@ -18,9 +18,18 @@ package patterns.strategy
 			strategies = { };
 		}
 		
-		public function addStrategy(strategy:Strategy):void
+		public function destroy():void
 		{
-			var key:String = strategy.key;
+			for (var key:String in strategies)
+			{
+				strategies[key].destroy();
+			}
+			
+			strategies = null;
+		}
+		
+		public function addStrategy(key:*, strategy:Strategy):void
+		{
 			var isProtected:Boolean = false;
 			
 			if (hasStrategy(key))
@@ -36,26 +45,25 @@ package patterns.strategy
 			}
 		}
 		
-		public function removeStrategy(key:String):void
+		public function removeStrategy(key:*):void
 		{
 			strategies[key] = null;
 		}
 		
-		public function hasStrategy(key:String):Boolean
+		public function hasStrategy(key:*):Boolean
 		{
 			return strategies.hasOwnProperty(key);
 		}
 		
-		public function crateNewStrategy(key:String, algorithm:*, protect:Boolean = false):void
+		public function crateNewStrategy(key:*, algorithm:*, protect:Boolean = false):void
 		{
-			addStrategy(new Strategy(key, algorithm, protect));
+			addStrategy(key, new Strategy(algorithm, protect));
 		}
 		
-		public function execute(key:String, ...args:Array):*
+		public function execute(key:*, ...args:Array):*
 		{
-			
-			if(hasStrategy(key))
-				return strategies[key].execute.apply(null, args || null);
+			if (hasStrategy(key))
+				return strategies[key].execute.call(null, args);
 			else
 				return null;
 		}

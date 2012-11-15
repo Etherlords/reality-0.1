@@ -21,11 +21,6 @@ package ui.services
 			
 		}
 		
-		override protected function initilize():void 
-		{
-			super.initilize();
-		}
-		
 		public function set cameraTarget(tracingTarget:Object):void
 		{
 			//_camera.tracingTarget = tracingTarget;

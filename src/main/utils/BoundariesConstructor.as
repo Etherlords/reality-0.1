@@ -67,9 +67,9 @@ package utils
 			right = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);
 			left = worldController.constructGameObject(GameObject, wallConfig, new PhysicModel(100, 0, 0), viewInstance);
 			
-			right.body.x = -24;
+			right.body.x = -34;
 			
-			left.body.x = 780;
+			left.body.x = 790;
 			
 			right.body.y = 10;
 			left.body.y = 10;

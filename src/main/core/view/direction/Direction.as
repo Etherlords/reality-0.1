@@ -1,8 +1,9 @@
 package core.view.direction 
 {
-	import core.locators.ServicesLocator;
+	import core.services.ServicesLocator;
 	import core.view.gameobject.GameObject;
 	import flash.geom.Point;
+	import ui.services.CameraService;
 	/**
 	 * ...
 	 * @author 
@@ -65,10 +66,12 @@ package core.view.direction
 				isWalking = false;
 			}
 			
-			isWalking = isWalking && (ServicesLocator.cameraService.camera.target.y > 400);
+			var cameraService:CameraService = ServicesLocator.instance.getService(CameraService) as CameraService
+			
+			isWalking = isWalking && (cameraService.camera.target.y > 400);
 			
 			//TODO: захардкодил что если камера пондялавсь в воздух т.е заяц прыгнул то он не может стоять
-			isStand = (!isWalking && !isJumping && !isFalling) && (ServicesLocator.cameraService.camera.target.y > 400);
+			isStand = (!isWalking && !isJumping && !isFalling) && (cameraService.camera.target.y > 400);
 			
 		}
 		

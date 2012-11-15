@@ -11,15 +11,18 @@ package patterns.strategy
 		protected var _numberOfArguments:int;
 		
 		protected var _algorithm:Object;
-		protected var _key:String;
 		
-		public function Strategy(key:String, algorithm:Object, protect:Boolean = false) 
+		public function Strategy(algorithm:Object, protect:Boolean = false) 
 		{
 			_protect = protect;
-			_key = key;
 			_algorithm = algorithm;
 			
 			init();
+		}
+		
+		public function destroy():void
+		{
+			_algorithm = null;
 		}
 		
 		protected function init():void 
@@ -28,8 +31,11 @@ package patterns.strategy
 			_numberOfArguments = _algorithm.length
 		}
 		
-		public function execute(args:Array = null):*
+		public function execute(args:* = null):*
 		{	
+			//NOTE: litle cheat
+			if (numberOfArguments < args.length)
+				args = args.slice(0, numberOfArguments);
 			
 			return _algorithm.apply(this, args);
 		}
@@ -42,11 +48,6 @@ package patterns.strategy
 		public function get numberOfArguments():int 
 		{
 			return _numberOfArguments;
-		}
-		
-		public function get key():String 
-		{
-			return _key;
 		}
 		
 		public function get protect():Boolean 

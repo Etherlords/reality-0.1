@@ -3,7 +3,7 @@
  * Date: 12.02.12 Time: 17:41
  */
 package {
-import core.locators.ServicesLocator;
+import core.services.ServicesLocator;
 
 import org.hamcrest.assertThat;
 import org.hamcrest.object.notNullValue;

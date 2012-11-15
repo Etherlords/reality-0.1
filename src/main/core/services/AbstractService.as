@@ -1,24 +1,32 @@
-package core.services 
+package core.services
 {
-	import core.locators.ServicesLocator;
+	import core.services.ServicesLocator;
+	import flash.events.EventDispatcher;
 	import flash.utils.getQualifiedClassName;
+	
 	/**
 	 * ...
-	 * @author 
+	 * @author
 	 */
-	public class AbstractService 
+	public class AbstractService extends EventDispatcher
 	{
 		
 		private static var _serviceName:String;
 		
-		public function AbstractService() 
+		public function AbstractService()
 		{
-			initilize();
+			internalInitilize();
 		}
 		
-		protected function initilize():void 
+		private function internalInitilize():void
 		{
 			_serviceName = getQualifiedClassName(this);
+			register()
+		}
+		
+		private function register():void 
+		{
+			ServicesLocator.instance.addService(this);
 		}
 		
 		public function get serviceName():String
@@ -26,14 +34,11 @@ package core.services
 			return _serviceName;
 		}
 		
-		static public function get serviceName():String 
+		public function registred(serviceLocator:ServicesLocator):void
 		{
-			return _serviceName;
+			
 		}
-
-        public function registered(servicesLocator:ServicesLocator):void {
-
-        }
-    }
+	
+	}
 
 }
