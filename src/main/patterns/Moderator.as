@@ -1,10 +1,12 @@
 package patterns 
 {
 	import flash.events.EventDispatcher;
+	import patterns.events.LazyModeratorEvent;
+	
 	/**
-	 * ...
-	 * @author Nikro
+	 * @eventType	patterns.events.LazyModeratorEvent.UPDATE_EVENT
 	 */
+	[Event(name="moderatorUpdateEvent", type="patterns.events.LazyModeratorEvent")] 
 	public class Moderator extends EventDispatcher
 	{
 		protected var fieldsChanged:Object;
@@ -27,6 +29,17 @@ package patterns
 		public function getFieldsList():Object
 		{
 			return fieldsChanged
+		}
+		
+		public function update():void
+		{
+			dispatchUpdate();
+		}
+		
+		private function dispatchUpdate():void 
+		{
+			dispatchEvent(new LazyModeratorEvent(LazyModeratorEvent.UPDATE_EVENT));
+			cleanFields();
 		}
 		
 		public function moderateField(str:String):void

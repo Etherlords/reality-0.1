@@ -1,19 +1,8 @@
 package patterns 
 {
-	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	import patterns.events.LazyModeratorEvent;
-	/**
-	 * ...
-	 * @author Nikro
-	 */
 	
-	/**
-	 * @eventType	patterns.events.LazyModeratorEvent.UPDATE_EVENT
-	 */
-	[Event(name="moderatorUpdateEvent", type="patterns.events.LazyModeratorEvent")] 
-	 
 	public class LazyModerator extends Moderator 
 	{
 		
@@ -31,13 +20,12 @@ package patterns
 			super.initilize();
 			
 			updateTimer = new Timer(updateInterval, 1);
-			updateTimer.addEventListener(TimerEvent.TIMER_COMPLETE, dispatchUpdate);
+			updateTimer.addEventListener(TimerEvent.TIMER_COMPLETE, updateTime);
 		}
 		
-		private function dispatchUpdate(e:TimerEvent):void 
+		private function updateTime(e:TimerEvent):void 
 		{
-			dispatchEvent(new LazyModeratorEvent(LazyModeratorEvent.UPDATE_EVENT));
-			cleanFields();
+			dispatchUpdate();
 		}
 		
 		override public function moderateField(str:String):void 
