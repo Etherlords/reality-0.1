@@ -36,7 +36,7 @@ package patterns
 			dispatchUpdate();
 		}
 		
-		private function dispatchUpdate():void 
+		protected function dispatchUpdate():void 
 		{
 			dispatchEvent(new LazyModeratorEvent(LazyModeratorEvent.UPDATE_EVENT));
 			cleanFields();
