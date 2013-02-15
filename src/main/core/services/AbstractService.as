@@ -1,7 +1,9 @@
 package core.services
 {
 	import core.services.ServicesLocator;
+	
 	import flash.events.EventDispatcher;
+	
 	import flash.utils.getQualifiedClassName;
 	
 	/**
@@ -10,6 +12,10 @@ package core.services
 	 */
 	public class AbstractService extends EventDispatcher
 	{
+		public static function getItself():AbstractService
+		{
+			return ServicesLocator.instance.getServiceByName(_serviceName)
+		}
 		
 		private static var _serviceName:String;
 		

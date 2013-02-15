@@ -59,6 +59,11 @@ package core.services
 			classMap.addItem(getQualifiedClassName(targetClass), instance);
 		}
 		
+		public function getServiceByName(name:String):AbstractService
+		{
+			return classMap.getItem(name);
+		}
+		
 		public function getService(service:Class):AbstractService
 		{
 			return getInstanceByClass(service);
