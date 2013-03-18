@@ -59,6 +59,7 @@ package core.scene
 			
 			currentViewContainer = instance;
 			isActivated = true;
+			
 			currentViewContainer.addChild(view);
 			view.visible = true;
 		}
@@ -70,6 +71,7 @@ package core.scene
 		public function deactivate():void
 		{
 			isActivated = false;
+			
 			currentViewContainer.removeChild(view);
 			//currentViewContainer = null;
 		}

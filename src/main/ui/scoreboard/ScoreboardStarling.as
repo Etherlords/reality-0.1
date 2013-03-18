@@ -1,35 +1,32 @@
 package ui.scoreboard 
 {
 	
-	import flash.display.Sprite;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
+	import starling.display.Sprite;
+	import starling.text.TextField;
 	
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class Scoreboard extends Sprite 
+	public class ScoreboardStarling extends Sprite 
 	{
 		private var _scoresView:TextField;
 		
 		private var _scores:Number = 0;
 		
-		public function Scoreboard() 
+		public function ScoreboardStarling() 
 		{
 			initilize();
 		}
 		
 		private function initilize():void 
 		{
-			_scoresView = new TextField;
+			_scoresView = new TextField(50, 20, '0', 'mini', 20, 0xFFFFFF);
 			
 			_scoresView.y = 10;
 			_scoresView.x = 10;
-			_scoresView.autoSize = TextFieldAutoSize.LEFT;
-			_scoresView.defaultTextFormat = new TextFormat("Ubuntu", 20, 0xFFFFFF);
-			_scoresView.text = '0';
+			_scoresView.autoScale = true
+			
 			
 			addChild(_scoresView);
 		}
