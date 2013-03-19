@@ -1,6 +1,5 @@
 package core.view.skin 
 {
-	import core.view.direction.Direction;
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Shape;
@@ -9,7 +8,6 @@ package core.view.skin
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
-	import starling.textures.TextureAtlas;
 	import starling.textures.TextureSmoothing;
 	
 	/**
@@ -26,9 +24,6 @@ package core.view.skin
 		protected var _graphics:Graphics;
 		protected var texture:Texture;
 		protected var image:Image;
-		
-		public var direction:Direction;
-		
 		
 		public function Skin() 
 		{

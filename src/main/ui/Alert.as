@@ -2,6 +2,7 @@ package ui
 {
 	
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.TextEvent;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
@@ -92,16 +93,16 @@ package ui
 		{
 			var link:String = e.text;
 			
-			//dispatchEvent(new Event(link));
+			dispatchEvent(new Event(link));
 		}
 		
 		private function drawBG():void 
 		{
-			//this.graphics.lineStyle(0);
-			//this
-			//this.graphics.beginFill(0x0, 0.6);
-			//this.graphics.drawRect(0, 0, this.width, this.height);
-			//this.graphics.endFill();
+			this.graphics.lineStyle(0);
+			
+			this.graphics.beginFill(0x0, 0.6);
+			this.graphics.drawRect(0, 0, this.width, this.height);
+			this.graphics.endFill();
 		}
 		
 	}
