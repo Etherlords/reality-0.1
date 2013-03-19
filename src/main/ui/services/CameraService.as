@@ -18,7 +18,7 @@ package ui.services
 		{
 			super();
 			this._camera = camera;
-			
+			//just test
 		}
 		
 		public function set cameraTarget(tracingTarget:Object):void
