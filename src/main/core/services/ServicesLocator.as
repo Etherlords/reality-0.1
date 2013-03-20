@@ -56,7 +56,12 @@ package core.services
 		
 		private function addInstanceAsClass(instance:AbstractService, targetClass:Class):void
 		{
-			classMap.addItem(getQualifiedClassName(targetClass), instance);
+			var serviceName:String = getQualifiedClassName(targetClass);
+			
+			if (serviceName in classMap)
+				throw new Error('try to initilize service: ' + serviceName + ' but service already initilized');
+			
+			classMap.addItem(serviceName, instance);
 		}
 		
 		public function getServiceByName(name:String):AbstractService

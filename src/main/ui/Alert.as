@@ -15,13 +15,13 @@ package ui
 	 */
 	public class Alert extends Sprite
 	{
-		private var alertText:String;
+		private var _alertText:String;
 		private var lable:TextField;
 		private var lablesContainer:Sprite;
 		
-		public function Alert(alertText:String) 
+		public function Alert(alertText:String = '' ) 
 		{
-			this.alertText = alertText;
+			_alertText = alertText;
 			initilize();
 		}
 		
@@ -32,6 +32,8 @@ package ui
 			alignUI();
 			
 			drawBG();
+			
+			this.addEventListener(TextEvent.LINK, onLink);
 		}
 		
 		private function alignUI():void 
@@ -40,6 +42,17 @@ package ui
 			lablesContainer.y = 0;
 			//lable.width = this.width;
 			//lable.height = this.height;
+		}
+		
+		private function redraw():void 
+		{
+			removeChild(lablesContainer);
+			lablesContainer = null;
+			
+			addUI();
+			alignUI();
+			
+			drawBG();
 		}
 		
 		private function addUI():void 
@@ -86,7 +99,7 @@ package ui
 				lablesContainer.addChild(lable);
 			}
 			
-			this.addEventListener(TextEvent.LINK, onLink);
+			
 		}
 		
 		private function onLink(e:TextEvent):void 
@@ -98,12 +111,27 @@ package ui
 		
 		private function drawBG():void 
 		{
+			this.graphics.clear();
 			this.graphics.lineStyle(0);
 			
 			this.graphics.beginFill(0x0, 0.6);
 			this.graphics.drawRect(0, 0, this.width, this.height);
 			this.graphics.endFill();
 		}
+		
+		public function get alertText():String 
+		{
+			return _alertText;
+		}
+		
+		public function set alertText(value:String):void 
+		{
+			_alertText = value;
+			
+			redraw();
+		}
+		
+		
 		
 	}
 
