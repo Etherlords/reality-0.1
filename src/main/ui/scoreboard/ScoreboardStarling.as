@@ -29,6 +29,8 @@ package ui.scoreboard
 			
 			
 			addChild(_scoresView);
+			
+			flatten();
 		}
 		
 		public function get scores():Number 
@@ -45,6 +47,7 @@ package ui.scoreboard
 			_scores = value;
 			
 			_scoresView.text = value.toString();
+			flatten();
 		}
 		
 	}
