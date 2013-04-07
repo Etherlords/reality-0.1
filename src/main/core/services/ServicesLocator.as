@@ -21,6 +21,8 @@ package core.services
 		private var classMap:SimpleMap;
 		//private var nameMap:SimpleMap;
 		
+		private var isInited:Boolean = false;
+		
 		public function ServicesLocator()
 		{
 			initilize();
@@ -40,6 +42,14 @@ package core.services
 			return _instance;
 		}
 		
+		public function init():void
+		{
+			isInited = true;
+			var service:AbstractService;
+			for each(service in classMap)
+				service.registred(this);
+		}
+		
 		public function addService(service:AbstractService):void
 		{
 			addServiceAs(service);
@@ -51,7 +61,8 @@ package core.services
 			
 			addInstanceAsClass(service, serviceClass);
 			
-			service.registred(this);
+			if (isInited)
+				service.registred(this);
 		}
 		
 		private function addInstanceAsClass(instance:AbstractService, targetClass:Class):void

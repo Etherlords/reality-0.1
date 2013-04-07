@@ -6,7 +6,7 @@ package core.collections
 	 */
 	public class SimpleMap 
 	{
-		
+		private var _length:int = 0;
 		private var map:Object;
 		
 		public function SimpleMap() 
@@ -27,11 +27,21 @@ package core.collections
 		public function addItem(key:String, item:*):void
 		{
 			map[key] = item;
+			_length++;
 		}
 		
 		public function removeItem(key:String):void
 		{
+			if (!(key in map))
+				return;
+				
 			delete map[key];
+			_length--;
+		}
+		
+		public function get length():int 
+		{
+			return _length;
 		}
 		
 	}
