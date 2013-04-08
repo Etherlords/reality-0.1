@@ -8,19 +8,27 @@ package core.ioc.analyzator
 	import core.ioc.metacommands.AbstractMetacommand;
 	import core.ioc.utils.getClassInfo;
 	import core.ioc.utils.getMethodInfo;
+	import flash.utils.describeType;
 	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * ...
 	 * @author Nikro
 	 */
+	
+	[Inject]
 	public class MetatagProcessor
 	{
 		private var context:Context;
 		private var cashe:SimpleMap = new SimpleMap();
-		
+	
 		public function MetatagProcessor(context:Context)
 		{
+			if ( describeType( MetatagProcessor )..metadata.(@name == "Inject").length() == 0 )
+			{
+				throw new Error( "Please add -keep-as3-metadata+=Injection to flex compiler arguments!" )
+			}
+			
 			this.context = context;
 		}
 		
@@ -56,6 +64,7 @@ package core.ioc.analyzator
 			{
 				metaCommand = context.metatags.metatags[i];
 				tag = metaCommand.getTag();
+				
 				
 				processedNodes = info..variable.metadata.(@name == tag);
 				

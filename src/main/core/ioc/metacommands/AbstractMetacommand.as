@@ -8,10 +8,11 @@ package core.ioc.metacommands
 	 */
 	public class AbstractMetacommand extends Object
 	{
+		protected var tag:String;
 		
 		public function AbstractMetacommand() 
 		{
-			
+			tag = this['toString']().split('[object ').join('').split(']').join('')
 		}
 		
 		public function executeMethod(methodInfo:MethodInfo, object:Object, context:Context):void
@@ -21,7 +22,7 @@ package core.ioc.metacommands
 		
 		public function getTag():String
 		{
-			return this['toString']().split('[object ').join('').split(']').join('');
+			return tag;
 		}
 		
 	}

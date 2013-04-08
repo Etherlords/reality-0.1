@@ -1,7 +1,7 @@
 package core.ioc.metacommands 
 {
-	import core.ioc.Context;
 	import core.ioc.cashe.MethodInfo;
+	import core.ioc.Context;
 	/**
 	 * ...
 	 * @author Nikro
@@ -18,8 +18,7 @@ package core.ioc.metacommands
 		{
 			var injectObject:Object = context.getObjectByType(methodInfo.methodType);
 			object[methodInfo.methodName] = injectObject;
-			
-			trace('do injection', injectObject, 'to', methodInfo.methodName, 'of', object);
+			//trace('do injection', injectObject, 'to', methodInfo.methodName, 'of', object);
 		}
 		
 	}
