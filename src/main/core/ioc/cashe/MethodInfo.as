@@ -9,9 +9,11 @@ package core.ioc.cashe
 		private var _methodName:String;
 		private var _methodType:String;
 		private var _metaType:String;
+		private var _tagArgs:Object
 		
-		public function MethodInfo(methodName:String, methodType:String, metaType:String) 
+		public function MethodInfo(methodName:String, methodType:String, metaType:String, tagArgs:Object) 
 		{
+			_tagArgs = tagArgs;
 			_metaType = metaType;
 			_methodType = methodType;
 			_methodName = methodName;
@@ -31,6 +33,11 @@ package core.ioc.cashe
 		public function get metaType():String 
 		{
 			return _metaType;
+		}
+		
+		public function get tagArgs():Object
+		{
+			return _tagArgs;
 		}
 		
 	}

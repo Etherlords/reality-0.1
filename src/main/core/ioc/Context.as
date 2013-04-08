@@ -51,10 +51,13 @@ package core.ioc
 			metatagProcessor.process(object);
 		}
 		
-		public function addObjectToContext(object:Object, idnet:String = ''):Context
+		public function addObjectToContext(object:Object, ident:String = ''):Context
 		{
-			if (idnet.length)
-				objectsByIdent.addItem(idnet, object);
+			if (ident.length)
+			{
+				trace('add object by ident', ident, object);
+				objectsByIdent.addItem(ident, object);
+			}
 				
 			objectByType.addItem(getQualifiedClassName(object), object);
 			
@@ -68,6 +71,11 @@ package core.ioc
 			addObjectToContext(serviceInstance);
 			
 			return this;
+		}
+		
+		public function getObjectById(id:String):Object
+		{
+			return objectsByIdent.getItem(id);
 		}
 		
 		public function getObjectByType(methodType:String):Object 
