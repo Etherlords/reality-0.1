@@ -6,7 +6,7 @@ package core.ioc.metacommands
 	 * ...
 	 * @author Nikro
 	 */
-	public class AbstractMetacommand 
+	public class AbstractMetacommand extends Object
 	{
 		
 		public function AbstractMetacommand() 
@@ -17,6 +17,11 @@ package core.ioc.metacommands
 		public function executeMethod(methodInfo:MethodInfo, object:Object, context:Context):void
 		{
 			
+		}
+		
+		public function getTag():String
+		{
+			return this['toString']().split('[object ').join('').split(']').join('');
 		}
 		
 	}

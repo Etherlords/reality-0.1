@@ -6,9 +6,12 @@ package core.ioc.utils
 	{
 		var name:String = methodInfo.@name;
 		var type:String = methodInfo.@type;
-		//var metaArgs:Array = methodInfo..metadata[0].arg
+		var metadata:XML = methodInfo..metadata[0];
 		
-		var method:MethodInfo = new MethodInfo(name, type);
+		//trace(methodInfo..metadata);
+		//var metaArgs:Array = 
+		
+		var method:MethodInfo = new MethodInfo(name, type, metadata.@name);
 		
 		return method;
 	}

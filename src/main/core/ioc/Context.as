@@ -23,6 +23,7 @@ package core.ioc
 		}
 		
 		public var settings:ContextSettings = new ContextSettings();
+		public var metatags:Metatags = new Metatags();
 		
 		private var metatagProcessor:MetatagProcessor;
 		private var objectByType:SimpleMap = new SimpleMap();
@@ -35,7 +36,7 @@ package core.ioc
 		
 		private function initilize():void 
 		{
-			Metatags.PROCESSED_TAGS.push(Inject);
+			metatags.addTag(Inject);
 			
 			metatagProcessor = new MetatagProcessor(this);
 		}
@@ -50,21 +51,23 @@ package core.ioc
 			metatagProcessor.process(object);
 		}
 		
-		public function addObjectToContext(object:Object, idnet:String = ''):void
+		public function addObjectToContext(object:Object, idnet:String = ''):Context
 		{
-			inject(object);
-			
 			if (idnet.length)
 				objectsByIdent.addItem(idnet, object);
 				
 			objectByType.addItem(getQualifiedClassName(object), object);
+			
+			return this;
 		}
 		
-		public function registerService(service:Class):void
+		public function registerService(service:Class):Context
 		{
 			var serviceInstance:AbstractService = new service();
 			
 			addObjectToContext(serviceInstance);
+			
+			return this;
 		}
 		
 		public function getObjectByType(methodType:String):Object 

@@ -1,6 +1,6 @@
 package core.ioc.cashe 
 {
-	import core.collections.SimpleMap;
+	//import core.collections.SimpleMap;
 
 	/**
 	 * ...
@@ -10,8 +10,11 @@ package core.ioc.cashe
 	{
 		private var _classInfo:ClassInfo;
 		
-		private var _methods:SimpleMap = new SimpleMap()
-		private var _functions:SimpleMap = new SimpleMap()
+		private var _methods:Vector.<MethodInfo> = new Vector.<MethodInfo>()
+		private var _functions:Vector.<Object> = new Vector.<Object>()
+		
+		//private var _methods:SimpleMap = new SimpleMap()
+		//private var _functions:SimpleMap = new SimpleMap()
 		
 		public function ClassCashe(classInfo:ClassInfo) 
 		{
@@ -25,7 +28,8 @@ package core.ioc.cashe
 		
 		public function addMethod(cashe:MethodInfo):void
 		{
-			_methods.addItem(cashe.methodName, cashe);
+			_methods.push(cashe);
+			//_methods.addItem(cashe.methodName, cashe);
 		}
 		
 		public function get classInfo():ClassInfo 
@@ -33,12 +37,12 @@ package core.ioc.cashe
 			return _classInfo;
 		}
 		
-		public function get methods():SimpleMap 
+		public function get methods():Vector.<MethodInfo> 
 		{
 			return _methods;
 		}
 		
-		public function get functions():SimpleMap 
+		public function get functions():Vector.<Object> 
 		{
 			return _functions;
 		}
