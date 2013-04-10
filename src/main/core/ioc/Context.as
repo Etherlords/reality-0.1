@@ -1,10 +1,11 @@
 package core.ioc 
 {
-	import core.collections.SimpleMap;
+  import core.collections.SimpleMap;
 	import core.ioc.analyzator.MetatagProcessor;
 	import core.ioc.analyzator.Metatags;
 	import core.ioc.metacommands.Inject;
 	import core.services.AbstractService;
+	import flash.utils.describeType;
 	import flash.utils.getQualifiedClassName;
 	/**
 	 * ...
@@ -27,6 +28,7 @@ package core.ioc
 		
 		private var metatagProcessor:MetatagProcessor;
 		private var objectByType:SimpleMap = new SimpleMap();
+		private var objectByIface:SimpleMap = new SimpleMap();
 		private var objectsByIdent:SimpleMap = new SimpleMap();
 		
 		public function Context() 
@@ -55,11 +57,17 @@ package core.ioc
 		{
 			if (ident.length)
 			{
-				trace('add object by ident', ident, object);
 				objectsByIdent.addItem(ident, object);
 			}
 				
 			objectByType.addItem(getQualifiedClassName(object), object);
+			
+			var desc:XML = describeType(object);
+			var iFaces:XMLList = desc..implementsInterface ;
+			
+			var l:int = iFaces.length()
+			for (var i:int = 0; i < l; ++i)
+				objectByIface.addItem(iFaces[i].@type, object);
 			
 			return this;
 		}
@@ -73,6 +81,11 @@ package core.ioc
 			return this;
 		}
 		
+		public function getObjectByInterface(iFace:String):Object
+		{
+			return objectByIface.getItem(iFace);
+		}
+		
 		public function getObjectById(id:String):Object
 		{
 			return objectsByIdent.getItem(id);
@@ -84,5 +97,5 @@ package core.ioc
 		}
 		
 	}
-
+ 
 }
