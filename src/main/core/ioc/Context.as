@@ -63,11 +63,11 @@ package core.ioc
 			objectByType.addItem(getQualifiedClassName(object), object);
 			
 			var desc:XML = describeType(object);
-			var iFaces:XMLList = desc..implementsInterface ;
+			var iFaces:XMLList = desc..implementsInterface.((@type.indexOf('flash.') == -1));
 			
-			var l:int = iFaces.length()
-			for (var i:int = 0; i < l; ++i)
-				objectByIface.addItem(iFaces[i].@type, object);
+			var l:int = iFaces.length();
+			
+			objectByIface.addItem(iFaces[l-1].@type, object);
 			
 			return this;
 		}
