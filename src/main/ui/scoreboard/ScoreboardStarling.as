@@ -1,6 +1,7 @@
 package ui.scoreboard 
 {
 	
+	import flash.geom.Rectangle;
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
@@ -19,34 +20,53 @@ package ui.scoreboard
 			initilize();
 		}
 		
+		public function getTextBoudns():Rectangle
+		{
+			return _scoresView.textBounds;
+		}
+		
 		private function initilize():void 
 		{
-			_scoresView = new TextField(50, 20, '0', 'mini', 20, 0xFFFFFF);
+			_scoresView = new TextField(150, 50, '0', 'a_LCDNova', 40, 0xFFFFFF, true);
 			
-			_scoresView.y = 10;
-			_scoresView.x = 10;
-			_scoresView.autoScale = true
-			
-			
+			//_scoresView.y = 10;
+			//_scoresView.x = 10;
+			//_scoresView.autoScale = true
+			//_scoresView.border = true;
+			//_scoresView.x = -_scoresView.textBounds.x
 			addChild(_scoresView);
 			
 			flatten();
 		}
 		
+		
+		public function align():void
+		{
+			_scoresView.x = -_scoresView.textBounds.x
+		}
+
 		public function get scores():Number 
 		{
 			return _scores;
 		}
+		
 		
 		public function set scores(value:Number):void 
 		{
             if (_scores == value) {
                 return;
             }
-
+				
 			_scores = value;
 			
-			_scoresView.text = value.toString();
+			var t:String = value.toString();
+			if (t.indexOf('.') != -1)
+				t = t.substr(0, t.indexOf('.') + 3);
+				
+			_scoresView.text = t;
+			
+			//align();
+			
 			flatten();
 		}
 		
