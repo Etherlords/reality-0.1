@@ -40,7 +40,7 @@ package core.ioc.metacommands
 			
 			
 			object[methodInfo.methodName] = injectObject;
-			trace('do '+ijectType, injectObject, 'to', methodInfo.methodName, 'of', object);
+			//trace('do '+ijectType, injectObject, 'to', methodInfo.methodName, 'of', object);
 		}
 		
 	}
