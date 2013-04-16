@@ -26,7 +26,7 @@ package core.ioc.analyzator
 		{
 			if ( describeType( MetatagProcessor )..metadata.(@name == "Inject").length() == 0 )
 			{
-				throw new Error( "Please add -keep-as3-metadata+=Injection to flex compiler arguments!" )
+				throw new Error( "Please add -keep-as3-metadata+=Inject to flex compiler arguments!" )
 			}
 			
 			this.context = context;
