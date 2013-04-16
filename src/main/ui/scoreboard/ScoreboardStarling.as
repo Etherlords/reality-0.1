@@ -44,6 +44,13 @@ package ui.scoreboard
 		{
 			_scoresView.x = -_scoresView.textBounds.x
 		}
+		
+		public function set value(value:String):void
+		{
+			_scoresView.text = value;
+			
+			flatten();
+		}
 
 		public function get scores():Number 
 		{
