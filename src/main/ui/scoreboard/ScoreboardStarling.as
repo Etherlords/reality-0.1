@@ -1,8 +1,10 @@
 package ui.scoreboard 
 {
 	
+	import feathers.controls.Label;
 	import flash.geom.Rectangle;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.text.TextField;
 	
 	/**
@@ -11,7 +13,7 @@ package ui.scoreboard
 	 */
 	public class ScoreboardStarling extends Sprite 
 	{
-		private var _scoresView:TextField;
+		private var _scoresView:Label;
 		
 		private var _scores:Number = 0;
 		
@@ -20,14 +22,10 @@ package ui.scoreboard
 			initilize();
 		}
 		
-		public function getTextBoudns():Rectangle
-		{
-			return _scoresView.textBounds;
-		}
-		
 		private function initilize():void 
 		{
-			_scoresView = new TextField(150, 50, '0', 'a_LCDNova', 40, 0xFFFFFF, true);
+			_scoresView = new Label();
+			_scoresView.height = 26;
 			
 			//_scoresView.y = 10;
 			//_scoresView.x = 10;
@@ -36,20 +34,20 @@ package ui.scoreboard
 			//_scoresView.x = -_scoresView.textBounds.x
 			addChild(_scoresView);
 			
-			flatten();
+			_scoresView.addEventListener(Event.ADDED_TO_STAGE, onAdded)
 		}
 		
-		
-		public function align():void
+		private function onAdded(e:Event):void 
 		{
-			_scoresView.x = -_scoresView.textBounds.x
+			_scoresView.removeEventListener(Event.ADDED_TO_STAGE, onAdded);
+			
 		}
 		
 		public function set value(value:String):void
 		{
 			_scoresView.text = value;
 			
-			flatten();
+			
 		}
 
 		public function get scores():Number 
@@ -74,7 +72,7 @@ package ui.scoreboard
 			
 			//align();
 			
-			flatten();
+			
 		}
 		
 	}
