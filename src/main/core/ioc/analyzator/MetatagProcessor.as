@@ -80,7 +80,7 @@ package core.ioc.analyzator
 			}
 			
 			cashe.addItem(classCashe.classInfo.className, classCashe);
-			trace(classCashe);
+			//trace(classCashe);
 		}
 		
 		private function processCashed(classCashe:ClassCashe, object:Object):void 
