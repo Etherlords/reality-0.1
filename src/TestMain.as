@@ -1,5 +1,6 @@
 package  
 {
+	import core.ioc.Context;
 	import flash.display.Sprite;
 	
 	/**
@@ -12,6 +13,12 @@ package
 		public function TestMain() 
 		{
 			super();
+			
+			var context:Context = Context.instance;
+			var o:TestObject = new TestObject;
+			context.addObjectToContext(o);
+			
+			inject(o);
 			
 		}
 		

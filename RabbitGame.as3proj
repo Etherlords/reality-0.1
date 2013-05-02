@@ -40,7 +40,7 @@
     <option linkReport="" />
     <option loadExterns="" />
     <option staticLinkRSL="True" />
-    <option additional="" />
+    <option additional="-keep-as3-metadata+=Inject,Moderator" />
     <option compilerConstants="" />
     <option minorVersion="" />
   </build>
