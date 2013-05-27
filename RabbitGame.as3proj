@@ -16,11 +16,6 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src\main" />
-    <class path="..\..\projects\PrimaryFeather-Starling-Framework-2a42a8e\starling\src" />
-    <class path="..\PingPong\src" />
-    <class path="..\PingPong\particles" />
-    <class path="..\Box2dExtend\src" />
-    <class path="..\Box2dPort\src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -45,7 +40,7 @@
     <option linkReport="" />
     <option loadExterns="" />
     <option staticLinkRSL="True" />
-    <option additional="" />
+    <option additional="-keep-as3-metadata+=Inject,Moderator" />
     <option compilerConstants="" />
     <option minorVersion="" />
   </build>
@@ -80,7 +75,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\main\StarlingInit.as" />
+    <compile path="src\TestMain.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
