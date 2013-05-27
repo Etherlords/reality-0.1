@@ -13,6 +13,7 @@ package core.ui
 		public static const UP_KEY_SIGNATURE:String = 'UP';
 		
 		private var passedKeys:Object
+		private var preventedKeys:Object = { };
 		
 		private var keyboardStrategyController:StrategyController;
 		private var stage:Stage;
@@ -42,20 +43,27 @@ package core.ui
 			stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 		
+		private function prevent(e:KeyboardEvent):void
+		{
+			if(e.keyCode.toString() in preventedKeys)
+				e.preventDefault();
+		}
+		
 		private function onKeyUp(e:KeyboardEvent):void 
 		{
 			var code:String = e.keyCode.toString();
 			
 			delete passedKeys[code];
 			
-			
+			prevent(e);
 			keyboardStrategyController.execute(code + UP_KEY_SIGNATURE);
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
 			var code:String = e.keyCode.toString();
-
+			prevent(e);
+			
 			if (passedKeys[code])
 				return
 			else
@@ -65,8 +73,11 @@ package core.ui
 			}
 		}
 		
-		public function registerKeyDownReaction(key:uint, reaction:Function):void
+		public function registerKeyDownReaction(key:uint, reaction:Function, isPreventDefault:Boolean):void
 		{
+			if (isPreventDefault)
+				preventedKeys[key] = 1;
+				
 			keyboardStrategyController.crateNewStrategy(key.toString(), reaction);
 		}
 		
