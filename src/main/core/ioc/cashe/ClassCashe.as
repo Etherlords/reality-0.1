@@ -49,7 +49,7 @@ package core.ioc.cashe
 		
 		public function toString():String
 		{
-			return '[ClassCashe (className = ' + _classInfo.className + ', methodsLength = ' + _methods.length + ', functionsLength = ' + _functions.length + ')]';
+			return '[ClassCashe (className = ' + _classInfo.className + ', methodsLength = ' + _methods.length + /*', functionsLength = ' + _functions.length +*/ ')]';
 		}
 		
 	}
