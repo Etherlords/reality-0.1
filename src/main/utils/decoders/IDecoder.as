@@ -1,5 +1,6 @@
 package utils.decoders 
 {
+	import flash.events.IEventDispatcher;
 	import flash.utils.ByteArray;
 	
 	/**
@@ -14,10 +15,10 @@ package utils.decoders
 	[Event(name = "complete", type = "flash.events.Event")] 
 	
 	
-	public interface IDecoder 
+	public interface IDecoder extends IEventDispatcher
 	{
-		function addEventListener(type:String, listener:Function):void
-		function decode(data:ByteArray):void
+		
+		function decode(data:ByteArray, filename:String = null):void
 		function get data():*
 		function destroy():void
 	}

@@ -56,7 +56,7 @@ package core.ui
 			delete passedKeys[code];
 			
 			prevent(e);
-			keyboardStrategyController.execute(code + UP_KEY_SIGNATURE);
+			keyboardStrategyController.execute(code + UP_KEY_SIGNATURE, code);
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 
@@ -69,11 +69,11 @@ package core.ui
 			else
 			{
 				passedKeys[code] = 1;
-				keyboardStrategyController.execute(code);
+				keyboardStrategyController.execute(code, code);
 			}
 		}
 		
-		public function registerKeyDownReaction(key:uint, reaction:Function, isPreventDefault:Boolean):void
+		public function registerKeyDownReaction(key:uint, reaction:Function, isPreventDefault:Boolean = false):void
 		{
 			if (isPreventDefault)
 				preventedKeys[key] = 1;

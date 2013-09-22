@@ -1,8 +1,9 @@
 package utils.decoders 
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.utils.ByteArray;
-	import starling.events.Event;
-	import starling.events.EventDispatcher;
+
 	/**
 	 * ...
 	 * @author 

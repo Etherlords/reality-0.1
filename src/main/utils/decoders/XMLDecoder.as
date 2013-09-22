@@ -1,8 +1,9 @@
 package utils.decoders 
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.utils.ByteArray;
-	import starling.events.Event;
-	import starling.events.EventDispatcher;
+
 	/**
 	 * ...
 	 * @author 
@@ -18,7 +19,7 @@ package utils.decoders
 		
 		/* INTERFACE utils.decoders.IDecoder */
 		
-		public function decode(data:ByteArray):void 
+		public function decode(data:ByteArray, filename:String = null):void 
 		{
 			data.position = 0;
 			_data = new XML(data.readUTFBytes(data.length));

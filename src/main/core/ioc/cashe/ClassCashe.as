@@ -11,7 +11,7 @@ package core.ioc.cashe
 		private var _classInfo:ClassInfo;
 		
 		private var _methods:Vector.<MethodInfo> = new Vector.<MethodInfo>()
-		private var _functions:Vector.<Object> = new Vector.<Object>()
+		//private var _functions:Vector.<Object> = new Vector.<Object>()
 		
 		//private var _methods:SimpleMap = new SimpleMap()
 		//private var _functions:SimpleMap = new SimpleMap()
@@ -21,10 +21,10 @@ package core.ioc.cashe
 			_classInfo = classInfo;
 		}
 		
-		public function addFunction(cashe:Object):void
+		/*public function addFunction(cashe:Object):void
 		{
 			
-		}
+		}*/
 		
 		public function addMethod(cashe:MethodInfo):void
 		{
@@ -42,10 +42,10 @@ package core.ioc.cashe
 			return _methods;
 		}
 		
-		public function get functions():Vector.<Object> 
+		/*public function get functions():Vector.<Object> 
 		{
 			return _functions;
-		}
+		}*/
 		
 		public function toString():String
 		{

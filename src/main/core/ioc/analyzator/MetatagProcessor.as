@@ -6,6 +6,7 @@ package core.ioc.analyzator
 	import core.ioc.cashe.MethodInfo;
 	import core.ioc.Context;
 	import core.ioc.metacommands.AbstractMetacommand;
+	import core.ioc.metacommands.Inject;
 	import core.ioc.utils.getClassInfo;
 	import core.ioc.utils.getMethodInfo;
 	import flash.utils.describeType;
@@ -19,12 +20,13 @@ package core.ioc.analyzator
 	[Inject]
 	public class MetatagProcessor
 	{
+		static public const INJECT_TAG:String = "Inject";
 		private var context:Context;
 		private var cashe:SimpleMap = new SimpleMap();
 	
 		public function MetatagProcessor(context:Context)
 		{
-			if ( describeType( MetatagProcessor )..metadata.(@name == "Inject").length() == 0 )
+			if ( describeType( MetatagProcessor )..metadata.(@name == INJECT_TAG).length() == 0 )
 			{
 				throw new Error( "Please add -keep-as3-metadata+=Inject to flex compiler arguments!" )
 			}
@@ -35,6 +37,7 @@ package core.ioc.analyzator
 		public function process(object:Object):void
 		{
 			var key:String = getQualifiedClassName(object);
+			
 			var classCashe:ClassCashe = cashe.getItem(key)
 			
 			if (classCashe)

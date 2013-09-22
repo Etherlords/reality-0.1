@@ -13,6 +13,8 @@ package core.ioc
 	 */
 	public class Context 
 	{
+		static public const FLASH_PACKET:String = "flash.";
+		
 		private static var _instance:Context;
 		
 		static public function get instance():Context 
@@ -59,11 +61,13 @@ package core.ioc
 			{
 				objectsByIdent.addItem(ident, object);
 			}
+			
+			//trace('added to context', object, ident);
 				
 			objectByType.addItem(getQualifiedClassName(object), object);
 			
 			var desc:XML = describeType(object);
-			var iFaces:XMLList = desc..implementsInterface.((@type.indexOf('flash.') == -1));
+			var iFaces:XMLList = desc..implementsInterface.((@type.indexOf(FLASH_PACKET) == -1));
 			
 			var l:int = iFaces.length();
 			
@@ -88,7 +92,10 @@ package core.ioc
 		
 		public function getObjectById(id:String):Object
 		{
-			return objectsByIdent.getItem(id);
+			var o:Object = objectsByIdent.getItem(id);
+			if (!o)
+				trace("Warning: Context.getObjectById object with id " + id + " not found");
+			return o;
 		}
 		
 		public function getObjectByType(methodType:String):Object 
